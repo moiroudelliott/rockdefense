@@ -301,3 +301,5 @@ while not close:
         
     dt = clock.tick(30) / 1000
 
+    print("test")
+
