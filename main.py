@@ -16,26 +16,25 @@ font2 = pygame.font.SysFont(None, 20)
 ### FICHIERS
 
 ## images
-bg_img = pygame.image.load("projet jeu s3/textures/bg/map1.png")
-bg_img = pygame.transform.scale(bg_img,(screen.get_width(), screen.get_height()))
+bg_img = pygame.image.load("textures/bg/map1.png")
 
 menu_img = pygame.image.load("textures/bg/menu_1.png")
 menu_img_clicked = pygame.image.load("textures/bg/menu_1_clicked.png")
 
-obj_img = pygame.image.load("textures/sprites/obj.png")
+obj_img = pygame.image.load("textures/sprites/towers/cristal.png")
 obj_img = pygame.transform.scale(obj_img,(200, 210))
 
-ennemis_img = pygame.image.load("textures/sprites/cat_up.png")
-ennemis2_img = pygame.image.load("textures/sprites/ninja.png")
+ennemis_img = pygame.image.load("textures/sprites/ennemies/ennemy_tank.png")
+ennemis2_img = pygame.image.load("textures/sprites/ennemies/ennemy_fast.png")
 ennemis3_img = pygame.transform.scale(ennemis_img,(90, 90))
 
-button_img = pygame.image.load("textures/sprites/button.png")
-button_pushed_img = pygame.image.load("textures/sprites/button_pushed.png")
-button_clicked_img = pygame.image.load("textures/sprites/button_clicked.png")
-button_clicked_pushed_img = pygame.image.load("textures/sprites/button_clicked_pushed_1.png")
+button_img = pygame.image.load("textures/sprites/emp/button.png")
+button_pushed_img = pygame.image.load("textures/sprites/emp/button_pushed.png")
+button_clicked_img = pygame.image.load("textures/sprites/emp/button_clicked.png")
+button_clicked_pushed_img = pygame.image.load("textures/sprites/emp/button_clicked_pushed_1.png")
 
-rock_img = pygame.image.load("textures/sprites/rock.png")
-rock_bullet_img = pygame.image.load("textures/sprites/rock_bullet.png")
+rock_img = pygame.image.load("textures/sprites/towers/rock_lvl1.png")
+rock_bullet_img = pygame.image.load("textures/sprites/towers/bullets/rock_bullet1.png")
 
 ## sons
 
