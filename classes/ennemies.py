@@ -1,3 +1,8 @@
+import pygame
+ennemis_img = pygame.image.load("textures/sprites/ennemies/ennemy_tank.png")
+ennemis2_img = pygame.image.load("textures/sprites/ennemies/ennemy_fast.png")
+ennemis3_img = pygame.transform.scale(ennemis_img,(90, 90))
+
 class classique:
     def __init__(self, positionDepart):
         """
@@ -6,7 +11,7 @@ class classique:
 
         self.position = positionDepart
         self.vie = 10
-        self.sprite = pygame.image.load(*---*).convert() #Url ici
+        self.sprite = ennemis_img
         self.degat = 10
         self.vitesse = 1
         self.resistance = {'physique': 1, 'magique': 1} #resistance naturelle
@@ -40,4 +45,4 @@ class classique:
         return self.degat * coefficient_degat
 
     def afficher(self, CanvasParent):
-        CanvasParent.blit(slef.sprite, self.position)
+        CanvasParent.blit(self.sprite)

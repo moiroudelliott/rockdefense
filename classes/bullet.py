@@ -1,4 +1,5 @@
 import math as m
+import pygame
 
 class rock:
     def __init__(self,positionDepart, objectif):
@@ -13,7 +14,7 @@ class rock:
 
     def update(self, CanvasParent):
         self.distance = self.calcule_Distance()
-        if est_toucher():
+        if self.est_toucher():
             self.toucher()
         else:
             self.afficher(CanvasParent) ##comment insérer CanvasParent ?
@@ -24,11 +25,11 @@ class rock:
             return True
         return False
 
-    def toucher():
+    def toucher(self):
         self.objectif.degat_inflige(self.degat, self.type)
 
     def afficher(self, CanvasParent):
-        CanvasParent.blit(slef.sprite, self.position)
+        CanvasParent.blit(self.sprite, self.position)
 
     def calcule_Distance(self):
 

@@ -17,16 +17,9 @@ class Vague:
 
         return res
 
+    def reset(self):
+        self.suivant = 0
+        self.timecode = 0
 
-V = Vague([1, 5, 10], [3, 2, 10])
-
-enn = V.nextFrame()
-
-while enn != -1:
-    print(V.timecode, enn)
-    enn = V.nextFrame()
-
-print(enn)
-    
 
         

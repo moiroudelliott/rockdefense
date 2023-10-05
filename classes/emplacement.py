@@ -1,24 +1,36 @@
+import pygame
+button_img = pygame.image.load("textures/sprites/emp/button.png")
+button_pushed_img = pygame.image.load("textures/sprites/emp/button_pushed.png")
+button_clicked_img = pygame.image.load("textures/sprites/emp/button_clicked.png")
+button_clicked_pushed_img = pygame.image.load("textures/sprites/emp/button_clicked_pushed_1.png")
+
 class emplacement:
 
     def __init__(self, position): #Le contient en parametre ne sers à rien
         self.contient = None #Doit être toujours initialiser à None, un nouvel emplacement ne contiens jamais rien
-        self.position = position
-        self.sprite = pygame.image.load(*---*).convert() #Url ici
-        self.spriteHover = pygame.image.load(*---*).convert() #Url ici
+        self.pos = position
+        self.sprite = button_img
+        self.spriteHover = button_pushed_img
         self.hover = False
+        self.clicked = False
 
-    def afficher(self, CanvasParent):
-        sprite = self.sprite
-        if self.hover:
-            sprite = self.spriteHover
+    def display(self, canvas, mouse):
 
-        CanvasParent.blit(sprite, self.position)
+        self.hover_check(mouse)
 
-    def hover(self):
-        if self.hover:
-            self.hover = False
+        if self.contient == None:
+            if self.hover:
+                canvas.blit(self.spriteHover, self.pos)
+            else:
+                canvas.blit(self.sprite, self.pos)
         else:
+            self.contient.display()
+
+    def hover_check(self, mouse):
+        if self.pos[0] < mouse[0] < self.pos[0]+128 and self.pos[1] < mouse[1] < self.pos[1]+128:
             self.hover = True
+        else:
+            self.hover = False
 
     def click(self, tour):
         # Enlever de l'or ?
@@ -31,3 +43,9 @@ class emplacement:
         #
         # if mouseX == (x,y):
         #     self.contient = tourClassique
+        pass
+
+    def reset(self):
+        self.contient = None
+        self.hover = False
+        self.clicked = False
