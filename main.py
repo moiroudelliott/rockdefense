@@ -1,6 +1,5 @@
 ### MODULES
 import pygame
-import time as t
 import math as m
 
 ### PYGAME SETUP
