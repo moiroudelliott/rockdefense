@@ -1,0 +1,145 @@
+mode attack et défencce (deux types)
+originalité
+convertir enemi
+tour qui se rebelle
+météo !!
+amélioration (faction?)
+rail direction ? bruit de direction
+alternative mode replay/reverse
+converstion or
+mode de jeu ?
+README ME
+
+---
+
+5 niveau avec chaque theme différent
+	->Plaine
+
+	->Montagne
+	->Grotte/caverne
+	->Volcan (dernier niveau)
+	->Ville ?
+
+---
+Amélioration
+
+Tour
+	->Pierre
+	->Volcan
+	->Pierre radioactive
+	->Amétiste
+
+	->Cristal
+		->Auto defense
+
+---
+Enemy (Chat)
+	->classique
+	->rapide
+	->tank
+	->ninja
+	->healer/mage
+
+	->boss (chaque niveau)
+(changement d'apparence mais pas maintenant)
+
+---
+Météo (plus tard)
+
+---
+Capacité spécial
+
+---
+Priorité de visée
+
+---
+Code
+
+class
+	->Enenmy par enemy !FM
+		*init*
+			"""definit l'enemy"""
+			->position
+			->vie
+			->sprite
+			->degat
+			->vitesse
+			->résistance
+			->etat (debuff/buff)
+		*update Position* 
+			"""sert à changer les coordonnées du chat"""
+		*calcul Dégat reçu*
+			"""calcul le nb de dégat reçu par le chat en fonction du type de bullet et de la résistance"""
+		*calcul degat attaque (hit)*
+			"""calcul le nb de points de dégats qu'il inflige"""
+		*afficher*
+			"""affiche le chat à la position actuelle"""		
+	->Une classe par tour !E
+		*init*
+			"""definit la tour"""
+			->sprite
+			->degat
+			->vitesse
+			->type de munition (voir class bullet)
+			->niveau
+		*afficher*
+			"""affiche la tour à la position actuelle, dépand du niveau"""
+		*hover*
+			"""permet de vendre ou d'améliorer la tour (juste graphique)"""
+		*click*
+			"""améliorer/vendre"""
+
+	->Emplacement construction(+) !FM
+		*init*
+			->contient (nonne ou class tour)
+			->position
+			->sprite
+		*afficher*
+			"""affiche l'emplacement"""
+		*hover*
+			"""permet de voir les options d'achat"""
+		*click*
+			"""acheter tour"""
+	->boutton !E
+		*init*
+			->position
+			->sprite
+			->sprite hover
+		*afficher*
+			"""affiche le boutton"""
+		*hover*
+			"""passage souris"""
+		*click*
+			"""action"""
+	
+	->bullet (par type de munition) !FM
+		*init*
+			->sprite
+			->position
+			->objectif (zone d'impact)
+			->degat
+			->type
+			->vitesse
+		*update*
+			"""Déplacement"""
+		*toucher*
+			"""Inflige ces dégats"""
+		*afficher*
+			"""Afficher l'image"""
+
+	->Vague !E
+		*init* liste enemi et liste de time code
+			->liste enemie
+			->liste time code
+			->enemie suivant (indice)
+			->timecode
+		*suivant*
+			"""Incrémante time code
+				et renvoie 0 ou le num de l'enemi ou -1 si vague fini"""
+
+*---*
+05/10/2023
+
+Liste tour
+Liste bullet
+Liste ennemi
