@@ -19,14 +19,14 @@ etat = "acceuil"
 close = False
 
 current_ennemies = []
-emplacements = [emplacement.emplacement((220, 142)), emplacement.emplacement((220, 346)), emplacement.emplacement((220, 540)), emplacement.emplacement((460, 62)), emplacement.emplacement((460, 262)), emplacement.emplacement((460, 460)), emplacement.emplacement((730, 300)), emplacement.emplacement((730, 500)), emplacement.emplacement((826, 20)), emplacement.emplacement((976, 156))]
+emplacements = [emplacement.emplacement([220, 142]), emplacement.emplacement([220, 346]), emplacement.emplacement([220, 540]), emplacement.emplacement([460, 62]), emplacement.emplacement([460, 262]), emplacement.emplacement([460, 460]), emplacement.emplacement([730, 300]), emplacement.emplacement([730, 500]), emplacement.emplacement([826, 20]), emplacement.emplacement([976, 156])]
 current_bullet = []
 current_button = []
-vagues = [vague.Vague([1, 2, 3, 4, 5, 30, 33, 36, 37, 150, 170, 171, 172, 173, 174, 175], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])]
+vagues = [vague.Vague([100, 200, 300], [1, 1, 1])]
 current_vague = 0
 
 money = 500
-life = 100
+vie = 100
 f_counter = 0
 cooldown = 0
 
@@ -52,7 +52,6 @@ while not close:
                     cooldown = 20
                     etat = "game"
                     f_count = 0
-                    print("clicked")
 
         if 416 < mouse[0] <= 880 and 320 < mouse[1] <= 488:
             current_bg = menu_img_clicked
@@ -65,6 +64,12 @@ while not close:
     elif etat == "game":
 
         current_bg = bg_img
+
+        if event.type == pygame.MOUSEBUTTONDOWN and cooldown <= 0:
+            cooldown = 5
+            for e in emplacements:
+                money -= e.click(money)
+        
 
         if current_vague >= len(vagues) and current_ennemies == []:
 
@@ -86,8 +91,37 @@ while not close:
             elif enn == 1:
                 current_ennemies.append(ennemies.classique([0, 550]))
 
+
         for e in emplacements:
-            e.display(screen, mouse)
+            e.display(screen, mouse, money)
+            bull = e.event(f_counter, current_ennemies)
+            if bull != None:
+                current_bullet.append(bull)
+
+        for i in range(len(current_ennemies)-1, -1, -1):
+            e = current_ennemies[i]
+
+            if e.vie > 0:
+                e.display(screen, font2)
+            else:
+                current_ennemies.pop(i)
+
+
+        for i in range(len(current_bullet)-1, -1, -1):
+            b = current_bullet[i]
+            r = b.update(screen)
+
+            if r:
+                current_bullet.pop(i)
+            
+        screen.blit(obj_img,(1050,450))
+
+        life = font.render(str(vie), True, "red")
+        screen.blit(life, (1090,660))
+
+        moneyTxT = font.render(str(money), True, "yellow")
+        screen.blit(moneyTxT, (0,0))
+
 
 
 ### FIN GAME

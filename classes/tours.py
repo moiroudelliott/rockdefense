@@ -1,23 +1,30 @@
+import pygame
+import math
+import classes.bullet as b
+rock_img = pygame.image.load("textures/sprites/towers/rock_lvl1.png")
 
 class Pierre:
     def __init__(self, pos):
-        self.sprite = "sprite.png"
+        self.sprite = rock_img
         self.length = 120
         self.width = 120
-        self.bullet = ["bullet.Rock", "bullet.Rock", "bullet.Rock", "bullet.Rock"]
+        self.bullet = [b.rock, b.rock, b.rock, b.rock]
         self.type_degat = "physique"
         self.niveau = 1
         self.hover = False
         self.hover_sprite = "hover_sprite.png"
-        self.hover_sprite = "hover_sprite_alt.png" #Sprite quand upgrade pas dispo
+        self.hover_sprite_alt = "hover_sprite_alt.png" #Sprite quand upgrade pas dispo
         self.pos = pos
         self.prix = 70
         self.lvl_max = 4
+        self.cooldown = 30
+        self.range = 300
 
 
     def display(self, canvas, money):
 
         canvas.blit(self.sprite, self.pos)
+
         if self.hover:
             if money < self.prix:
                 canvas.blit(self.hover_sprite_alt, self.pos)
@@ -50,12 +57,21 @@ class Pierre:
     def sell(self):
         return self.prix
 
-    def attack(self, obj, timer):
-        res = -1
-        if timer%self.cooldown:
-            bullet = self.bullet[self.niveau-1](self.pos, obj)
-            res =  bullet
-
+    def attack(self, ennemies_tab, timer):
+        res = None
+        if timer % self.cooldown == 0:
+            found = False
+            i = 0
+            while not found and i < len(ennemies_tab):
+                e = ennemies_tab[i]
+                difx = abs(self.pos[0] - e.position[0])
+                dify = abs(self.pos[1] - e.position[1])
+                dist = difx + dify
+                if self.range > dist:
+                    bullet = self.bullet[self.niveau-1](self.pos, e)
+                    res =  bullet
+                    found = True
+                i +=1
         return res
 
 

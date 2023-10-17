@@ -10,7 +10,7 @@ class classique:
         """
 
         self.position = positionDepart
-        self.vie = 10
+        self.vie = 100
         self.sprite = ennemis_img
         self.degat = 10
         self.vitesse = 1
@@ -22,12 +22,32 @@ class classique:
         return 1 * (self.etat['buff'][type] * self.etat['debuff'][type])
 
     def update(self):
-        """
-            Mets à jour la position du sprite
-        """#ainsi que sa vitesse + etat ? => Je ne pense pas mais pon reviendra dessus plus tard si besoin quand on implémentera les buff/debuff
-        # coefficient_vitesse = self.coefficientEtat('vitesse')
-        # vitesse = self.vitesse * coefficient_vitesse
-        pass
+        vit = self.vitesse
+        pos = self.position
+
+        deg = 0
+
+        if pos[0]<140:
+            pos[0] += vit
+        elif pos[1] > 80 and  pos[0]<350:
+            pos[1] -= vit
+        elif pos[0]<390:
+            pos[0] += vit
+        elif pos[1] < 610 and pos[0] < 650:
+            pos[1] += vit
+        elif pos[0] < 650:
+            pos[0] += vit
+        elif pos[1] > 40 and  pos[0]<655:
+            pos[1] -= vit
+        elif pos[0] < 1080:
+            pos[0] +=vit
+            pos[1] +=vit
+
+        else : 
+            deg = self.degat_attaque()
+
+        self.position = pos
+        return deg
 
     def degat_inflige(self, degat, type):
 
@@ -44,5 +64,10 @@ class classique:
         coefficient_degat = self.coefficientEtat('degat')
         return self.degat * coefficient_degat
 
-    def afficher(self, CanvasParent):
-        CanvasParent.blit(self.sprite)
+    def display(self, CanvasParent, font):
+
+        self.update()
+
+        CanvasParent.blit(self.sprite, self.position)
+        vie = font.render(str(self.vie), True, "red")
+        CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
