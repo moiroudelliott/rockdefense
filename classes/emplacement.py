@@ -35,7 +35,7 @@ class emplacement:
             else:
                 canvas.blit(self.sprite, self.pos)
         else:
-            self.contient.display(canvas, money)
+            self.contient.display(canvas, money, self.hover)
 
     def hover_check(self, mouse, money):
 
@@ -64,7 +64,7 @@ class emplacement:
 
             
 
-    def click(self, money):
+    def click(self):
 
         m = 0
 

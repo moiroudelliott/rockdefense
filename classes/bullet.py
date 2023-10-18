@@ -23,18 +23,23 @@ class rock:
 
         dist = dif_x + dif_y
 
-        if pos[0]>obj[0] and pos[1]>obj[1]:
-            pos[0] -= int((dif_x/dist)*20)
-            pos[1] -= int((dif_y/dist)*20)
-        elif pos[0]<obj[0] and pos[1]>obj[1]:
-            pos[0] += int((dif_x/dist)*20)
-            pos[1] -= int((dif_y/dist)*20)
-        elif pos[0]>obj[0] and pos[1]<obj[1]:
-            pos[0] -= int((dif_x/dist)*20)
-            pos[1] += int((dif_y/dist)*20)
-        else: 
-            pos[0] += int((dif_x/dist)*20)
-            pos[1] += int((dif_y/dist)*20)
+        if dist ==0:
+            pass
+        else:
+
+
+            if pos[0]>obj[0] and pos[1]>obj[1]:
+                pos[0] -= int((dif_x/dist)*20)
+                pos[1] -= int((dif_y/dist)*20)
+            elif pos[0]<obj[0] and pos[1]>obj[1]:
+                pos[0] += int((dif_x/dist)*20)
+                pos[1] -= int((dif_y/dist)*20)
+            elif pos[0]>obj[0] and pos[1]<obj[1]:
+                pos[0] -= int((dif_x/dist)*20)
+                pos[1] += int((dif_y/dist)*20)
+            else: 
+                pos[0] += int((dif_x/dist)*20)
+                pos[1] += int((dif_y/dist)*20)
 
         res = self.est_toucher(dist)
 

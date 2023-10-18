@@ -1,4 +1,5 @@
 from imports import *
+import random as r
 
 ### PYGAME SETUP
 
@@ -19,10 +20,10 @@ etat = "acceuil"
 close = False
 
 current_ennemies = []
-emplacements = [emplacement.emplacement([220, 142]), emplacement.emplacement([220, 346]), emplacement.emplacement([220, 540]), emplacement.emplacement([460, 62]), emplacement.emplacement([460, 262]), emplacement.emplacement([460, 460]), emplacement.emplacement([730, 300]), emplacement.emplacement([730, 500]), emplacement.emplacement([826, 20]), emplacement.emplacement([976, 156])]
+emplacements = [emplacement.emplacement([220, 142]), emplacement.emplacement([220, 346]), emplacement.emplacement([220, 540]), emplacement.emplacement([460, 62]), emplacement.emplacement([460, 262]), emplacement.emplacement([460, 420]), emplacement.emplacement([730, 300]), emplacement.emplacement([730, 500]), emplacement.emplacement([826, 20]), emplacement.emplacement([976, 156])]
 current_bullet = []
 current_button = []
-vagues = [vague.Vague([100, 200, 300], [1, 1, 1])]
+vagues = [vague.Vague([30, 60, 90, 120, 150, 180, 210, 230, 260, 290, 320, 350, 380, 430, 480], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), vague.Vague([30, 60, 90, 120, 150, 180, 210, 230, 260, 290, 320, 350, 380, 430, 480], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])]
 current_vague = 0
 
 money = 500
@@ -68,7 +69,7 @@ while not close:
         if event.type == pygame.MOUSEBUTTONDOWN and cooldown <= 0:
             cooldown = 5
             for e in emplacements:
-                money -= e.click(money)
+                money -= e.click()
         
 
         if current_vague >= len(vagues) and current_ennemies == []:
@@ -89,7 +90,13 @@ while not close:
                 current_vague += 1
 
             elif enn == 1:
-                current_ennemies.append(ennemies.classique([0, 550]))
+                current_ennemies.append(ennemies.classique([0, r.randint(500, 670)]))
+
+            elif enn == 2:
+                current_ennemies.append(ennemies.tank([0, r.randint(500, 670)]))
+
+            elif enn == 3:
+                current_ennemies.append(ennemies.rapide([0, r.randint(450, 600)]))
 
 
         for e in emplacements:
@@ -104,14 +111,16 @@ while not close:
             if e.vie > 0:
                 e.display(screen, font2)
             else:
+                money += e.valeur
                 current_ennemies.pop(i)
+    
 
 
         for i in range(len(current_bullet)-1, -1, -1):
             b = current_bullet[i]
-            r = b.update(screen)
+            ret = b.update(screen)
 
-            if r:
+            if ret:
                 current_bullet.pop(i)
             
         screen.blit(obj_img,(1050,450))
