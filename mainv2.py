@@ -109,7 +109,8 @@ while not close:
             e = current_ennemies[i]
 
             if e.vie > 0:
-                e.display(screen, font2)
+                deg = e.display(screen, font2)
+                vie -= deg
             else:
                 money += e.valeur
                 current_ennemies.pop(i)

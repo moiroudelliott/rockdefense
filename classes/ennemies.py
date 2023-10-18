@@ -89,11 +89,13 @@ class classique:
 
     def display(self, CanvasParent, font):
 
-        self.update()
+        deg = self.update()
 
         CanvasParent.blit(self.sprite, self.position)
         vie = font.render(str(self.vie), True, "red")
         CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
+
+        return deg
 
 
 class rapide:
