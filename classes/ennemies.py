@@ -14,17 +14,17 @@ class classique:
         self.vie = 100
         self.sprite = ennemis_img
         self.degat = 10
-        self.vitesse = 20
+        self.vitesse = 10#2000
         self.resistance = {'physique': 1, 'magique': 1} #resistance naturelle
         self.etat = {'buff': {'vitesse':1,'degat':1,'magique':1,'physique':1,},'debuff': {'vitesse':1,'magique':1,'physique':1,'degat':1,}}
         self.valeur = 10
         self.pts = [r.randint(90, 220), r.randint(0, 90), r.randint(310, 430), r.randint(520, 660), r.randint(570, 705), r.randint(25, 162), r.randint(900, 1080)]
         self.actualPt = 1
 
-        self.cooldown = 30
+        self.cooldown = 10
 
     def coefficientEtat(self, type):
-        return 1 * (self.etat['buff'][type] * self.etat['debuff'][type])
+        return 1 * (1/self.etat['buff'][type] * (self.etat['debuff'][type]) )
 
     def update(self, timer):
         vit = self.vitesse
@@ -79,7 +79,7 @@ class classique:
         valeur_degat = degat
         type_degat = type
 
-        coefficient_resistance = self.resistance[type_degat] * (self.coefficientEtat(type_degat) + self.coefficientEtat(type_degat))
+        coefficient_resistance = (1/self.resistance[type_degat]) * self.coefficientEtat(type_degat)
         valeur_degat = valeur_degat * coefficient_resistance
 
         self.vie = self.vie - valeur_degat
