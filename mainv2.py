@@ -1,6 +1,13 @@
 from imports import *
 import random as r
 
+# def gerateEnemie (classe):
+#     listeCoordonneAleatoire = [0, r.randint(500, 670)]
+#     res = classe(listeCoordonneAleatoire)
+#     return res
+#
+# Liste_ennemies = [ennemies.classique, ennemies.tank, ennemies.rapide]
+
 ### PYGAME SETUP
 
 pygame.init()
@@ -24,6 +31,7 @@ emplacements = [emplacement.emplacement([220, 142]), emplacement.emplacement([22
 current_bullet = []
 current_button = []
 vagues = [vague.Vague([30, 60, 90, 120, 150, 180, 210, 230, 260, 290, 320, 350, 380, 430, 480], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), vague.Vague([30, 60, 90, 120, 150, 180, 210, 230, 260, 290, 320, 350, 380, 430, 480], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])]
+vagues = [vague.Vague([30], [1])]
 current_vague = 0
 
 money = 500
@@ -70,7 +78,7 @@ while not close:
             cooldown = 5
             for e in emplacements:
                 money -= e.click()
-        
+
 
         if current_vague >= len(vagues) and current_ennemies == []:
 
@@ -86,8 +94,25 @@ while not close:
         elif current_vague < len(vagues):
 
             enn = vagues[current_vague].nextFrame()
+            ### à la place de if elif mettre ennemies dans une liste et faire Ce.append(Liste ennemies[i])
+            """
+            def gerateEnemie (class):
+                listeCoordonneAleatoire = [0, r.randint(500, 670)]
+                res = class(listeCoordonneAleatoire)
+                return res
+
+            Liste_ennemies = [<class Classique>, <class Tank>, <class Rapide>]
+
             if enn == -1:
                 current_vague += 1
+            else:
+                current_ennemies.append( gerateEnemie(Liste_ennemies[enn -1]) )
+            """
+
+            if enn == -1:
+                current_vague += 1
+            # else:
+            #     current_ennemies.append( gerateEnemie(Liste_ennemies[enn -1]) )
 
             elif enn == 1:
                 current_ennemies.append(ennemies.classique([0, r.randint(500, 670)]))
@@ -106,15 +131,19 @@ while not close:
                 current_bullet.append(bull)
 
         for i in range(len(current_ennemies)-1, -1, -1):
+
             e = current_ennemies[i]
+            # print(e)
 
             if e.vie > 0:
-                deg = e.display(screen, font2)
+                deg = e.display(screen, font2 , cooldown)
+                # degat = e.degat
+                ## Mettre couldown
                 vie -= deg
             else:
                 money += e.valeur
                 current_ennemies.pop(i)
-    
+
 
 
         for i in range(len(current_bullet)-1, -1, -1):
@@ -123,7 +152,7 @@ while not close:
 
             if ret:
                 current_bullet.pop(i)
-            
+
         screen.blit(obj_img,(1050,450))
 
         life = font.render(str(vie), True, "red")
@@ -148,11 +177,12 @@ while not close:
         pass
     elif etat =="credits":
         pass
-    
+
     cooldown -= 1
     f_counter +=1
 
     pygame.display.flip()
     dt = clock.tick(30) / 1000
+    # print(clock)
 
 pygame.quit()
