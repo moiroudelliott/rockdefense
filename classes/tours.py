@@ -1,55 +1,83 @@
 import pygame
-import math
+import math as m
 import classes.bullet as b
-rock_img = pygame.image.load("textures/sprites/towers/rock_lvl1.png")
+rock_img1 = pygame.image.load("textures/sprites/towers/rock_lvl1.png")
+rock_img2 = pygame.image.load("textures/sprites/towers/rock_lvl2.png")
+rock_img3 = pygame.image.load("textures/sprites/towers/rock_lvl3.png")
+rock_img4 = pygame.image.load("textures/sprites/towers/rock_lvl4.png")
+rock_hover = pygame.image.load("textures/sprites/towers/amelioration.png")
+rock_hover2 = pygame.image.load("textures/sprites/towers/amelioration_alt.png")
 
 class Pierre:
     def __init__(self, pos):
-        self.sprite = rock_img
-        self.bullet = [b.rock, b.rock, b.rock, b.rock]
+        self.sprite = rock_img1
+        self.bullet = [b.rock1, b.rock1, b.rock2, b.rock3]
         self.type_degat = "physique"
         self.niveau = 1
         self.hover = False
-        self.hover_sprite = "hover_sprite.png"
-        self.hover_sprite_alt = "hover_sprite_alt.png" #Sprite quand upgrade pas dispo
+        self.hover_sprite = rock_hover
+        self.hover_sprite_alt = rock_hover2
         self.realpos = pos
         self.pos = [self.realpos[0]+64, self.realpos[1]+64]
         self.prix = 70
         self.lvl_max = 4
         self.cooldown = 30
         self.range = 200
+        self.upgrading = True
+        self.next_up_price = 20
 
 
     def display(self, canvas, money, hover):
 
         canvas.blit(self.sprite, self.realpos)
+        if self.next_up_price <= money:
+            self.upgrading = True
+        else:
+            self.upgrading = False
 
         if hover:
             pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range, 2)
-            if money < self.prix:
-                #canvas.blit(self.hover_sprite_alt, self.pos)
-                pass
+            if not self.upgrading:
+                canvas.blit(self.hover_sprite_alt, self.realpos)
             else:
-                #canvas.blit(self.hover_sprite, self.pos)
-                pass
+                canvas.blit(self.hover_sprite, self.realpos)
 
 
-    def click(self):
-        ### A FAIRE QUAND ON AURA LES TEXTURES
-        pass
+    def click(self, hover, mouse):
+        m = 0
+        if hover:
+            if self.realpos[0] < mouse[0] < self.realpos[0] + 21 and self.realpos[1] < mouse[1] < self.realpos[1] + 21:
+                if self.upgrading:
+                    m = self.upgrade()
+        
+        return m
+            
 
     def upgrade(self):
         self.niveau+=1
         if self.niveau ==2:
-            self.sprite = "sprite_lvl2.png"
+            self.sprite = rock_img2
             self.prix += 20
+            self.range+=100
+            self.cooldown -= 10
+            res = self.next_up_price
+            self.next_up_price = 50
         elif self.niveau == 3:
-            self.sprite = "sprite_lvl3.png"
+            self.sprite = rock_img3
             self.prix += 50
+            res = 70
+            res = self.next_up_price
+            self.next_up_price = 50
         elif self.niveau ==4:
-            self.sprite = "sprite_lvl4.png"
-            self.hover_sprite = "hover_sprite_alt.png"
+            self.sprite = rock_img4
             self.prix += 70
+            self.range+=100
+            self.cooldown -= 10
+            res = 70
+            res = self.next_up_price
+            self.next_up_price = m.inf
+            
+        return res
 
     def sell(self):
         return self.prix

@@ -43,13 +43,15 @@ vague_timer1 = [50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180,
 f_counter = 0
 current = []
 degats = 0
-vie = 500
+vie_init = 500
+vie = vie_init
 width = screen.get_width()
 height = screen.get_height()
 pos_emplacement = [(220, 142), (220, 346), (220, 540), (460, 62), (460, 262), (460, 460), (730, 300), (730, 500), (826, 20), (976, 156)]
 pushed = [False, None]
 troupes = []
-money = 500
+money_init = 500
+money = money_init
 bullet_list = []
 key_pressed = 0
 

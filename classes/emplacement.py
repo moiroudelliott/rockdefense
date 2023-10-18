@@ -64,20 +64,23 @@ class emplacement:
 
             
 
-    def click(self):
+    def click(self, money, mouse):
 
         m = 0
 
-        if self.clicked and self.pushed_hover == 0:
-            self.clicked = False
+        if self.contient == None:
+            if self.clicked and self.pushed_hover == 0:
+                self.clicked = False
 
-        if self.hover and not self.clicked:
-            self.clicked = True
+            if self.hover and not self.clicked:
+                self.clicked = True
 
-        elif self.pushed_hover == 1:
-            self.clicked = False
-            self.contient = t.Pierre(self.pos)
-            m = 100
+            elif self.pushed_hover == 1:
+                self.clicked = False
+                self.contient = t.Pierre(self.pos)
+                m = 100
+        else:
+            m = self.contient.click(self.hover, mouse)
         return m
     
     def reset(self):

@@ -3,6 +3,7 @@ import classes.button as button
 import classes.emplacement as emplacement
 import classes.ennemies as ennemies
 import classes.tours as tours
+import classes.niveau as niveau
 import classes.vague as vague
 from classes.importation.import_textures import *
 import pygame
