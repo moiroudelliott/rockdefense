@@ -14,17 +14,19 @@ class classique:
         self.vie = 100
         self.sprite = ennemis_img
         self.degat = 10
-        self.vitesse = 2
+        self.vitesse = 20
         self.resistance = {'physique': 1, 'magique': 1} #resistance naturelle
         self.etat = {'buff': {'vitesse':1,'degat':1,'magique':1,'physique':1,},'debuff': {'vitesse':1,'magique':1,'physique':1,'degat':1,}}
         self.valeur = 10
         self.pts = [r.randint(90, 220), r.randint(0, 90), r.randint(310, 430), r.randint(520, 660), r.randint(570, 705), r.randint(25, 162), r.randint(900, 1080)]
         self.actualPt = 1
 
+        self.cooldown = 30
+
     def coefficientEtat(self, type):
         return 1 * (self.etat['buff'][type] * self.etat['debuff'][type])
 
-    def update(self):
+    def update(self, timer):
         vit = self.vitesse
         pos = self.position
 
@@ -65,8 +67,9 @@ class classique:
             if pos[0] > self.pts[6]:
                 self.actualPt +=1
 
-        else : 
-            deg = self.degat_attaque()
+        else :
+            if timer % self.cooldown == 0:
+                deg = self.degat_attaque()
 
         self.position = pos
         return deg
@@ -87,9 +90,9 @@ class classique:
         return self.degat * coefficient_degat
 
 
-    def display(self, CanvasParent, font):
+    def display(self, CanvasParent, font, timer):
 
-        deg = self.update()
+        deg = self.update(timer)
 
         CanvasParent.blit(self.sprite, self.position)
         vie = font.render(str(self.vie), True, "red")
@@ -138,7 +141,7 @@ class rapide:
             pos[0] +=vit
             pos[1] +=vit
 
-        else : 
+        else :
             deg = self.degat_attaque()
 
         self.position = pos
@@ -208,7 +211,7 @@ class tank:
             pos[0] +=vit
             pos[1] +=vit
 
-        else : 
+        else :
             deg = self.degat_attaque()
 
         self.position = pos
