@@ -43,6 +43,8 @@ vie = vie_init
 f_counter = 0
 cooldown = 0
 
+obj = tours.obj([1050,450])
+
 current_bg = menu_img
 
 def reset(money_max, vagues, emplacements, vie_max):
@@ -102,6 +104,7 @@ while not close:
             cooldown = 5
             for e in emplacements:
                 money -= e.click(money, mouse)
+            obj.click(mouse)
 
 
         if current_vague >= len(vagues) and current_ennemies == []:
@@ -137,7 +140,6 @@ while not close:
             """
 
             if enn == -1 and current_ennemies == []:
-                print(current_vague)
                 current_vague += 1
             # else:
             #     current_ennemies.append( gerateEnemie(Liste_ennemies[enn -1]) )
@@ -156,6 +158,10 @@ while not close:
             e.display(screen, mouse, money)
             bull = e.event(f_counter, current_ennemies)
             if bull != None:
+                current_bullet.append(bull)
+        
+        bull = obj.attack(current_ennemies, f_counter)
+        if bull != None:
                 current_bullet.append(bull)
 
         for i in range(len(current_ennemies)-1, -1, -1):
@@ -185,7 +191,7 @@ while not close:
             etat = "game_over"
             reset(money_init, vagues, emplacements, vie_init)
             
-        screen.blit(obj_img,(1050,450))
+        obj.display(screen, money, mouse)
 
         life = font.render(str(vie), True, "red")
         screen.blit(life, (1090,660))

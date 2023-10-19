@@ -81,6 +81,8 @@ class emplacement:
                 m = 100
         else:
             m = self.contient.click(self.hover, mouse)
+            if m <0:
+                self.contient = None
         return m
     
     def reset(self):
