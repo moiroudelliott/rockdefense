@@ -20,6 +20,7 @@ clock = pygame.time.Clock()
 
 font = pygame.font.SysFont(None, 100)
 font2 = pygame.font.SysFont(None, 20)
+font3 = pygame.font.SysFont(None, 40)
 
 ### VARIABLES
 
@@ -155,7 +156,7 @@ while not close:
 
 
         for e in emplacements:
-            e.display(screen, mouse, money)
+            e.display(screen, mouse, money, font2)
             bull = e.event(f_counter, current_ennemies)
             if bull != None:
                 current_bullet.append(bull)
@@ -191,7 +192,7 @@ while not close:
             etat = "game_over"
             reset(money_init, vagues, emplacements, vie_init)
             
-        obj.display(screen, money, mouse)
+        obj.display(screen, money, mouse, font3)
 
         life = font.render(str(vie), True, "red")
         screen.blit(life, (1090,660))

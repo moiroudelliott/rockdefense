@@ -28,10 +28,10 @@ class Pierre:
         self.cooldown = 30
         self.range = 200
         self.upgrading = True
-        self.next_up_price = 20
+        self.next_up_price = 50
 
 
-    def display(self, canvas, money, hover):
+    def display(self, canvas, money, hover, font):
 
         canvas.blit(self.sprite, self.realpos)
         if self.next_up_price <= money:
@@ -41,6 +41,9 @@ class Pierre:
 
         if hover:
             pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range-int(0.35*self.range), 2)
+            if self.niveau < 4:
+                prix = font.render(str(self.next_up_price), True, "yellow")
+                canvas.blit(prix, (self.realpos[0], self.realpos[1]-15))
             if not self.upgrading:
                 canvas.blit(self.hover_sprite_alt, self.realpos)
             else:
@@ -68,19 +71,18 @@ class Pierre:
             self.range+=100
             self.cooldown -= 10
             res = self.next_up_price
-            self.next_up_price = 50
+            self.next_up_price = 100
         elif self.niveau == 3:
             self.sprite = rock_img3
             self.prix += 50
-            res = 70
             res = self.next_up_price
-            self.next_up_price = 50
+            self.next_up_price = 200
         elif self.niveau ==4:
             self.sprite = rock_img4
             self.prix += 70
             self.range+=100
             self.cooldown -= 10
-            res = 70
+            self.next_up_price = 200
             res = self.next_up_price
             self.next_up_price = m.inf
             
@@ -123,10 +125,10 @@ class obj:
         self.cooldown = 30
         self.range = 400
         self.upgrading = True
-        self.next_up_price = 20
+        self.next_up_price = 40
 
 
-    def display(self, canvas, money, mouse):
+    def display(self, canvas, money, mouse, font):
 
         self.hoverCheck(mouse)
 
@@ -139,6 +141,9 @@ class obj:
 
         if self.hover:
             pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range-int(0.35*self.range), 2)
+            if self.niveau < 4:
+                prix = font.render(str(self.next_up_price), True, "yellow")
+                canvas.blit(prix, (self.realpos[0], self.realpos[1]-25))
             if not self.upgrading:
                 canvas.blit(self.hover_sprite_alt, self.realpos)
             else:
@@ -164,22 +169,25 @@ class obj:
     def upgrade(self):
         self.niveau+=1
         if self.niveau ==2:
+            res = self.next_up_price
+            self.next_up_price = 80
+
             self.range+=100
             self.cooldown -= 10
-            res = self.next_up_price
-            self.next_up_price = 50
+
         elif self.niveau == 3:
-            res = 70
             res = self.next_up_price
+            self.next_up_price = 120
+
             self.cooldown -= 10
-            self.next_up_price = 50
             self.range+=50
+
         elif self.niveau ==4:
-            self.range+=70
-            self.cooldown -= 5
-            res = 70
             res = self.next_up_price
             self.next_up_price = m.inf
+
+            self.range += 70
+            self.cooldown -= 5
             
         return res
 
