@@ -183,7 +183,7 @@ while not close:
 
         for i in range(len(current_bullet)-1, -1, -1):
             b = current_bullet[i]
-            ret = b.update(screen)
+            ret = b.update(screen, current_ennemies, f_counter)
 
             if ret:
                 current_bullet.pop(i)

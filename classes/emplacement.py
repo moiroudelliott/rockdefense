@@ -79,6 +79,12 @@ class emplacement:
                 self.clicked = False
                 self.contient = t.Pierre(self.pos)
                 m = 100
+            
+            elif self.pushed_hover == 2:
+                self.clicked = False
+                self.contient = t.Radio(self.pos)
+                m = 150
+
         else:
             m = self.contient.click(self.hover, mouse)
             if m <0:

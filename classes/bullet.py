@@ -5,6 +5,8 @@ rock_bullet_img1 = pygame.image.load("textures/sprites/towers/bullets/rock_bulle
 rock_bullet_img2 = pygame.image.load("textures/sprites/towers/bullets/rock_bullet2.png")
 rock_bullet_img3 = pygame.image.load("textures/sprites/towers/bullets/rock_bullet3.png")
 
+radio_bullet_img1 = pygame.image.load("textures/sprites/towers/bullets/radio_bullet1.png")
+
 class rock1:
     def __init__(self,positionDepart, objectif):
         self.sprite = rock_bullet_img1
@@ -16,7 +18,7 @@ class rock1:
 
         self.distance = self.calcule_Distance()
 
-    def update(self, CanvasParent):
+    def update(self, CanvasParent, ennemis, timer):
         pos = self.position
         obj = self.objectif.position
 
@@ -85,7 +87,7 @@ class rock2:
 
         self.distance = self.calcule_Distance()
 
-    def update(self, CanvasParent):
+    def update(self, CanvasParent, ennemis, timer):
         pos = self.position
         obj = self.objectif.position
 
@@ -154,7 +156,7 @@ class rock3:
 
         self.distance = self.calcule_Distance()
 
-    def update(self, CanvasParent):
+    def update(self, CanvasParent, ennemis, timer):
         pos = self.position
         obj = self.objectif.position
 
@@ -211,3 +213,51 @@ class rock3:
         dist = dif_x + dif_y
 
         return dist
+    
+class radio1:
+    def __init__(self,pos, realpos):
+        print("init")
+        self.sprite = radio_bullet_img1
+        self.position = copy(pos)
+        self.realpos = copy(realpos)
+        self.type = 'magique'
+        self.timer = 100
+        self.cooldown = 30
+        self.degat = 10
+        self.range = 200
+
+    def update(self, CanvasParent, ennemis, timer):
+        res = False
+
+        if self.timer == 0:
+            res = True
+        
+        self.timer -= 1
+
+        ennemis_proche = self.est_toucher(ennemis, timer)
+        self.toucher(ennemis_proche)
+
+        if not res:
+            CanvasParent.blit(self.sprite, (self.position[0]-self.range, self.position[1]-self.range))
+        
+        return res
+
+
+    def est_toucher(self, ennemies_tab, timer):
+        res = []
+
+        if timer % self.cooldown == 0:
+            for e in ennemies_tab:
+                difx = abs(self.position[0] - e.position[0])
+                dify = abs(self.position[1] - e.position[1])
+                dist = difx + dify
+                if self.range >= dist:
+                    res.append(e)
+        print(timer)
+        print(timer % self.cooldown == 0)
+        return res
+
+    def toucher(self, ennemies_proche):
+        if ennemies_proche != None:
+            for e in ennemies_proche:
+                e.degat_inflige(self.degat, self.type)

@@ -12,6 +12,10 @@ obj_img = pygame.transform.scale(obj_img,(200, 210))
 obj_hover = pygame.image.load("textures/sprites/towers/obj_amelioration.png")
 obj_hover2 = pygame.image.load("textures/sprites/towers/obj_amelioration_alt.png")
 
+radio_img1 = pygame.image.load("textures/sprites/towers/radio_lvl1.png")
+radio_img2 = pygame.image.load("textures/sprites/towers/radio_lvl2.png")
+radio_img3 = pygame.image.load("textures/sprites/towers/radio_lvl3.png")
+
 class Pierre:
     def __init__(self, pos):
         self.sprite = rock_img1
@@ -212,3 +216,79 @@ class obj:
         return res
 
 
+class Radio:
+    def __init__(self, pos):
+        self.sprite = radio_img1
+        self.bullet = [b.radio1, b.radio1, b.radio1, b.radio1]
+        self.type_degat = "magique"
+        self.niveau = 1
+        self.hover = False
+        self.hover_sprite = rock_hover
+        self.hover_sprite_alt = rock_hover2
+        self.realpos = pos
+        self.pos = [self.realpos[0]+64, self.realpos[1]+64]
+        self.prix = 90
+        self.lvl_max = 3
+        self.cooldown = 200
+        self.range = 2000
+        self.upgrading = True
+        self.next_up_price = 50
+
+
+    def display(self, canvas, money, hover, font):
+
+        canvas.blit(self.sprite, self.realpos)
+        if self.next_up_price <= money:
+            self.upgrading = True
+        else:
+            self.upgrading = False
+
+        if hover:
+            if self.niveau < 4:
+                prix = font.render(str(self.next_up_price), True, "yellow")
+                canvas.blit(prix, (self.realpos[0], self.realpos[1]-15))
+            if not self.upgrading:
+                canvas.blit(self.hover_sprite_alt, self.realpos)
+            else:
+                canvas.blit(self.hover_sprite, self.realpos)
+
+
+    def click(self, hover, mouse):
+        m = 0
+        if hover:
+            if self.realpos[0] < mouse[0] < self.realpos[0] + 21 and self.realpos[1] < mouse[1] < self.realpos[1] + 21:
+                if self.upgrading:
+                    m = self.upgrade()
+
+            if self.realpos[0] +107 < mouse[0] < self.realpos[0] + 128 and self.realpos[1] < mouse[1] < self.realpos[1] + 21:
+                m = -self.prix
+        
+        return m
+            
+
+    def upgrade(self):
+        self.niveau+=1
+        if self.niveau ==2:
+            self.sprite = radio_img2
+            self.prix += 20
+            self.range+=100
+            self.cooldown -= 10
+            res = self.next_up_price
+            self.next_up_price = 100
+        elif self.niveau == 3:
+            self.sprite = radio_img3
+            self.prix += 50
+            res = self.next_up_price
+            self.next_up_price = m.inf
+            
+        return res
+
+    def sell(self):
+        return self.prix
+
+    def attack(self, ennemies_tab, timer):
+        res = None
+        if timer % self.cooldown == 0:
+            bullet = self.bullet[self.niveau-1](self.pos, self.realpos)
+            res =  bullet
+        return res
