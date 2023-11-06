@@ -31,3 +31,7 @@ Moirou Elliot
 Ceron F-M
 
 ## TOLIST / Versions / Some fact
+
+- Animation des ennemies
+- Ajout de nouveaux niveaux
+- Ajout de Boss
