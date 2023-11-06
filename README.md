@@ -5,7 +5,8 @@
 ## Description
 Un Jeu de tower defense classique en cours de développement.
 
-Les chats sont en guerre contre les rochers depuis des siècles. Tout a commencé quand un chat curieux a griffé un rocher et s’est blessé la patte. Le chat a cru que le rocher l’avait attaqué et a appelé ses amis à se venger. Les rochers, qui étaient en fait des êtres vivants dotés de pouvoirs magiques, ont riposté en lançant des éclairs et des pierres sur les chats. Ainsi, une guerre sans merci a éclaté entre les deux espèces.
+Les chats sont en guerre contre les rochers depuis des siècles. Tout a commencé quand un chat curieux a griffé un rocher et s’est blessé la patte. Le chat a cru que le rocher l’avait attaqué et a appelé ses amis à se venger. Les rochers, qui étaient en fait des êtres vivants dotés de pouvoirs magiques, ont riposté en lançant des éclairs et des pierres sur les chats. Ainsi, une guerre sans merci a éclaté entre les deux espèces.  
+
 La guerre a causé beaucoup de souffrance et de destruction aux deux camps. Les chats ont perdu de nombreux amis et territoires. Les rochers ont été brisés et éparpillés. Mais aucun des deux camps n’a voulu céder ou faire la paix. Ils se sont juré de se battre jusqu’au dernier souffle.
 
 C’est ainsi que les chats sont en guerre contre les rochers, une guerre qui semble bientôt se finir.
