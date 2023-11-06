@@ -27,5 +27,7 @@ Seul le clic suffit. Que se soit l'achat d'une tour, sa vente, son amélioration
 
 ## Crédit
 
+Moirou Elliot
+Ceron F-M
 
 ## TOLIST / Versions / Some fact
