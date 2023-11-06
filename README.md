@@ -1,6 +1,6 @@
 # rockdefense
 
-<div>
+<div style:"display:flex;">
 	<p>Test texte</p>
 </div>
 
