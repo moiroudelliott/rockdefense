@@ -1,5 +1,7 @@
 # rockdefense
 
+![Image Sprite](/textures/sprites/ennemies/ennemy_fast.png "Fast")
+
 ## Description
 Un Jeu de tower defense classique en cours de développement
 
@@ -21,7 +23,9 @@ Pour executer le jeu, rentrer la commande suivante dans la console Python dans l
 
 ## Controle
 
+Seul le clic suffit. Que se soit l'achat d'une tour, sa vente, son amélioration, le déplacement dans les menus, seul votre souris est nécessaire.
+
 ## Crédit
-![Image Sprite](/textures/sprites/ennemies/ennemy_fast.png "Fast")
+
 
 ## TOLIST / Versions / Some fact
