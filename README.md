@@ -3,7 +3,7 @@
 ![Image Menu Acceuil](/textures/readme/menu.png "Menu acceuil")
 
 ## Description
-Un Jeu de tower defense classique en cours de développement
+Un Jeu de tower defense classique en cours de développement.
 
 ## Prérequis
 
