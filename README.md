@@ -1,6 +1,6 @@
-# rockdefense
+# rockdefense ![Image Sprite](/textures/sprites/ennemies/ennemy_fast.png "Fast")
 
-![Image Sprite](/textures/sprites/ennemies/ennemy_fast.png "Fast")
+![Image Menu Acceuil](/textures/readme/menu.png "Menu acceuil")
 
 ## Description
 Un Jeu de tower defense classique en cours de développement
