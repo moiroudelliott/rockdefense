@@ -122,7 +122,7 @@ while not close:
         if current_vague >= len(vagues) and current_ennemies == []:
 
             reset(money_init, vagues, emplacements, vie_init)
-
+            f_counter = 0
             etat = "win"
             '''
             for v in vagues:
@@ -240,16 +240,20 @@ while not close:
     elif etat == "game_over":
         obj.display(screen, 0, mouse, font3)
         screen.blit(game_over,(0,0))
-        etat = "acceuil"
-        if f_counter == 90:
-            etat = "accueil"
+        if f_counter > 90:
+            etat = "acceuil"
 
     elif etat == "win":
-        etat = "acceuil"
+        obj.display(screen, 0, mouse, font3)
+        screen.blit(win_text,(0,0))
+        if f_counter > 90:
+            etat = "acceuil"
 
     elif etat == "map":
         pass
     elif etat == "arbre":
+        pass
+    elif etat == "livre":
         pass
     elif etat =="credits":
         pass

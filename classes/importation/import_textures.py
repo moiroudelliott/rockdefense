@@ -3,6 +3,8 @@ import pygame
 bg_img = pygame.image.load("textures/bg/map1.png")
 pause_bg = pygame.image.load("textures/bg/pause.png")
 game_over = pygame.image.load("textures/bg/game_over.png")
+win_text = pygame.image.load("textures/bg/win.png")
+
 
 menu_img = pygame.image.load("textures/bg/menu_1.png")
 menu_img_clicked = pygame.image.load("textures/bg/menu_1_clicked.png")
