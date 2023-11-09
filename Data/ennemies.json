@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
 	{
 		"nom": "standart",
@@ -111,4 +112,119 @@
 		"cooldown": 300,
 		"comportement": "invocateur"
 	}
+=======
+[
+	{
+		"nom": "standart",
+		"vie": 100,
+		"cheminSprite": "./textures/sprites/ennemies/ennemy_tank.png",
+		"degat": 10,
+		"vitesse": 2,
+		"resistance": {
+			"physique": 1,
+			"magique": 1
+		},
+		"etat": {
+			"buff": {
+				"vitesse": 1,
+				"degat": 1,
+				"magique": 1,
+				"physique": 1
+			},
+			"debuff": {
+				"vitesse": 1,
+				"degat": 1,
+				"magique": 1,
+				"physique": 1
+			}
+		},
+		"valeur": 10,
+		"cooldown": 10,
+		"comportement": "classique"
+	},
+	{
+		"nom": "fast",
+		"vie": 50,
+		"cheminSprite": "./textures/sprites/ennemies/ennemy_fast.png",
+		"degat": 10,
+		"vitesse": 4,
+		"resistance": {
+			"physique": 1,
+			"magique": 1
+		},
+		"etat": {
+			"buff": {
+				"vitesse": 1,
+				"degat": 1,
+				"magique": 1,
+				"physique": 1
+			},
+			"debuff": {
+				"vitesse": 1,
+				"degat": 1,
+				"magique": 1,
+				"physique": 1
+			}
+		},
+		"valeur": 10,
+		"cooldown": 10,
+		"comportement": "classique"
+	},
+	{
+		"nom": "tank",
+		"vie": 400,
+		"cheminSprite": "./textures/sprites/ennemies/ennemy_tank.png",
+		"degat": 10,
+		"vitesse": 1,
+		"resistance": {
+			"physique": 1,
+			"magique": 1
+		},
+		"etat": {
+			"buff": {
+				"vitesse": 1,
+				"degat": 1,
+				"magique": 1,
+				"physique": 1
+			},
+			"debuff": {
+				"vitesse": 1,
+				"degat": 1,
+				"magique": 1,
+				"physique": 1
+			}
+		},
+		"valeur": 10,
+		"cooldown": 10,
+		"comportement": "classique"
+	},
+	{
+		"nom": "invocateur",
+		"vie": 1000,
+		"cheminSprite": "./textures/sprites/ennemies/nyan_cat.png",
+		"degat": 10,
+		"vitesse": 1,
+		"resistance": {
+			"physique": 1,
+			"magique": 3
+		},
+		"etat": {
+			"buff": {
+				"vitesse": 1,
+				"degat": 1,
+				"magique": 1,
+				"physique": 1
+			},
+			"debuff": {
+				"vitesse": 1,
+				"degat": 1,
+				"magique": 1,
+				"physique": 1
+			}
+		},
+		"valeur": 100,
+		"cooldown": 300,
+		"comportement": "invocateur"
+	}
+>>>>>>> 725ddd49715d8a2e94e0074657455219ddbd8f06
 ]
