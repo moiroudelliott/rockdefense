@@ -1,11 +1,22 @@
 from imports import *
-import random as r
+# import random as r
 
-# def gerateEnemie (classe):
+# def gerateEnemie (classe, actual_level):
 #     listeCoordonneAleatoire = [0, r.randint(500, 670)]
-#     res = classe(listeCoordonneAleatoire)
+#     res = classe(listeCoordonneAleatoire, actual_level)
 #     return res
-#
+
+def affichageHUD (vie, money, current_vague, screen):
+    life = font.render(str(vie), True, "red")
+    screen.blit(life, (1090,660))
+
+    moneyTxT = font.render(str(money), True, "yellow")
+    screen.blit(moneyTxT, (0,0))
+
+    vagueTxT = font.render(str(current_vague+1), True, "purple")
+    screen.blit(vagueTxT, (0,60))
+
+##[03/11]Mettre Liste_ennemies dans le fichier imports ?
 # Liste_ennemies = [ennemies.classique, ennemies.tank, ennemies.rapide]
 
 ### PYGAME SETUP
@@ -44,7 +55,7 @@ vie = vie_init
 f_counter = 0
 cooldown = 0
 
-obj = tours.obj([1050,450])
+obj = tours.obj([1050,450]) # Cristal
 
 current_bg = menu_img
 
@@ -58,7 +69,7 @@ def reset(money_max, vagues, emplacements, vie_max):
     money = money_max
     current_ennemies = []
     current_bullet = []
-    
+
     for e in emplacements:
         e.reset()
 
@@ -126,33 +137,27 @@ while not close:
 
             enn = vagues[current_vague].nextFrame()
             ### à la place de if elif mettre ennemies dans une liste et faire Ce.append(Liste ennemies[i])
-            """
-            def gerateEnemie (class):
-                listeCoordonneAleatoire = [0, r.randint(500, 670)]
-                res = class(listeCoordonneAleatoire)
-                return res
-
-            Liste_ennemies = [<class Classique>, <class Tank>, <class Rapide>]
-
-            if enn == -1:
-                current_vague += 1
-            else:
-                current_ennemies.append( gerateEnemie(Liste_ennemies[enn -1]) )
-            """
-
+            ##[03/11]Fait
+            # print(enn)
             if enn == -1 and current_ennemies == []:
                 current_vague += 1
-            # else:
-            #     current_ennemies.append( gerateEnemie(Liste_ennemies[enn -1]) )
+            elif enn > 0:
+                if enn > len(Liste_ennemies):
+                    enn = 1
 
-            elif enn == 1:
-                current_ennemies.append(ennemies.classique([0, r.randint(500, 670)], actual_level))
+                created_ennemie = generateEnemie(Liste_ennemies[enn -1], actual_level)
+                # print(created_ennemie)
 
-            elif enn == 2:
-                current_ennemies.append(ennemies.tank([0, r.randint(500, 670)], actual_level))
+                current_ennemies.append( created_ennemie )
 
-            elif enn == 3:
-                current_ennemies.append(ennemies.rapide([0, r.randint(450, 600)], actual_level))
+            # elif enn == 1:
+            #     current_ennemies.append(ennemies.classique([0, r.randint(500, 670)], actual_level))
+            #
+            # elif enn == 2:
+            #     current_ennemies.append(ennemies.tank([0, r.randint(500, 670)], actual_level))
+            #
+            # elif enn == 3:
+            #     current_ennemies.append(ennemies.rapide([0, r.randint(450, 600)], actual_level))
 
 
         for e in emplacements:
@@ -160,7 +165,7 @@ while not close:
             bull = e.event(f_counter, current_ennemies)
             if bull != None:
                 current_bullet.append(bull)
-        
+
         bull = obj.attack(current_ennemies, f_counter)
         if bull != None:
                 current_bullet.append(bull)
@@ -171,7 +176,7 @@ while not close:
             # print(e)
 
             if e.vie > 0:
-                deg = e.display(screen, font2 , cooldown)
+                deg = e.display(screen, font2 , f_counter, Liste_ennemies, actual_level, current_ennemies)
                 # degat = e.degat
                 ## Mettre couldown
                 vie -= deg
@@ -191,17 +196,20 @@ while not close:
         if vie < 0:
             etat = "game_over"
             reset(money_init, vagues, emplacements, vie_init)
-            
+
         obj.display(screen, money, mouse, font3)
 
-        life = font.render(str(vie), True, "red")
-        screen.blit(life, (1090,660))
+        ##[03/11] Affichage centralisé dans une fonction (voir dans une classe ?)
+        affichageHUD (vie, money, current_vague, screen)
 
-        moneyTxT = font.render(str(money), True, "yellow")
-        screen.blit(moneyTxT, (0,0))
-
-        vagueTxT = font.render(str(current_vague+1), True, "purple")
-        screen.blit(vagueTxT, (0,60))
+        # life = font.render(str(vie), True, "red")
+        # screen.blit(life, (1090,660))
+        #
+        # moneyTxT = font.render(str(money), True, "yellow")
+        # screen.blit(moneyTxT, (0,0))
+        #
+        # vagueTxT = font.render(str(current_vague+1), True, "purple")
+        # screen.blit(vagueTxT, (0,60))
 
 
 
