@@ -125,7 +125,7 @@ class tank:
         self.sprite = ennemis3_img
         self.degat = 15
         self.vitesse = 1
-        self.resistance = {'physique': 2, 'magique': 1} #resistance naturelle
+        self.resistance = {'physique': 2, 'magique': 0.5} #resistance naturelle
         self.etat = {'buff': {'vitesse':1,'degat':1,'magique':1,'physique':1,},'debuff': {'vitesse':1,'magique':1,'physique':1,'degat':1,}}
         self.valeur = 10
         self.pts = []

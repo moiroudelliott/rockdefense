@@ -5,6 +5,10 @@ button_img = pygame.image.load("textures/sprites/emp/button.png")
 button_pushed_img = pygame.image.load("textures/sprites/emp/button_pushed.png")
 button_clicked_img = pygame.image.load("textures/sprites/emp/button_clicked.png")
 button_clicked_pushed_img = pygame.image.load("textures/sprites/emp/button_clicked_pushed_1.png")
+button_clicked_pushed_img2 = pygame.image.load("textures/sprites/emp/button_clicked_pushed_2.png")
+button_clicked_pushed_img3 = pygame.image.load("textures/sprites/emp/button_clicked_pushed_3.png")
+button_clicked_pushed_img4 = pygame.image.load("textures/sprites/emp/button_clicked_pushed_4.png")
+
 
 class emplacement:
 
@@ -14,6 +18,9 @@ class emplacement:
         self.sprite = button_img
         self.spriteHover = button_pushed_img
         self.spriteClickedHover = button_clicked_pushed_img
+        self.spriteClickedHover2 = button_clicked_pushed_img2
+        self.spriteClickedHover3 = button_clicked_pushed_img3
+        self.spriteClickedHover4 = button_clicked_pushed_img4
         self.spriteClicked = button_clicked_img
         self.hover = False
         self.pushed_hover = 0
@@ -27,6 +34,12 @@ class emplacement:
             if self.clicked:
                 if self.pushed_hover == 1:
                     canvas.blit(self.spriteClickedHover, self.pos)
+                elif self.pushed_hover == 2:
+                    canvas.blit(self.spriteClickedHover2, self.pos)
+                elif self.pushed_hover == 3:
+                    canvas.blit(self.spriteClickedHover3, self.pos)
+                elif self.pushed_hover == 4:
+                    canvas.blit(self.spriteClickedHover4, self.pos)
                 else: 
                     canvas.blit(self.spriteClicked, self.pos)
             elif self.hover:
