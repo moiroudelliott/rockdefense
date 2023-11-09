@@ -203,7 +203,7 @@ while not close:
         ##[03/11] Affichage centralisé dans une fonction (voir dans une classe ?)
         affichageHUD (vie, money, current_vague, screen)
 
-<<<<<<< HEAD
+
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             if cooldown<0:
@@ -212,8 +212,7 @@ while not close:
                 current_bg = pause_bg
 
 
-=======
->>>>>>> 725ddd49715d8a2e94e0074657455219ddbd8f06
+
         # life = font.render(str(vie), True, "red")
         # screen.blit(life, (1090,660))
         #
