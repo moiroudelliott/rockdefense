@@ -8,8 +8,12 @@ class Niveau1:
         self.vie_init = 500
         classique_timer = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230]
         classique_enn = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
-        self.vagues = [vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn)]
-        self.vagues = [vague.Vague([1], [1])]
+
+        # self.vagues = [vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn)]
+
+        # self.vagues = [vague.Vague([1], [4])]
+        self.vagues = [vague.Vague([1,5,30], [1,1,3]), vague.Vague([1,30,150], [1,2,4])]
+
         self.emplacements = [emplacement.emplacement([220, 142]), emplacement.emplacement([220, 346]), emplacement.emplacement([220, 540]), emplacement.emplacement([460, 62]), emplacement.emplacement([460, 262]), emplacement.emplacement([460, 420]), emplacement.emplacement([730, 300]), emplacement.emplacement([730, 500]), emplacement.emplacement([826, 20]), emplacement.emplacement([976, 156])]
 
 
