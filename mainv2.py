@@ -213,17 +213,6 @@ while not close:
 
 
 
-        # life = font.render(str(vie), True, "red")
-        # screen.blit(life, (1090,660))
-        #
-        # moneyTxT = font.render(str(money), True, "yellow")
-        # screen.blit(moneyTxT, (0,0))
-        #
-        # vagueTxT = font.render(str(current_vague+1), True, "purple")
-        # screen.blit(vagueTxT, (0,60))
-
-
-
 ### FIN GAME
 
 
