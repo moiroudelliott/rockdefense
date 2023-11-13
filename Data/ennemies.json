@@ -62,7 +62,7 @@
 		"degat": 10,
 		"vitesse": 1,
 		"resistance": {
-			"physique": 1,
+			"physique": 2,
 			"magique": 1
 		},
 		"etat": {
