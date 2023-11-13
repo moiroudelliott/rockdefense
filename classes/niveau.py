@@ -4,7 +4,7 @@ import classes.emplacement as emplacement
 class Niveau1:
     def __init__(self):
         self.pts = [(90, 200), (0, 90), (310, 430), (520, 660), (570, 705), (0, 140), (1000, 1080)]
-        self.money_init = 500
+        self.money_init = 1000
         self.vie_init = 500
         classique_timer = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230]
         classique_enn = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
