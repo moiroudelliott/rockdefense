@@ -140,6 +140,7 @@ while not close:
             ##[03/11]Fait
             # print(enn)
             if enn == -1 and current_ennemies == []:
+                money += actual_level.recompense[current_vague]
                 current_vague += 1
             elif enn > 0:
                 if enn > len(Liste_ennemies):

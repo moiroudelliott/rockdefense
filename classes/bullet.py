@@ -18,7 +18,7 @@ class rock1:
         self.objectif = objectif
         self.type = 'physique'
         self.vitesse = 20
-        self.degat = 10
+        self.degat = 15
 
         self.distance = self.calcule_Distance()
 

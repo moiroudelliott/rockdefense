@@ -4,18 +4,14 @@ import classes.emplacement as emplacement
 class Niveau1:
     def __init__(self):
         self.pts = [(90, 200), (0, 90), (310, 430), (520, 660), (570, 705), (0, 140), (1000, 1080)]
-        self.money_init = 1000
+        self.money_init = 250
         self.vie_init = 500
-        classique_timer = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230]
-        classique_enn = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 
-        # self.vagues = [vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn), vague.Vague(classique_timer, classique_enn)]
-
-        # self.vagues = [vague.Vague([1], [4])]
-        self.vagues = [vague.Vague([1,5,30], [1,1,3]), vague.Vague([1,30,150], [1,2,4])]
+        self.vagues = [vague.Vague([1,2, 3], [1,1,1]), vague.Vague([1,2, 3, 4, 5, 35, 36, 37, 38, 39, 40], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), vague.Vague([1,2,3, 33, 34], [1,1,1, 2, 2]), vague.Vague([1, 61, 62, 122, 123, 124], [3, 1, 1, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104], [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 33, 63, 64, 65, 155, 156, 157, 158, 159], [3, 3, 3, 4, 3, 3, 3, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 120, 121, 180, 181, 182], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 3, 3, 3])]
 
         self.emplacements = [emplacement.emplacement([220, 142]), emplacement.emplacement([220, 346]), emplacement.emplacement([220, 540]), emplacement.emplacement([460, 62]), emplacement.emplacement([460, 262]), emplacement.emplacement([460, 420]), emplacement.emplacement([730, 300]), emplacement.emplacement([730, 500]), emplacement.emplacement([826, 20]), emplacement.emplacement([976, 156])]
 
+        self.recompense = [150, 150, 150, 200, 300, 300, 400, 500, 0]
 
     def update(self, timer, vitesse, position, deg, actualPt, pts, cooldown):
         vit = vitesse

@@ -60,17 +60,13 @@ class emplacement:
         else:
             self.hover = False
 
-        if x <= mouse[0] <= x+128 and y <= mouse[1] <= y+32:
-            if money >= 100:
+        if x <= mouse[0] <= x+128 and y <= mouse[1] <= y+32 and money >= 100:
                 self.pushed_hover = 1
-        elif x <= mouse[0] <= x+128 and y+33 <= mouse[1] <= y+64:
-            if money >= 100:
+        elif x <= mouse[0] <= x+128 and y+33 <= mouse[1] <= y+64 and money >= 150:
                 self.pushed_hover = 2
-        elif x <= mouse[0] <= x+128 and y+65 <= mouse[1] <= y+96:
-            if money >= 100:
+        elif x <= mouse[0] <= x+128 and y+65 <= mouse[1] <= y+96 and money >= 150:
                 self.pushed_hover = 3
-        elif x <= mouse[0] <= x+128 and y+97 <= mouse[1] <= y+128:
-            if money >= 100:
+        elif x <= mouse[0] <= x+128 and y+97 <= mouse[1] <= y+128 and money >= 200:
                 self.pushed_hover = 4
         else: 
             self.pushed_hover = 0

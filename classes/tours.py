@@ -39,7 +39,7 @@ class Pierre:
         self.prix = 70
         self.lvl_max = 4
         self.cooldown = 30
-        self.range = 200
+        self.range = 300
         self.upgrading = True
         self.next_up_price = 50
 
@@ -53,7 +53,7 @@ class Pierre:
             self.upgrading = False
 
         if hover:
-            pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range-int(0.35*self.range), 2)
+            pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range, 2)
             if self.niveau < 4:
                 prix = font.render(str(self.next_up_price), True, "yellow")
                 canvas.blit(prix, (self.realpos[0], self.realpos[1]-15))
@@ -153,7 +153,7 @@ class obj:
             self.upgrading = False
 
         if self.hover:
-            pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range-int(0.35*self.range), 2)
+            pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range, 2)
             if self.niveau < 4:
                 prix = font.render(str(self.next_up_price), True, "yellow")
                 canvas.blit(prix, (self.realpos[0], self.realpos[1]-25))
@@ -336,7 +336,7 @@ class Cristal:
             self.upgrading = False
 
         if hover:
-            pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range-int(0.35*self.range), 2)
+            pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range, 2)
             if self.niveau < 4:
                 prix = font.render(str(self.next_up_price), True, "yellow")
                 canvas.blit(prix, (self.realpos[0], self.realpos[1]-15))
