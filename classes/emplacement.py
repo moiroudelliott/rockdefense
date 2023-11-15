@@ -99,6 +99,11 @@ class emplacement:
                 self.contient = t.Cristal(self.pos)
                 m = 150
 
+            elif self.pushed_hover == 4:
+                self.clicked = False
+                self.contient = t.Volcan(self.pos)
+                m = 150
+
         else:
             m = self.contient.click(self.hover, mouse)
             if m <0:
