@@ -203,6 +203,7 @@ class EnnemieModel():
         self.valeur = Data['valeur']
         self.actualPt = 1 # A voir si modification
 
+
         self.cooldown = Data['cooldown']
 
     def create(self, positionDepart, niveau):
@@ -261,7 +262,7 @@ class ComportementStandart(EnnemieModel):
         self.actualPt = array[2]
 
         CanvasParent.blit(self.sprite, self.position)
-        vie = font.render(str(self.vie), True, "red")
+        vie = font.render(str(int(self.vie)), True, "red")
         CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
 
         return array[0] # renvoie les degats

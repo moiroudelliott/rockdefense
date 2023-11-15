@@ -224,7 +224,6 @@ class rock3:
     
 class radio1:
     def __init__(self,pos, realpos):
-        print("init")
         self.sprite = radio_bullet_img1
         self.position = copy(pos)
         self.realpos = copy(realpos)
@@ -266,6 +265,52 @@ class radio1:
     def toucher(self, ennemies_proche):
         if ennemies_proche != None:
             for e in ennemies_proche:
+                e.degat_inflige(self.degat, self.type)
+
+class radio2:
+    def __init__(self,pos, realpos):
+        self.sprite = radio_bullet_img1
+        self.position = copy(pos)
+        self.realpos = copy(realpos)
+        self.type = 'magique'
+        self.timer = 100
+        self.cooldown = 20
+        self.degat = 20
+        self.range = 200
+
+    def update(self, CanvasParent, ennemis, timer):
+        res = False
+
+        if self.timer == 0:
+            res = True
+        
+        self.timer -= 1
+
+        ennemis_proche = self.est_toucher(ennemis, timer)
+        self.toucher(ennemis_proche)
+
+        if not res:
+            CanvasParent.blit(self.sprite, (self.position[0]-self.range, self.position[1]-self.range))
+        
+        return res
+
+
+    def est_toucher(self, ennemies_tab, timer):
+        res = []
+
+        if timer % self.cooldown == 0:
+            for e in ennemies_tab:
+                difx = abs(self.position[0] - e.position[0])
+                dify = abs(self.position[1] - e.position[1])
+                dist = difx + dify
+                if self.range >= dist:
+                    res.append(e)
+        return res
+
+    def toucher(self, ennemies_proche):
+        if ennemies_proche != None:
+            for e in ennemies_proche:
+                e.etat["vitesse"] = 0.5
                 e.degat_inflige(self.degat, self.type)
 
 class cristal1:
@@ -476,14 +521,16 @@ class cristal3:
         return dist
     
 class volcan1:
+
     def __init__(self,positionDepart, objectif):
         self.sprite = volcan_bullet_img3
+        self.taille = 128
         self.position = copy(positionDepart)
         self.objectif = objectif
         self.type = 'physique'
-        self.vitesse = 20
+        self.vitesse = 10
         self.degat = 15
-        self.range = 100
+        self.range = 50
         self.explose = False
         self.explose_timer = 0
         self.distance = self.calcule_Distance()
@@ -527,7 +574,7 @@ class volcan1:
             self.toucher(ennemis)
 
         if not self.explose:
-            CanvasParent.blit(self.sprite, self.position)
+            CanvasParent.blit(self.sprite, (self.position[0]-self.taille/2, self.position[1]-self.taille/2))
         if self.explose:
             pygame.draw.circle(CanvasParent, (255, 0, 0), self.position, self.range, 2)
         
@@ -561,56 +608,65 @@ class volcan1:
         dist = dif_x + dif_y
 
         return dist
-    
 class volcan2:
+
     def __init__(self,positionDepart, objectif):
-        self.sprite = rock_bullet_img2
+        self.sprite = volcan_bullet_img3
         self.position = copy(positionDepart)
         self.objectif = objectif
         self.type = 'physique'
         self.vitesse = 20
-        self.degat = 20
-
-
+        self.degat = 25
+        self.range = 100
+        self.explose = False
+        self.explose_timer = 0
         self.distance = self.calcule_Distance()
+        self.taille = 128
 
     def update(self, CanvasParent, ennemis, timer):
+        
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
 
         dist = dif_x + dif_y
 
-        if dist ==0:
-            pass
-        else:
+        if not self.explose:
+
+            if dist ==0:
+                pass
+            else:
 
 
-            if pos[0]>obj[0] and pos[1]>obj[1]:
-                pos[0] -= int((dif_x/dist)*20)
-                pos[1] -= int((dif_y/dist)*20)
-            elif pos[0]<obj[0] and pos[1]>obj[1]:
-                pos[0] += int((dif_x/dist)*20)
-                pos[1] -= int((dif_y/dist)*20)
-            elif pos[0]>obj[0] and pos[1]<obj[1]:
-                pos[0] -= int((dif_x/dist)*20)
-                pos[1] += int((dif_y/dist)*20)
-            else: 
-                pos[0] += int((dif_x/dist)*20)
-                pos[1] += int((dif_y/dist)*20)
+                if pos[0]>obj[0] and pos[1]>obj[1]:
+                    pos[0] -= int((dif_x/dist)*20)
+                    pos[1] -= int((dif_y/dist)*20)
+                elif pos[0]<obj[0] and pos[1]>obj[1]:
+                    pos[0] += int((dif_x/dist)*20)
+                    pos[1] -= int((dif_y/dist)*20)
+                elif pos[0]>obj[0] and pos[1]<obj[1]:
+                    pos[0] -= int((dif_x/dist)*20)
+                    pos[1] += int((dif_y/dist)*20)
+                else: 
+                    pos[0] += int((dif_x/dist)*20)
+                    pos[1] += int((dif_y/dist)*20)
 
-        res = self.est_toucher(dist)
+        self.explose = self.est_toucher(dist) or self.explose
 
-        if res:
-            self.toucher()
-        elif not self.explose:
-            CanvasParent.blit(self.sprite, self.position)
+        if self.explose:
+            self.explose_timer+=1
 
+        if self.explose_timer==1:
+            self.toucher(ennemis)
 
+        if not self.explose:
+            CanvasParent.blit(self.sprite, (self.position[0]-self.taille/2, self.position[1]-self.taille/2))
+        if self.explose:
+            pygame.draw.circle(CanvasParent, (255, 0, 0), self.position, self.range, 2)
         
-        return res
+        return self.explose_timer>20
 
 
     def est_toucher(self, distance):
@@ -618,14 +674,21 @@ class volcan2:
             return True
         return False
 
-    def toucher(self):
-        self.objectif.degat_inflige(self.degat, self.type)
+
+    def toucher(self, ennemies_tab):
+        for e in ennemies_tab:
+            difx = abs(self.position[0] - e.position[0])
+            dify = abs(self.position[1] - e.position[1])
+            dist = difx + dify
+            if self.range >= dist:
+                e.degat_inflige(self.degat, self.type)
+
 
 
     def calcule_Distance(self):
 
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif
 
         dif_x = m.sqrt((pos[0] - obj[0])**2) #Il faut importer math as m au debut
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -633,53 +696,65 @@ class volcan2:
         dist = dif_x + dif_y
 
         return dist
-    
 class volcan3:
+
     def __init__(self,positionDepart, objectif):
-        self.sprite = rock_bullet_img3
+        self.sprite = volcan_bullet_img3
         self.position = copy(positionDepart)
         self.objectif = objectif
         self.type = 'physique'
         self.vitesse = 30
         self.degat = 40
-
+        self.range = 125
+        self.explose = False
+        self.explose_timer = 0
         self.distance = self.calcule_Distance()
+        self.taille = 128
 
     def update(self, CanvasParent, ennemis, timer):
+        
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
 
         dist = dif_x + dif_y
 
-        if dist ==0:
-            pass
-        else:
+        if not self.explose:
+
+            if dist ==0:
+                pass
+            else:
 
 
-            if pos[0]>obj[0] and pos[1]>obj[1]:
-                pos[0] -= int((dif_x/dist)*20)
-                pos[1] -= int((dif_y/dist)*20)
-            elif pos[0]<obj[0] and pos[1]>obj[1]:
-                pos[0] += int((dif_x/dist)*20)
-                pos[1] -= int((dif_y/dist)*20)
-            elif pos[0]>obj[0] and pos[1]<obj[1]:
-                pos[0] -= int((dif_x/dist)*20)
-                pos[1] += int((dif_y/dist)*20)
-            else: 
-                pos[0] += int((dif_x/dist)*20)
-                pos[1] += int((dif_y/dist)*20)
+                if pos[0]>obj[0] and pos[1]>obj[1]:
+                    pos[0] -= int((dif_x/dist)*20)
+                    pos[1] -= int((dif_y/dist)*20)
+                elif pos[0]<obj[0] and pos[1]>obj[1]:
+                    pos[0] += int((dif_x/dist)*20)
+                    pos[1] -= int((dif_y/dist)*20)
+                elif pos[0]>obj[0] and pos[1]<obj[1]:
+                    pos[0] -= int((dif_x/dist)*20)
+                    pos[1] += int((dif_y/dist)*20)
+                else: 
+                    pos[0] += int((dif_x/dist)*20)
+                    pos[1] += int((dif_y/dist)*20)
 
-        res = self.est_toucher(dist)
+        self.explose = self.est_toucher(dist) or self.explose
 
-        if res:
-            self.toucher()
-        else:
-            CanvasParent.blit(self.sprite, self.position)
+        if self.explose:
+            self.explose_timer+=1
+
+        if self.explose_timer==1:
+            self.toucher(ennemis)
+
+        if not self.explose:
+            CanvasParent.blit(self.sprite, (self.position[0]-self.taille/2, self.position[1]-self.taille/2))
+        if self.explose:
+            pygame.draw.circle(CanvasParent, (255, 0, 0), self.position, self.range, 2)
         
-        return res
+        return self.explose_timer>20
 
 
     def est_toucher(self, distance):
@@ -687,14 +762,21 @@ class volcan3:
             return True
         return False
 
-    def toucher(self):
-        self.objectif.degat_inflige(self.degat, self.type)
+
+    def toucher(self, ennemies_tab):
+        for e in ennemies_tab:
+            difx = abs(self.position[0] - e.position[0])
+            dify = abs(self.position[1] - e.position[1])
+            dist = difx + dify
+            if self.range >= dist:
+                e.degat_inflige(self.degat, self.type)
+
 
 
     def calcule_Distance(self):
 
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif
 
         dif_x = m.sqrt((pos[0] - obj[0])**2) #Il faut importer math as m au debut
         dif_y = m.sqrt((pos[1] - obj[1])**2)

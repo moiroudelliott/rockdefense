@@ -139,12 +139,11 @@ class obj:
         self.hover_sprite_alt = obj_hover2
         self.realpos = pos
         self.pos = [self.realpos[0]+100, self.realpos[1]+105]
-        self.prix = 70
         self.lvl_max = 4
         self.cooldown = 30
         self.range = 400
         self.upgrading = True
-        self.next_up_price = 40
+        self.next_up_price = 250
 
 
     def display(self, canvas, money, mouse, font):
@@ -189,14 +188,14 @@ class obj:
         self.niveau+=1
         if self.niveau ==2:
             res = self.next_up_price
-            self.next_up_price = 80
+            self.next_up_price = 500
 
             self.range+=100
             self.cooldown -= 10
 
         elif self.niveau == 3:
             res = self.next_up_price
-            self.next_up_price = 120
+            self.next_up_price = 750
 
             self.cooldown -= 10
             self.range+=50
@@ -234,7 +233,7 @@ class obj:
 class Radio:
     def __init__(self, pos):
         self.sprite = radio_img1
-        self.bullet = [b.radio1, b.radio1, b.radio1, b.radio1]
+        self.bullet = [b.radio1, b.radio1, b.radio1, b.radio2]
         self.type_degat = "magique"
         self.niveau = 1
         self.hover = False
@@ -426,8 +425,8 @@ class Volcan:
         self.pos = [self.realpos[0]+64, self.realpos[1]+64]
         self.prix = 140
         self.lvl_max = 4
-        self.cooldown = 60
-        self.range = 300
+        self.cooldown = 50
+        self.range = 150
         self.upgrading = True
         self.next_up_price = 250
 
@@ -470,7 +469,6 @@ class Volcan:
             self.sprite = volcan_img2
             self.prix += 150
             self.range+= 150
-            self.cooldown -= 20
             res = self.next_up_price
             self.next_up_price = 300
         elif self.niveau == 3:
@@ -481,8 +479,7 @@ class Volcan:
         elif self.niveau ==4:
             self.sprite = volcan_img4
             self.prix += 300
-            self.range+=100
-            self.cooldown -= 20
+            self.range+=75
             res = self.next_up_price
             self.next_up_price = m.inf
             

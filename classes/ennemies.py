@@ -49,13 +49,15 @@ class classique:
 
     def display(self, CanvasParent, font, timer):
 
-        array = self.niveau.update(timer, self.vitesse, self.position, self.degat_attaque(), self.actualPt, self.pts, self.cooldown)
+        array = self.niveau.update(timer, self.vitesse*self.etat["vitesse"], self.position, self.degat_attaque(), self.actualPt, self.pts, self.cooldown)
         self.position = array[1]
         self.actualPt = array[2]
 
         CanvasParent.blit(self.sprite, self.position)
         vie = font.render(str(self.vie), True, "red")
         CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
+
+        self.etat["vitesse"] = 1
 
         return array[0]
 
@@ -104,13 +106,15 @@ class rapide:
 
     def display(self, CanvasParent, font, timer):
 
-        array = self.niveau.update(timer, self.vitesse, self.position, self.degat_attaque(), self.actualPt, self.pts, self.cooldown)
+        array = self.niveau.update(timer, self.vitesse*self.etat["vitesse"], self.position, self.degat_attaque(), self.actualPt, self.pts, self.cooldown)
         self.position = array[1]
         self.actualPt = array[2]
 
         CanvasParent.blit(self.sprite, self.position)
         vie = font.render(str(self.vie), True, "red")
         CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
+
+        self.etat["vitesse"] = 1
 
         return array[0]
 
@@ -158,12 +162,14 @@ class tank:
 
     def display(self, CanvasParent, font, timer):
 
-        array = self.niveau.update(timer, self.vitesse, self.position, self.degat_attaque(), self.actualPt, self.pts, self.cooldown)
+        array = self.niveau.update(timer, self.vitesse*self.etat["vitesse"], self.position, self.degat_attaque(), self.actualPt, self.pts, self.cooldown)
         self.position = array[1]
         self.actualPt = array[2]
 
         CanvasParent.blit(self.sprite, self.position)
         vie = font.render(str(self.vie), True, "red")
         CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
+
+        self.etat["vitesse"] = 1
 
         return array[0]
