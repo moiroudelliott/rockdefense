@@ -1,5 +1,6 @@
 import classes.vague as vague
 import classes.emplacement as emplacement
+import classes.Jennemies as ennemies
 
 class Niveau1:
     def __init__(self):
@@ -59,3 +60,33 @@ class Niveau1:
                 degats = deg
 
         return (degats, pos, actualPt)
+    
+    def tri_ennemis(self, tab):
+        res = []
+        for _ in range(len(tab)):
+            min = None
+            min_position = (4000, 4000)
+            min_actualPt = -1
+            for e in tab:
+                if e.actualPt > min_actualPt and e not in res:
+                    min = e
+                    min_pos = e.position
+                    min_actualPt = e.actualPt
+                elif e.actualPt == min_actualPt and e not in res:
+                    if e.actualPt in [1, 3, 5, 7]:
+                        if e.position[0]>min_position[0]:
+                            min = e
+                            min_pos = e.position
+                            min_actualPt = e.actualPt
+                    elif e.actualPt == 2:
+                        if e.position[1]>min_position[1]:
+                            min = e
+                            min_pos = e.position
+                            min_actualPt = e.actualPt
+                    elif e.actualPt == 4:
+                        if e.position[1]<min_position[1]:
+                            min = e
+                            min_pos = e.position
+                            min_actualPt = e.actualPt
+            res.append(min)
+        return res

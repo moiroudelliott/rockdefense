@@ -14,6 +14,7 @@ import math as m
 import random as r
 import classes.Jennemies as ennemies
 import json
+import copy as c
 
 # actual_level = niveau.Niveau1() # A enlever
 

@@ -21,6 +21,9 @@ def affichageHUD (vie, money, current_vague, screen):
 
 ### PYGAME SETUP
 
+
+       
+
 pygame.init()
 width = 1280
 height = 720
@@ -110,6 +113,7 @@ while not close:
 #### ETAT == GAME
     elif etat == "game":
 
+        if f_counter %10 == 0:current_ennemies = actual_level.tri_ennemis(c.copy(current_ennemies))
         current_bg = bg_img
 
         if event.type == pygame.MOUSEBUTTONDOWN and cooldown <= 0:
