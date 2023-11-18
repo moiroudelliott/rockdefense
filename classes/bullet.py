@@ -286,8 +286,8 @@ class radio2:
         
         self.timer -= 1
 
-        ennemis_proche = self.est_toucher(ennemis, timer)
-        self.toucher(ennemis_proche)
+        ennemis_proche = self.est_toucher(ennemis)
+        self.toucher(ennemis_proche, timer)
 
         if not res:
             CanvasParent.blit(self.sprite, (self.position[0]-self.range, self.position[1]-self.range))
@@ -295,22 +295,47 @@ class radio2:
         return res
 
 
-    def est_toucher(self, ennemies_tab, timer):
+    # def est_toucher(self, ennemies_tab, timer):
+    #     res = []
+    # 
+    #     if timer % self.cooldown == 0:
+    #         for e in ennemies_tab:
+    #             difx = abs(self.position[0] - e.position[0])
+    #             dify = abs(self.position[1] - e.position[1])
+    #             dist = difx + dify
+    #             if self.range >= dist:
+    #                 res.append(e)
+    #     return res
+    # 
+    # def toucher(self, ennemies_proche):
+    #     
+    #     if ennemies_proche != None:
+    #         for e in ennemies_proche:
+    #             e.insertNewEtat( ('vitesse' , 0.5 ) )
+    #             e.degat_inflige(self.degat, self.type)
+                
+    def est_toucher(self, ennemies_tab):
         res = []
 
-        if timer % self.cooldown == 0:
-            for e in ennemies_tab:
-                difx = abs(self.position[0] - e.position[0])
-                dify = abs(self.position[1] - e.position[1])
-                dist = difx + dify
-                if self.range >= dist:
-                    res.append(e)
+        for e in ennemies_tab: # si dans cercle d'interaction
+            difx = abs(self.position[0] - e.position[0])
+            dify = abs(self.position[1] - e.position[1])
+            dist = difx + dify
+            if self.range >= dist:
+                res.append(e) # ajout dans liste ennemi de self
+                
+        # application de debuff
+        
+        for ennemie in res:
+            ennemie.insertNewEtat( ('vitesse' , 0.5 ) )
+        
         return res
 
-    def toucher(self, ennemies_proche):
-        if ennemies_proche != None:
+    def toucher(self, ennemies_proche, timer):
+#         if timer % self.cooldown == 0:
+        if ennemies_proche != None and timer % self.cooldown == 0:
             for e in ennemies_proche:
-                e.etat["vitesse"] = 0.5
+                # e.insertNewEtat( ('vitesse' , 0.5 ) )
                 e.degat_inflige(self.degat, self.type)
 
 class cristal1:

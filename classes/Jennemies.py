@@ -1,7 +1,9 @@
-
 import pygame
 import random as r
-import classes.niveau as niveau
+
+from functools import reduce
+import operator
+######### import classes.niveau as niveau
 import math as m
 # ennemis_img = pygame.image.load("textures/sprites/ennemies/ennemy_tank.png") #simple
 # ennemis2_img = pygame.image.load("textures/sprites/ennemies/ennemy_fast.png")
@@ -203,7 +205,6 @@ class EnnemieModel():
         self.valeur = Data['valeur']
         self.actualPt = 1 # A voir si modification
 
-
         self.cooldown = Data['cooldown']
 
     def create(self, positionDepart, niveau):
@@ -216,7 +217,12 @@ class EnnemieModel():
         return self
 
     def coefficientEtat(self, type):
-        return 1 * (1/self.etat['buff'][type] * (self.etat['debuff'][type]) )
+        """
+            Retourne un coeff du type selectionner
+        """
+        # return 1 * (1/self.etat['buff'][type] * (self.etat['debuff'][type]) ) # ancienne version
+
+        return reduce( operator.mul, self.etat[ type ], 1 ) # nouvelle version avec reduce
 
 
     def degat_inflige(self, degat, type):
@@ -234,6 +240,18 @@ class EnnemieModel():
         coefficient_degat = self.coefficientEtat('degat')
         return self.degat * coefficient_degat
 
+    def resetEtat(self):
+        # Permet de remettre à zero les états ( à faire à chaque update ? )
+        for buffDebuff in self.etat.keys():
+            self.etat[ buffDebuff ] = []
+
+    def insertNewEtat(self, buffDebuff):
+        # buffBeduff de forme   => ( 'vitesse' , 0.7 )
+        #                       => ( 'type' , coefficient )
+        type = buffDebuff[ 0 ]
+        coefficient = buffDebuff[ 1 ]
+
+        self.etat[ type ].append( coefficient )
 
     # def display(self, CanvasParent, font, timer):
     #
@@ -255,7 +273,14 @@ class ComportementStandart(EnnemieModel):
 
     def display(self, CanvasParent, font, timer, *args):
 
-        array = self.niveau.update(timer, self.vitesse, self.position, self.degat_attaque(), self.actualPt, self.pts, self.cooldown) # calcul pos + degat + point d'emplacement actuel (!important)
+
+
+        array = self.niveau.update( timer,
+                                    self.vitesse * self.coefficientEtat( 'vitesse' ),
+                                    self.position, self.degat_attaque() * self.coefficientEtat( 'degat' ),
+                                     self.actualPt,
+                                     self.pts,
+                                     self.cooldown) # calcul pos + degat + point d'emplacement actuel (!important)
 
 
         self.position = array[1]
@@ -265,6 +290,8 @@ class ComportementStandart(EnnemieModel):
         vie = font.render(str(int(self.vie)), True, "red")
         CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
 
+        self.resetEtat()
+
         return array[0] # renvoie les degats
 
 class ComportementInvocateur(EnnemieModel):
@@ -273,7 +300,8 @@ class ComportementInvocateur(EnnemieModel):
 
     def display(self, CanvasParent, font, timer, *args):
 
-        array = self.niveau.update(timer, self.vitesse, self.position, self.degat_attaque(), self.actualPt, self.pts, self.cooldown) # calcul pos + degat + point d'emplacement actuel (!important)
+
+        array = self.niveau.update(timer, self.vitesse * self.coefficientEtat( 'vitesse' ), self.position, self.degat_attaque() * self.coefficientEtat( 'degat' ), self.actualPt, self.pts, self.cooldown) # calcul pos + degat + point d'emplacement actuel (!important)
 
         self.position = array[1]
         self.actualPt = array[2]
@@ -313,9 +341,17 @@ class ComportementInvocateur(EnnemieModel):
         vie = font.render(str(self.vie), True, "red")
         CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
 
+        self.resetEtat()
+
         return array[0] # renvoie les degats
 
 Dict_Comportement = {
     "standart" : ComportementStandart,
     "invocateur" : ComportementInvocateur,
 }
+
+## Workspace
+t = EnnemieModel()
+t.etat = {"vitesse": [0.5]}
+t.resetEtat()
+t.insertNewEtat( ('vitesse',0.7) )
