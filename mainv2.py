@@ -22,7 +22,7 @@ def affichageHUD (vie, money, current_vague, screen):
 ### PYGAME SETUP
 
 
-       
+
 
 pygame.init()
 width = 1280
@@ -164,6 +164,12 @@ while not close:
             # elif enn == 3:
             #     current_ennemies.append(ennemies.rapide([0, r.randint(450, 600)], actual_level))
 
+        for i in range(len(current_bullet)-1, -1, -1):
+            b = current_bullet[i]
+            ret = b.update(screen, current_ennemies, f_counter)
+
+            if ret:
+                current_bullet.pop(i)
 
         for e in emplacements:
             e.display(screen, mouse, money, font2)
@@ -178,7 +184,8 @@ while not close:
         for i in range(len(current_ennemies)-1, -1, -1):
 
             e = current_ennemies[i]
-            # print(e)
+            # print(e.etat['vitesse'])
+            # print( e.vitesse * e.coefficientEtat( 'vitesse' ) )
 
             if e.vie > 0:
                 deg = e.display(screen, font2 , f_counter, Liste_ennemies, actual_level, current_ennemies)
@@ -191,12 +198,7 @@ while not close:
 
 
 
-        for i in range(len(current_bullet)-1, -1, -1):
-            b = current_bullet[i]
-            ret = b.update(screen, current_ennemies, f_counter)
 
-            if ret:
-                current_bullet.pop(i)
 
         if vie < 0:
             etat = "game_over"
