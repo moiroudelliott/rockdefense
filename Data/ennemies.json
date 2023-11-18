@@ -10,18 +10,10 @@
 			"magique": 1
 		},
 		"etat": {
-			"buff": {
-				"vitesse": 1,
-				"degat": 1,
-				"magique": 1,
-				"physique": 1
-			},
-			"debuff": {
-				"vitesse": 1,
-				"degat": 1,
-				"magique": 1,
-				"physique": 1
-			}
+				"vitesse": [],
+				"degat": [],
+				"magique": [],
+				"physique": []
 		},
 		"valeur": 10,
 		"cooldown": 10,
@@ -38,18 +30,10 @@
 			"magique": 1
 		},
 		"etat": {
-			"buff": {
-				"vitesse": 1,
-				"degat": 1,
-				"magique": 1,
-				"physique": 1
-			},
-			"debuff": {
-				"vitesse": 1,
-				"degat": 1,
-				"magique": 1,
-				"physique": 1
-			}
+				"vitesse": [],
+				"degat": [],
+				"magique": [],
+				"physique": []
 		},
 		"valeur": 10,
 		"cooldown": 10,
@@ -66,18 +50,10 @@
 			"magique": 1
 		},
 		"etat": {
-			"buff": {
-				"vitesse": 1,
-				"degat": 1,
-				"magique": 1,
-				"physique": 1
-			},
-			"debuff": {
-				"vitesse": 1,
-				"degat": 1,
-				"magique": 1,
-				"physique": 1
-			}
+				"vitesse": [],
+				"degat": [],
+				"magique": [],
+				"physique": []
 		},
 		"valeur": 10,
 		"cooldown": 10,
@@ -94,18 +70,10 @@
 			"magique": 3
 		},
 		"etat": {
-			"buff": {
-				"vitesse": 1,
-				"degat": 1,
-				"magique": 1,
-				"physique": 1
-			},
-			"debuff": {
-				"vitesse": 1,
-				"degat": 1,
-				"magique": 1,
-				"physique": 1
-			}
+				"vitesse": [],
+				"degat": [],
+				"magique": [],
+				"physique": []
 		},
 		"valeur": 100,
 		"cooldown": 300,
