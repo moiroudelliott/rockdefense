@@ -3,6 +3,8 @@ import random as r
 
 from functools import reduce
 import operator
+
+import classes.bullet as b
 ######### import classes.niveau as niveau
 import math as m
 # ennemis_img = pygame.image.load("textures/sprites/ennemies/ennemy_tank.png") #simple
@@ -184,7 +186,13 @@ class EnnemieModel():
         self.degat = None
         self.vitesse = None
         self.resistance = None
-        self.etat = None
+        self.etat = {
+                        "vitesse": [],
+                        "degat": [],
+                        "magique": [],
+                        "physique": [],
+                        "vie": [],
+                    }
         self.valeur = None
         self.pts = []
         # for pt in niveau.pts:
@@ -194,6 +202,8 @@ class EnnemieModel():
 
         self.cooldown = None
 
+        self.MaxVie = None
+
     def importationJSON(self, Data):
 
         self.vie = Data['vie']
@@ -201,11 +211,13 @@ class EnnemieModel():
         self.degat = Data['degat']
         self.vitesse = Data['vitesse']
         self.resistance = Data['resistance']
-        self.etat = Data['etat']
+        # self.etat = Data['etat']
         self.valeur = Data['valeur']
         self.actualPt = 1 # A voir si modification
 
         self.cooldown = Data['cooldown']
+
+        self.MaxVie = Data['maxVie']
 
     def create(self, positionDepart, niveau):
         self.position = positionDepart
@@ -222,8 +234,40 @@ class EnnemieModel():
         """
         # return 1 * (1/self.etat['buff'][type] * (self.etat['debuff'][type]) ) # ancienne version
 
-        return reduce( operator.mul, self.etat[ type ], 1 ) # nouvelle version avec reduce
+        # return reduce( operator.mul, self.etat[ type ], 1 ) # nouvelle version avec reduce
+        mul = 1
+        for elt in self.etat[type]:
+            if elt[1]%elt[2] == 0: # gestion du cooldown de l'effet
+                mul = mul * elt[0]
+        return mul
 
+    def updateEtat(self):
+        # print( self.etat )
+        for key in self.etat.keys():
+            for elt in self.etat[ key ]:
+                elt[1] -=1
+
+            for i in range ( len(self.etat[ key ])-1, -1, -1 ):
+                if elt[1] == 0:
+                    self.etat[ key ].pop( i )
+
+            max_dict = {}
+
+            for sublist in self.etat[ key ]:
+                # Si la valeur unique n'est pas encore dans le dictionnaire ou si le deuxième élément est plus grand
+                if sublist[-1] not in max_dict or sublist[1] > max_dict[sublist[-1]][1]:
+                    max_dict[sublist[-1]] = sublist
+
+            # Obtenir toutes les listes maximales
+            max_lists = list(max_dict.values())
+
+            # print(max_lists)
+
+            self.etat[ key ] = max_lists
+        # print( self.etat )
+
+    def degat_sur_duree(self):
+        return self.coefficientEtat( 'vie' ) -1
 
     def degat_inflige(self, degat, type):
 
@@ -250,8 +294,13 @@ class EnnemieModel():
         #                       => ( 'type' , coefficient )
         type = buffDebuff[ 0 ]
         coefficient = buffDebuff[ 1 ]
+        time = buffDebuff[ 2 ]
+        cooldownBuffBeduff = buffDebuff[ 3 ]
+        id = buffDebuff[ 4 ]
 
-        self.etat[ type ].append( coefficient )
+        caracteristique = [ coefficient, time, cooldownBuffBeduff, id, ]
+
+        self.etat[ type ].append( caracteristique )
 
     # def display(self, CanvasParent, font, timer):
     #
@@ -273,7 +322,13 @@ class ComportementStandart(EnnemieModel):
 
     def display(self, CanvasParent, font, timer, *args):
 
+        if(self.MaxVie < self.vie):
+            self.vie = self.MaxVie
 
+        self.updateEtat()
+
+        degatDuree = self.degat_sur_duree()
+        self.vie -= degatDuree
 
         array = self.niveau.update( timer,
                                     self.vitesse * self.coefficientEtat( 'vitesse' ),
@@ -290,7 +345,7 @@ class ComportementStandart(EnnemieModel):
         vie = font.render(str(int(self.vie)), True, "red")
         CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
 
-        self.resetEtat()
+
 
         return array[0] # renvoie les degats
 
@@ -300,19 +355,23 @@ class ComportementInvocateur(EnnemieModel):
 
     def display(self, CanvasParent, font, timer, *args):
 
+        if(self.MaxVie < self.vie):
+            self.vie = self.MaxVie
+
+        self.updateEtat()
 
         array = self.niveau.update(timer, self.vitesse * self.coefficientEtat( 'vitesse' ), self.position, self.degat_attaque() * self.coefficientEtat( 'degat' ), self.actualPt, self.pts, self.cooldown) # calcul pos + degat + point d'emplacement actuel (!important)
 
         self.position = array[1]
         self.actualPt = array[2]
 
-        nombreSbire = 5
+        nombreSbire = 5 # définie le nombre de sbire à invoquer
 
 
 
         if timer % self.cooldown == 0:
             # print(args[1])
-            data = args[0][ r.randint(0,2) ] # pour des 1-3
+            data = args[0][ r.randint(0,4) ] # pour des 1-3
             actual_level = args[1]
             liste_enn = args[2]
 
@@ -338,20 +397,64 @@ class ComportementInvocateur(EnnemieModel):
                 liste_enn.append(classe)
 
         CanvasParent.blit(self.sprite, self.position)
-        vie = font.render(str(self.vie), True, "red")
+        vie = font.render(str(int(self.vie)), True, "red")
         CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
 
-        self.resetEtat()
+
+
+        return array[0] # renvoie les degats
+
+class ComportementMagicien(EnnemieModel):
+    def __init__(self):
+        EnnemieModel.__init__(self)
+
+        self.bullet = [b.heal,]
+
+    def display(self, CanvasParent, font, timer, *args):
+
+        if(self.MaxVie < self.vie):
+            self.vie = self.MaxVie
+
+        self.updateEtat()
+
+        array = self.niveau.update( timer,
+                                    self.vitesse * self.coefficientEtat( 'vitesse' ),
+                                    self.position, self.degat_attaque() * self.coefficientEtat( 'degat' ),
+                                     self.actualPt,
+                                     self.pts,
+                                     self.cooldown) # calcul pos + degat + point d'emplacement actuel (!important)
+
+
+        self.position = array[1]
+        self.actualPt = array[2]
+
+        if timer % self.cooldown == 0:
+            liste_bullet = args[3]
+            # print( liste_bullet )
+            bullet = self.bullet[0](self.position,self.position)
+            bullet.setParent( self )
+            liste_bullet.append( bullet )
+
+        CanvasParent.blit(self.sprite, self.position)
+        vie = font.render(str(int(self.vie)), True, "red")
+        CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
+
+
 
         return array[0] # renvoie les degats
 
 Dict_Comportement = {
     "standart" : ComportementStandart,
     "invocateur" : ComportementInvocateur,
+    "magicien" : ComportementMagicien,
 }
 
 ## Workspace
-t = EnnemieModel()
-t.etat = {"vitesse": [0.5]}
-t.resetEtat()
-t.insertNewEtat( ('vitesse',0.7) )
+# t = EnnemieModel()
+# t.etat = {"vitesse": [0.5]}
+# t.resetEtat()
+# t.insertNewEtat( ('vitesse',[0.7,2,2,'brulure']) )
+# t.insertNewEtat( ('vitesse',[0.7,2,2,'ralentissement']) )
+# t.insertNewEtat( ('vitesse',[0.7,7,2,'brulure']) )
+
+# hex(id(t)) => str

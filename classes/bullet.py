@@ -327,7 +327,7 @@ class radio2:
         # application de debuff
         
         for ennemie in res:
-            ennemie.insertNewEtat( ('vitesse' , 0.5 ) )
+            ennemie.insertNewEtat( ('vitesse' , 0.5, 2, 2, hex(id(self)) ) )
         
         return res
 
@@ -619,6 +619,13 @@ class volcan1:
             dist = difx + dify
             if self.range >= dist:
                 e.degat_inflige(self.degat, self.type)
+                
+            # application de debuff
+            
+            
+                e.insertNewEtat( ('vie' , 10, 30*10+29, 30*2, hex(id(self)) ) )
+                ## ! à faire l'explication
+                # print("Hello")
 
 
 
@@ -707,6 +714,7 @@ class volcan2:
             dist = difx + dify
             if self.range >= dist:
                 e.degat_inflige(self.degat, self.type)
+                e.insertNewEtat( ('vie' , 10, 30*10+29, 30*2, hex(id(self)) ) )
 
 
 
@@ -795,6 +803,7 @@ class volcan3:
             dist = difx + dify
             if self.range >= dist:
                 e.degat_inflige(self.degat, self.type)
+                e.insertNewEtat( ('vie' , 10, 30*10+29, 30*2, hex(id(self)) ) )
 
 
 
@@ -810,3 +819,56 @@ class volcan3:
 
         return dist
     
+class heal:
+    def __init__(self,pos, realpos):
+        self.sprite = radio_bullet_img1
+        self.position = copy(pos)
+        self.realpos = copy(realpos)
+        self.type = 'magique'
+        self.timer = 90 # durée de l'effet ici 2 secondes
+        self.cooldown = 20
+        self.degat = -10 # ajout en santé => vie + self.degat
+        self.range = 200
+        
+        self.parent = None
+
+    def setParent(self,parent):
+        self.parent = parent
+        
+    def update(self, CanvasParent, ennemis, timer):
+        
+        self.position = self.parent.position
+        
+        res = False
+
+        if self.timer == 0:
+            res = True
+        
+        self.timer -= 1
+
+        ennemis_proche = self.est_toucher(ennemis)
+        self.toucher(ennemis_proche, timer)
+
+        if not res:
+            CanvasParent.blit(self.sprite, (self.position[0]-self.range, self.position[1]-self.range))
+        
+        return res
+                
+    def est_toucher(self, ennemies_tab):
+        res = []
+
+        for e in ennemies_tab: # si dans cercle d'interaction
+            difx = abs(self.position[0] - e.position[0])
+            dify = abs(self.position[1] - e.position[1])
+            dist = difx + dify
+            if self.range >= dist:
+                res.append(e) # ajout dans liste ennemi de self
+                
+        return res
+
+    def toucher(self, ennemies_proche, timer):
+#         if timer % self.cooldown == 0:
+        if ennemies_proche != None and timer % self.cooldown == 0:
+            for e in ennemies_proche:
+                # e.insertNewEtat( ('vitesse' , 0.5 ) )
+                e.degat_inflige(self.degat, self.type)
