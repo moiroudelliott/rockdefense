@@ -9,15 +9,10 @@
 			"physique": 1,
 			"magique": 1
 		},
-		"etat": {
-				"vitesse": [],
-				"degat": [],
-				"magique": [],
-				"physique": []
-		},
 		"valeur": 10,
 		"cooldown": 10,
-		"comportement": "classique"
+		"comportement": "classique",
+		"maxVie": 100
 	},
 	{
 		"nom": "fast",
@@ -29,15 +24,10 @@
 			"physique": 1,
 			"magique": 1
 		},
-		"etat": {
-				"vitesse": [],
-				"degat": [],
-				"magique": [],
-				"physique": []
-		},
 		"valeur": 10,
 		"cooldown": 10,
-		"comportement": "classique"
+		"comportement": "classique",
+		"maxVie": 50
 	},
 	{
 		"nom": "tank",
@@ -49,19 +39,14 @@
 			"physique": 2,
 			"magique": 1
 		},
-		"etat": {
-				"vitesse": [],
-				"degat": [],
-				"magique": [],
-				"physique": []
-		},
 		"valeur": 10,
 		"cooldown": 10,
-		"comportement": "classique"
+		"comportement": "classique",
+		"maxVie": 400
 	},
 	{
 		"nom": "invocateur",
-		"vie": 1000,
+		"vie": 750,
 		"cheminSprite": "./textures/sprites/ennemies/nyan_cat.png",
 		"degat": 10,
 		"vitesse": 1,
@@ -69,14 +54,24 @@
 			"physique": 1,
 			"magique": 3
 		},
-		"etat": {
-				"vitesse": [],
-				"degat": [],
-				"magique": [],
-				"physique": []
+		"valeur": 200,
+		"cooldown": 300,
+		"comportement": "invocateur",
+		"maxVie": 750
+	},
+	{
+		"nom": "magicien",
+		"vie": 1000,
+		"cheminSprite": "./textures/sprites/ennemies/enneny_magicien.png",
+		"degat": 10,
+		"vitesse": 2,
+		"resistance": {
+			"physique": 1,
+			"magique": 2
 		},
 		"valeur": 100,
-		"cooldown": 300,
-		"comportement": "invocateur"
+		"cooldown": 200,
+		"comportement": "magicien",
+		"maxVie": 1000
 	}
 ]
