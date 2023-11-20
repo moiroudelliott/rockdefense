@@ -118,6 +118,7 @@ while not close:
             for e in emplacements:
                 money -= e.click(money, mouse)
             obj.click(mouse)
+            actual_level.next_button.click()
 
 
         if current_vague >= len(vagues) and current_ennemies == []:
@@ -140,9 +141,12 @@ while not close:
             ### à la place de if elif mettre ennemies dans une liste et faire Ce.append(Liste ennemies[i])
             ##[03/11]Fait
             # print(enn)
-            if enn == -1 and current_ennemies == []:
-                money += actual_level.recompense[current_vague]
-                current_vague += 1
+            if enn == -1:
+                actual_level.next_button.display(mouse, screen)
+                if actual_level.next_button_state:
+                    money += actual_level.recompense[current_vague]
+                    current_vague += 1
+                    actual_level.next_button_state = False
             elif enn > 0:
                 if enn > len(Liste_ennemies):
                     enn = 1
