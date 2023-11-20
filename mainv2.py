@@ -121,7 +121,7 @@ while not close:
             actual_level.next_button.click()
 
 
-        if current_vague >= len(vagues) and current_ennemies == []:
+        if current_vague >= len(vagues)-1 and current_ennemies == []:
 
             reset(money_init, vagues, emplacements, vie_init)
             f_counter = 0
