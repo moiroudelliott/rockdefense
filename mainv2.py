@@ -1,4 +1,5 @@
 from imports import *
+pygame.mixer.set_num_channels(20)
 # import random as r
 
 # def gerateEnemie (classe, actual_level):
@@ -147,6 +148,7 @@ while not close:
                     money += actual_level.recompense[current_vague]
                     current_vague += 1
                     actual_level.next_button_state = False
+                    pygame.mixer.Sound.play(new_wave_sound)
             elif enn > 0:
                 if enn > len(Liste_ennemies):
                     enn = 1

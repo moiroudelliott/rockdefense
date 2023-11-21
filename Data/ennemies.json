@@ -2,7 +2,7 @@
 	{
 		"nom": "standart",
 		"vie": 100,
-		"cheminSprite": "./textures/sprites/ennemies/ennemy_tank.png",
+		"cheminSprite": "./textures/sprites/ennemies/ennemy_classic.png",
 		"degat": 10,
 		"vitesse": 2,
 		"resistance": {

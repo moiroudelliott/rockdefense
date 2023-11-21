@@ -1,7 +1,7 @@
-import pygame
 import math as m
 import classes.bullet as b
 import copy
+from classes.importation.import_textures import *
 
 rock_img1 = pygame.image.load("textures/sprites/towers/rock_lvl1.png")
 rock_img2 = pygame.image.load("textures/sprites/towers/rock_lvl2.png")
@@ -124,6 +124,7 @@ class Pierre:
                     bullet = self.bullet[self.niveau-1](self.pos, e)
                     res =  bullet
                     found = True
+                    tir_pierre_sound.play()
                 i +=1
         return res
 
@@ -226,6 +227,7 @@ class obj:
                     bullet = self.bullet[self.niveau-1](self.pos, e)
                     res =  bullet
                     found = True
+                    tir_pierre_sound.play()
                 i +=1
         return res
 
@@ -408,6 +410,7 @@ class Cristal:
                     bullet = self.bullet[self.niveau-1](self.pos, e)
                     res =  bullet
                     found = True
+                    tir_magie_sound.play()
                 i +=1
         return res
 
@@ -502,6 +505,7 @@ class Volcan:
                     bullet = self.bullet[self.niveau-1](self.pos, copy.copy(e.position))
                     res =  bullet
                     found = True
+                    tir_volcan_sound.play()
                 i +=1
         return res
 
