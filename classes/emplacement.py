@@ -115,9 +115,9 @@ class emplacement:
         self.hover = False
         self.clicked = False
 
-    def event(self, f, ennemies_tab):
+    def event(self, fc, ennemies_tab, level):
         res  = None
         if self.contient != None:
-            res = self.contient.attack(ennemies_tab, f)
+            res = self.contient.attack(ennemies_tab, fc, level.plus_loins)
 
         return res

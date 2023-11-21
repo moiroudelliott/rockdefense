@@ -110,21 +110,29 @@ class Pierre:
     def sell(self):
         return self.prix
 
-    def attack(self, ennemies_tab, timer):
-        res = None
+    def attack(self, ennemies_tab, timer, f):
+        '''res = None
         if timer % self.cooldown == 0:
             found = False
             i = 0
             while not found and i < len(ennemies_tab):
                 e = ennemies_tab[i]
-                difx = abs(self.pos[0] - e.position[0])
-                dify = abs(self.pos[1] - e.position[1])
-                dist = difx + dify
+                pos = e.get_real_pos()
+                dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
+                dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
+
+                dist = dif_x + dif_y
                 if self.range >= dist:
                     bullet = self.bullet[self.niveau-1](self.pos, e)
                     res =  bullet
                     found = True
-                i +=1
+                i +=1'''
+        res = None
+        if timer % self.cooldown == 0:
+            e = f(self.range, self.realpos)
+            if e != None:
+                bullet = self.bullet[self.niveau-1](self.pos, e)
+                res =  bullet
         return res
 
 
@@ -212,16 +220,17 @@ class obj:
     def sell(self):
         return self.prix
 
-    def attack(self, ennemies_tab, timer):
+    def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
             found = False
             i = 0
             while not found and i < len(ennemies_tab):
                 e = ennemies_tab[i]
-                difx = abs(self.pos[0] - e.position[0])
-                dify = abs(self.pos[1] - e.position[1])
-                dist = difx + dify
+                pos = e.get_real_pos()
+                dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
+                dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
+                dist = dif_x + dif_y
                 if self.range >= dist:
                     bullet = self.bullet[self.niveau-1](self.pos, e)
                     res =  bullet
@@ -305,7 +314,7 @@ class Radio:
     def sell(self):
         return self.prix
 
-    def attack(self, ennemies_tab, timer):
+    def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
             bullet = self.bullet[self.niveau-1](self.pos, self.realpos)
@@ -394,16 +403,17 @@ class Cristal:
     def sell(self):
         return self.prix
 
-    def attack(self, ennemies_tab, timer):
+    def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
             found = False
             i = 0
             while not found and i < len(ennemies_tab):
                 e = ennemies_tab[i]
-                difx = abs(self.pos[0] - e.position[0])
-                dify = abs(self.pos[1] - e.position[1])
-                dist = difx + dify
+                pos = e.get_real_pos()
+                dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
+                dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
+                dist = dif_x + dif_y
                 if self.range >= dist:
                     bullet = self.bullet[self.niveau-1](self.pos, e)
                     res =  bullet
@@ -488,16 +498,17 @@ class Volcan:
     def sell(self):
         return self.prix
 
-    def attack(self, ennemies_tab, timer):
+    def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
             found = False
             i = 0
             while not found and i < len(ennemies_tab):
                 e = ennemies_tab[i]
-                difx = abs(self.pos[0] - e.position[0])
-                dify = abs(self.pos[1] - e.position[1])
-                dist = difx + dify
+                pos = e.get_real_pos()
+                dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
+                dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
+                dist = dif_x + dif_y
                 if self.range >= dist:
                     bullet = self.bullet[self.niveau-1](self.pos, copy.copy(e.position))
                     res =  bullet

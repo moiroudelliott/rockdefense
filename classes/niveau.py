@@ -2,26 +2,58 @@ import classes.vague as vague
 import classes.emplacement as emplacement
 import classes.Jennemies as ennemies
 import classes.button as button
+import classes.tours as tours
 import pygame
+from classes.importation.import_textures import *
+import math as m
 
 button_texture = pygame.image.load("textures/sprites/button/next.png")
 button_push_texture = pygame.image.load("textures/sprites/button/next_push.png")
 
-class Niveau1:
+class Niveau:
+
     def __init__(self):
-        self.pts = [(90, 200), (0, 90), (310, 430), (520, 660), (570, 705), (0, 140), (1000, 1080)]
+
         self.money_init = 500
+        self.money = self.money_init
+
         self.vie_init = 500
+        self.vie = self.vie_init
+
+        self.next_button_state = False
+
+        self.actual_wave = 0
+        self.ennemies = []
+        self.bullets = []
+
+        self.f_counter = 0
+
+        def f():
+            self.next_button_state = True
+
+        self.next_button = button.Button((10, 450), (84, 51), button_texture, button_push_texture, f)
+
+class Niveau1(Niveau):
+
+    def __init__(self):
+
+        Niveau.__init__(self)
+
+        self.pts = [(90, 200), (0, 90), (310, 430), (520, 660), (570, 705), (0, 140), (1000, 1080)]
 
         self.vagues = [vague.Vague([1,2, 3], [1,1,1]), vague.Vague([1,2, 3, 4, 5, 35, 36, 37, 38, 39, 40], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), vague.Vague([1,2,3, 33, 34], [1,1,1, 2, 2]), vague.Vague([1, 61, 62, 122, 123, 124], [3, 1, 1, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104], [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 33, 63, 64, 65, 155, 156, 157, 158, 159], [3, 3, 3, 4, 3, 3, 3, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 120, 121, 180, 181, 182], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 3, 3, 3]),vague.Vague([1, 2, 3, 4, 5, 6, 7, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], [3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2,2, 2]) , vague.Vague([1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 60, 70, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138], [3,3,3, 3,3,3, 3,3,3, 3,3,3, 4, 4, 4, 1, 1, 1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 5, 5, 5, 5, 4, 4, 4])]
-
-        # self.vagues = [ vague.Vague([1,], [1,]) ]
 
         self.emplacements = [emplacement.emplacement([220, 142]), emplacement.emplacement([220, 346]), emplacement.emplacement([220, 540]), emplacement.emplacement([460, 62]), emplacement.emplacement([460, 262]), emplacement.emplacement([460, 420]), emplacement.emplacement([730, 300]), emplacement.emplacement([730, 500]), emplacement.emplacement([826, 20]), emplacement.emplacement([976, 156])]
 
         self.recompense = [150, 150, 150, 200, 300, 300, 400, 500, 500,  0]
 
         self.next_button_state = False
+
+        self.game_music = 'effects/tests/bg_music1.mp3'
+
+        self.obj = tours.obj([1050,450])
+
+        self.bg = bg_img
 
         def f():
             self.next_button_state = True
@@ -78,29 +110,83 @@ class Niveau1:
     def tri_ennemis(self, tab):
         res = []
         for _ in range(len(tab)):
-            min = None
-            min_position = (4000, 4000)
-            min_actualPt = -1
+            max = None
+            max_position = (-1, -1)
+            max_actualPt = -1
             for e in tab:
-                if e.actualPt > min_actualPt and e not in res:
-                    min = e
-                    min_pos = e.position
-                    min_actualPt = e.actualPt
-                elif e.actualPt == min_actualPt and e not in res:
-                    if e.actualPt in [1, 3, 5, 7]:
-                        if e.position[0]>min_position[0]:
-                            min = e
-                            min_pos = e.position
-                            min_actualPt = e.actualPt
+                e_pos = e.get_real_pos()
+                if e.actualPt > max_actualPt and e not in res:
+                    max = e
+                    max_position = e_pos
+                    max_actualPt = e.actualPt
+                elif e.actualPt == max_actualPt and e not in res:
+                    if e.actualPt in [1, 3, 5, 6, 7]:
+                        if e_pos[0]>max_position[0]:
+                            max = e
+                            max_position = e_pos
+                            max_actualPt = e.actualPt
                     elif e.actualPt == 2:
-                        if e.position[1]>min_position[1]:
-                            min = e
-                            min_pos = e.position
-                            min_actualPt = e.actualPt
+                        if e_pos[1]<max_position[1]:
+                            max = e
+                            max_positions = e_pos
+                            max_actualPt = e.actualPt
                     elif e.actualPt == 4:
-                        if e.position[1]<min_position[1]:
-                            min = e
-                            min_pos = e.position
-                            min_actualPt = e.actualPt
+                        if e_pos[1]>max_position[1]:
+                            max = e
+                            max_pos = e_pos
+                            max_actualPt = e.actualPt
             res.append(min)
         return res
+    
+    def plus_proche(self, range, pos):
+        proche = None
+        proche_dist = 10000
+        for e in self.ennemies:
+            e_pos = e.get_real_pos()
+            dif_x = m.sqrt((pos[0] - e_pos[0])**2)
+            dif_y = m.sqrt((pos[1] - e_pos[1])**2)
+            dist = dif_x + dif_y
+            if range >= dist:
+                if proche_dist > dist:
+                    proche = e
+                    proche_dist = dist
+
+        return proche
+    
+    def plus_loins(self, range, pos):
+
+        loins = None
+        if self.ennemies != []:
+            loins = self.ennemies[0]
+
+            for e in self.ennemies:
+                e_pos = e.get_real_pos()
+                e_pt = e.actualPt
+                loins_pos = loins.get_real_pos()
+                loins_pt = loins.actualPt
+                dif_x = m.sqrt((pos[0] - e_pos[0])**2)
+                dif_y = m.sqrt((pos[1] - e_pos[1])**2)
+                dist = dif_x + dif_y
+                if range >= dist:
+                    if e_pt>loins_pt:
+                        loins = e
+                    elif e_pt == loins_pt:
+                        if loins_pt in [1, 3, 5, 6, 7]:
+                            if e_pos[0]>loins_pos[0]:
+                                loins = e
+                
+                        elif loins_pos == 2:
+                            if e_pt[1]<loins_pos[1]:
+                                loins = e
+
+                        elif loins_pt == 4:
+                            if e_pos[1]>loins_pos[1]:
+                                loins = e
+
+            dif_x = m.sqrt((pos[0] - loins.get_real_pos()[0])**2)
+            dif_y = m.sqrt((pos[1] - loins.get_real_pos()[1])**2)
+            dist = dif_x + dif_y
+            if dist > range:
+                loins = None
+
+        return loins
