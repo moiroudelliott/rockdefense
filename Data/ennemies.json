@@ -51,7 +51,7 @@
 	{
 		"nom": "invocateur",
 		"vie": 750,
-		"cheminSprite": "./textures/sprites/ennemies/nyan_cat.png",
+		"cheminSprite": "./textures/sprites/ennemies/ennemy_summon.png",
 		"degat": 10,
 		"vitesse": 1,
 		"resistance": {
@@ -62,7 +62,7 @@
 		"cooldown": 300,
 		"comportement": "invocateur",
 		"maxVie": 750,
-		"taille": [31, 20]
+		"taille": [30, 30]
 	},
 	{
 		"nom": "magicien",
