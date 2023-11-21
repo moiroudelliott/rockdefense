@@ -15,6 +15,8 @@ volcan_bullet_img3 = pygame.image.load("textures/sprites/towers/bullets/volcan_b
 
 radio_bullet_img1 = pygame.image.load("textures/sprites/towers/bullets/radio_bullet1.png")
 
+heal_bullet_img1 = pygame.image.load("textures/sprites/towers/bullets/healer_zone.png")
+
 class rock1:
     def __init__(self,positionDepart, objectif):
         self.sprite = rock_bullet_img1
@@ -821,7 +823,7 @@ class volcan3:
     
 class heal:
     def __init__(self,pos, realpos):
-        self.sprite = radio_bullet_img1
+        self.sprite = heal_bullet_img1
         self.position = copy(pos)
         self.realpos = copy(realpos)
         self.type = 'magique'
