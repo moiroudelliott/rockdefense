@@ -95,7 +95,7 @@ while not close:
     if etat == "acceuil":
         if f_counter == 0:
             pygame.mixer.music.load('effects/tests/bg_music2.mp3')
-            pygame.mixer.music.set_volume(0.2)
+            pygame.mixer.music.set_volume(0.1)
             pygame.mixer.music.play(-1)
         if event.type == pygame.MOUSEBUTTONDOWN:
             if cooldown < 0:
@@ -119,7 +119,7 @@ while not close:
         if f_counter == 1:
             pygame.mixer.music.stop
             pygame.mixer.music.load('effects/tests/bg_music1.mp3')
-            pygame.mixer.music.set_volume(0.2)
+            pygame.mixer.music.set_volume(0.1)
             pygame.mixer.music.play(-1)
 
         if f_counter %10 == 0:current_ennemies = actual_level.tri_ennemis(c.copy(current_ennemies))
