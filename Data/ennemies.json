@@ -12,7 +12,9 @@
 		"valeur": 10,
 		"cooldown": 10,
 		"comportement": "classique",
-		"maxVie": 100
+		"maxVie": 100,
+		"taille": [30, 30]
+
 	},
 	{
 		"nom": "fast",
@@ -27,7 +29,8 @@
 		"valeur": 10,
 		"cooldown": 10,
 		"comportement": "classique",
-		"maxVie": 50
+		"maxVie": 50,
+		"taille": [30, 30]
 	},
 	{
 		"nom": "tank",
@@ -42,7 +45,8 @@
 		"valeur": 10,
 		"cooldown": 10,
 		"comportement": "classique",
-		"maxVie": 400
+		"maxVie": 400,
+		"taille": [60, 60]
 	},
 	{
 		"nom": "invocateur",
@@ -57,7 +61,8 @@
 		"valeur": 200,
 		"cooldown": 300,
 		"comportement": "invocateur",
-		"maxVie": 750
+		"maxVie": 750,
+		"taille": [31, 20]
 	},
 	{
 		"nom": "magicien",
@@ -72,6 +77,7 @@
 		"valeur": 100,
 		"cooldown": 200,
 		"comportement": "magicien",
-		"maxVie": 1000
+		"maxVie": 1000,
+		"taille": [31, 20]
 	}
 ]

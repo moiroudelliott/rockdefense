@@ -93,13 +93,18 @@ while not close:
 
 #### ETAT == ACCEUIL
     if etat == "acceuil":
-
+        if f_counter == 0:
+            pygame.mixer.music.load('effects/tests/bg_music2.mp3')
+            pygame.mixer.music.set_volume(0.2)
+            pygame.mixer.music.play(-1)
         if event.type == pygame.MOUSEBUTTONDOWN:
             if cooldown < 0:
                 if 416 < mouse[0] <= 880 and 320 < mouse[1] <= 488:
+                    hover_button_sound.play()
+                    start_sound.play()
                     cooldown = 20
                     etat = "game"
-                    f_count = 0
+                    f_counter = 0
 
         if 416 < mouse[0] <= 880 and 320 < mouse[1] <= 488:
             current_bg = menu_img_clicked
@@ -111,6 +116,12 @@ while not close:
 #### ETAT == GAME
     elif etat == "game":
 
+        if f_counter == 1:
+            pygame.mixer.music.stop
+            pygame.mixer.music.load('effects/tests/bg_music1.mp3')
+            pygame.mixer.music.set_volume(0.2)
+            pygame.mixer.music.play(-1)
+
         if f_counter %10 == 0:current_ennemies = actual_level.tri_ennemis(c.copy(current_ennemies))
         current_bg = bg_img
 
@@ -119,7 +130,7 @@ while not close:
             for e in emplacements:
                 money -= e.click(money, mouse)
             obj.click(mouse)
-            actual_level.next_button.click()
+            actual_level.next_button.click(mouse)
 
 
         if current_vague >= len(vagues)-1 and current_ennemies == []:
@@ -142,7 +153,7 @@ while not close:
             ### à la place de if elif mettre ennemies dans une liste et faire Ce.append(Liste ennemies[i])
             ##[03/11]Fait
             # print(enn)
-            if enn == -1:
+            if enn == -1 and current_vague != len(vagues):
                 actual_level.next_button.display(mouse, screen)
                 if actual_level.next_button_state:
                     money += actual_level.recompense[current_vague]
@@ -222,6 +233,7 @@ while not close:
             if cooldown<0:
                 cooldown = 5
                 etat = "pause"
+                hover_button_sound.play()
                 current_bg = pause_bg
 
 
@@ -237,6 +249,7 @@ while not close:
                 cooldown = 5
                 etat = "game"
                 current_bg = bg_img
+                hover_button_sound.play()
 
 
     elif etat == "game_over":

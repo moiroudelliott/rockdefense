@@ -1,6 +1,7 @@
 import math as m
 import pygame
 from copy import copy
+from classes.importation.import_textures import *
 rock_bullet_img1 = pygame.image.load("textures/sprites/towers/bullets/rock_bullet1.png")
 rock_bullet_img2 = pygame.image.load("textures/sprites/towers/bullets/rock_bullet2.png")
 rock_bullet_img3 = pygame.image.load("textures/sprites/towers/bullets/rock_bullet3.png")
@@ -28,7 +29,7 @@ class rock1:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -70,6 +71,7 @@ class rock1:
 
     def toucher(self):
         self.objectif.degat_inflige(self.degat, self.type)
+        pierre_touche_sound.play()
 
 
     def calcule_Distance(self):
@@ -97,7 +99,7 @@ class rock2:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -139,6 +141,7 @@ class rock2:
 
     def toucher(self):
         self.objectif.degat_inflige(self.degat, self.type)
+        pierre_touche_sound.play()
 
 
     def calcule_Distance(self):
@@ -166,7 +169,7 @@ class rock3:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -208,6 +211,7 @@ class rock3:
 
     def toucher(self):
         self.objectif.degat_inflige(self.degat, self.type)
+        pierre_touche_sound.play()
 
 
     def calcule_Distance(self):
@@ -222,6 +226,10 @@ class rock3:
 
         return dist
     
+        if ennemies_proche != None:
+            for e in ennemies_proche:
+                e.degat_inflige(self.degat, self.type)
+
 class radio1:
     def __init__(self,pos, realpos):
         self.sprite = radio_bullet_img1
@@ -241,8 +249,8 @@ class radio1:
         
         self.timer -= 1
 
-        ennemis_proche = self.est_toucher(ennemis, timer)
-        self.toucher(ennemis_proche)
+        ennemis_proche = self.est_toucher(ennemis)
+        self.toucher(ennemis_proche, timer)
 
         if not res:
             CanvasParent.blit(self.sprite, (self.position[0]-self.range, self.position[1]-self.range))
@@ -250,22 +258,45 @@ class radio1:
         return res
 
 
-    def est_toucher(self, ennemies_tab, timer):
+    # def est_toucher(self, ennemies_tab, timer):
+    #     res = []
+    # 
+    #     if timer % self.cooldown == 0:
+    #         for e in ennemies_tab:
+    #             difx = abs(self.position[0] - e.position[0])
+    #             dify = abs(self.position[1] - e.position[1])
+    #             dist = difx + dify
+    #             if self.range >= dist:
+    #                 res.append(e)
+    #     return res
+    # 
+    # def toucher(self, ennemies_proche):
+    #     
+    #     if ennemies_proche != None:
+    #         for e in ennemies_proche:
+    #             e.insertNewEtat( ('vitesse' , 0.5 ) )
+    #             e.degat_inflige(self.degat, self.type)
+                
+    def est_toucher(self, ennemies_tab):
         res = []
 
-        if timer % self.cooldown == 0:
-            for e in ennemies_tab:
-                difx = abs(self.position[0] - e.position[0])
-                dify = abs(self.position[1] - e.position[1])
-                dist = difx + dify
-                if self.range >= dist:
-                    res.append(e)
+        for e in ennemies_tab: # si dans cercle d'interaction
+            difx = abs(self.position[0] - e.position[0])
+            dify = abs(self.position[1] - e.position[1])
+            dist = difx + dify
+            if self.range >= dist:
+                res.append(e) # ajout dans liste ennemi de self
+                
         return res
 
-    def toucher(self, ennemies_proche):
-        if ennemies_proche != None:
+    def toucher(self, ennemies_proche, timer):
+#         if timer % self.cooldown == 0:
+        if ennemies_proche != [] and timer % self.cooldown == 0:
+            radio_sound.play()
             for e in ennemies_proche:
+                # e.insertNewEtat( ('vitesse' , 0.5 ) )
                 e.degat_inflige(self.degat, self.type)
+
 
 class radio2:
     def __init__(self,pos, realpos):
@@ -333,7 +364,8 @@ class radio2:
 
     def toucher(self, ennemies_proche, timer):
 #         if timer % self.cooldown == 0:
-        if ennemies_proche != None and timer % self.cooldown == 0:
+        if ennemies_proche != [] and timer % self.cooldown == 0:
+            radio_sound.play()
             for e in ennemies_proche:
                 # e.insertNewEtat( ('vitesse' , 0.5 ) )
                 e.degat_inflige(self.degat, self.type)
@@ -351,7 +383,7 @@ class cristal1:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -393,6 +425,7 @@ class cristal1:
 
     def toucher(self):
         self.objectif.degat_inflige(self.degat, self.type)
+        magie_touche_sound.play()
 
 
     def calcule_Distance(self):
@@ -420,7 +453,7 @@ class cristal2:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -461,6 +494,7 @@ class cristal2:
         return False
 
     def toucher(self):
+        magie_touche_sound.play()
         self.objectif.degat_inflige(self.degat, self.type)
 
 
@@ -552,11 +586,11 @@ class cristal3:
         self.sprite = cristal_bullet_img3
         self.taille = 128
         self.position = copy(pos)
-        self.objectif = objectif.position
+        self.objectif = objectif
         self.type = 'magique'
         self.vitesse = 40
         self.degat = 60
-        self.range = 40
+        self.range = 50
         self.explose = False
         self.explose_timer = 0
         self.distance = self.calcule_Distance()
@@ -564,7 +598,7 @@ class cristal3:
     def update(self, CanvasParent, ennemis, timer):
         
         pos = self.position
-        obj = self.objectif
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -600,11 +634,11 @@ class cristal3:
             self.toucher(ennemis)
 
         if not self.explose:
-            CanvasParent.blit(self.sprite, (self.position[0]-self.taille/2, self.position[1]-self.taille/2))
+            CanvasParent.blit(self.sprite, (self.position[0], self.position[1]))
         if self.explose:
-            pygame.draw.circle(CanvasParent, (255, 0, 0), self.position, self.range, 2)
+            pygame.draw.circle(CanvasParent, (255, 0, 0), self.objectif.position, self.range, 2)
         
-        return self.explose_timer>20
+        return self.explose_timer>5
 
 
     def est_toucher(self, distance):
@@ -615,10 +649,11 @@ class cristal3:
 
     def toucher(self, ennemies_tab):
         for e in ennemies_tab:
-            difx = abs(self.position[0] - e.position[0])
-            dify = abs(self.position[1] - e.position[1])
+            difx = abs(self.position[0] - e.get_real_pos()[0])
+            dify = abs(self.position[1] - e.get_real_pos()[1])
             dist = difx + dify
             if self.range >= dist:
+
                 e.degat_inflige(self.degat, self.type)
                 
             # application de debuff
@@ -633,7 +668,7 @@ class cristal3:
     def calcule_Distance(self):
 
         pos = self.position
-        obj = self.objectif
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2) #Il faut importer math as m au debut
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -878,6 +913,7 @@ class volcan3:
             self.explose_timer+=1
 
         if self.explose_timer==1:
+            explosion1_sound.play()
             self.toucher(ennemis)
 
         if not self.explose:

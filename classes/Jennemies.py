@@ -217,6 +217,8 @@ class EnnemieModel():
 
         self.cooldown = Data['cooldown']
 
+        self.taille = Data['taille']
+
         self.MaxVie = Data['maxVie']
 
     def create(self, positionDepart, niveau):
@@ -227,6 +229,9 @@ class EnnemieModel():
 
     def copy(self):
         return self
+    
+    def get_real_pos(self):
+        return [self.position[0] + int(self.taille[0]/2), self.position[1] + int(self.taille[1]/2)]
 
     def coefficientEtat(self, type):
         """

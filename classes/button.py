@@ -1,3 +1,5 @@
+from classes.importation.import_textures import *
+
 class Button:
     def __init__(self, pos, taille, sprite, sprite_hover, action):
         self.sprite = sprite
@@ -24,6 +26,8 @@ class Button:
         else:
             self.hover = False
 
-    def click(self):
+    def click(self, mouse):
+        self.hover_check(mouse)
         if self.hover:
+            hover_button_sound.play()
             self.action()
