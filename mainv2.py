@@ -151,12 +151,6 @@ while not close:
 
 
 
-
-
-        if actual_level.vie < 0:
-            etat = "game_over"
-            actual_level = None
-
         actual_level.obj.display(screen, actual_level.money, mouse, font3)
 
         ##[03/11] Affichage centralisé dans une fonction (voir dans une classe ?)
@@ -172,6 +166,11 @@ while not close:
                 current_bg = pause_bg
 
         actual_level.f_counter += 1
+
+        
+        if actual_level.vie < 0:
+            etat = "game_over"
+            actual_level = None
 
 
 
