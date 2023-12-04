@@ -67,7 +67,7 @@ while not close:
                     start_sound.play()
                     cooldown = 20
                     etat = "game"
-                    actual_level = niveau.Niveau1()
+                    actual_level = niveau.Niveau2()
                     current_bg = actual_level.bg
 
 #### FIN ACCEUIL
@@ -115,7 +115,7 @@ while not close:
                 if enn > len(Liste_ennemies):
                     enn = 1
 
-                created_ennemie = generateEnemie(Liste_ennemies[enn -1], actual_level)
+                created_ennemie = generateEnemie(Liste_ennemies[enn -1], actual_level, actual_level.start)
 
                 actual_level.ennemies.append( created_ennemie )
 

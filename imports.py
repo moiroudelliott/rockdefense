@@ -26,7 +26,7 @@ with open( PATH_DATA_ENNEMIES ) as data_file:
 
 parsed_json = json.loads(file_contents)
 
-def generateEnemie (data, actual_level, dictComportement = ennemies.Dict_Comportement): #actual_level -> Niveau
+def generateEnemie (data, actual_level, cos, dictComportement = ennemies.Dict_Comportement): #actual_level -> Niveau
 
     # listeCoordonneAleatoire = [0, r.randint(500, 670)]
     # res = classe(listeCoordonneAleatoire, actual_level)
@@ -42,7 +42,7 @@ def generateEnemie (data, actual_level, dictComportement = ennemies.Dict_Comport
     classe = classe()
     classe.importationJSON( data )
 
-    listeCoordonneAleatoire = [0, r.randint(500, 670)]
+    listeCoordonneAleatoire = [r.randint(cos[0][0], cos[0][1]), r.randint(cos[1][0], cos[1][1])]
 
     classe.create( listeCoordonneAleatoire , actual_level )
 

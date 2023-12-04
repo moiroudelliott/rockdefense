@@ -2,6 +2,7 @@ import pygame
 pygame.mixer.init()
 
 bg_img = pygame.image.load("textures/bg/map1.png")
+bg_img2 = pygame.image.load("textures/bg/map2.png")
 pause_bg = pygame.image.load("textures/bg/pause.png")
 game_over = pygame.image.load("textures/bg/game_over.png")
 win_text = pygame.image.load("textures/bg/win.png")
