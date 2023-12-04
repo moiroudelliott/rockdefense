@@ -79,5 +79,21 @@
 		"comportement": "magicien",
 		"maxVie": 1000,
 		"taille": [31, 20]
+	},
+	{
+		"nom": "boss1",
+		"vie": 5000,
+		"cheminSprite": "./textures/sprites/ennemies/ennemy_boss1.png",
+		"degat": 100,
+		"vitesse": 0.5,
+		"resistance": {
+			"physique": 2,
+			"magique": 2
+		},
+		"valeur": 100,
+		"cooldown": 720,
+		"comportement": "invocateur",
+		"maxVie": 5000,
+		"taille": [128, 128]
 	}
 ]
