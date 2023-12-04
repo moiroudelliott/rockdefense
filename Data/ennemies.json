@@ -9,8 +9,8 @@
 			"physique": 1,
 			"magique": 1
 		},
-		"valeur": 10,
-		"cooldown": 10,
+		"valeur": 5,
+		"cooldown": 30,
 		"comportement": "classique",
 		"maxVie": 100,
 		"taille": [30, 30]
@@ -21,12 +21,12 @@
 		"vie": 50,
 		"cheminSprite": "./textures/sprites/ennemies/ennemy_fast.png",
 		"degat": 10,
-		"vitesse": 4,
+		"vitesse": 6,
 		"resistance": {
 			"physique": 1,
 			"magique": 1
 		},
-		"valeur": 10,
+		"valeur": 8,
 		"cooldown": 10,
 		"comportement": "classique",
 		"maxVie": 50,
@@ -36,14 +36,14 @@
 		"nom": "tank",
 		"vie": 400,
 		"cheminSprite": "./textures/sprites/ennemies/ennemy_tank.png",
-		"degat": 10,
+		"degat": 20,
 		"vitesse": 1,
 		"resistance": {
 			"physique": 2,
 			"magique": 1
 		},
-		"valeur": 10,
-		"cooldown": 10,
+		"valeur": 12,
+		"cooldown": 60,
 		"comportement": "classique",
 		"maxVie": 400,
 		"taille": [60, 60]
@@ -52,13 +52,13 @@
 		"nom": "invocateur",
 		"vie": 750,
 		"cheminSprite": "./textures/sprites/ennemies/ennemy_summon.png",
-		"degat": 10,
+		"degat": 75,
 		"vitesse": 1.5,
 		"resistance": {
 			"physique": 1,
 			"magique": 3
 		},
-		"valeur": 200,
+		"valeur": 75,
 		"cooldown": 300,
 		"comportement": "invocateur",
 		"maxVie": 750,
@@ -68,29 +68,29 @@
 		"nom": "magicien",
 		"vie": 1000,
 		"cheminSprite": "./textures/sprites/ennemies/enneny_magicien.png",
-		"degat": 10,
+		"degat": 75,
 		"vitesse": 1,
 		"resistance": {
-			"physique": 1,
-			"magique": 2
+			"physique": 2,
+			"magique": 4
 		},
-		"valeur": 100,
-		"cooldown": 90,
+		"valeur": 50,
+		"cooldown": 120,
 		"comportement": "magicien",
 		"maxVie": 1000,
 		"taille": [31, 20]
 	},
 	{
 		"nom": "boss1",
-		"vie": 5000,
+		"vie": 10000,
 		"cheminSprite": "./textures/sprites/ennemies/ennemy_boss1.png",
 		"degat": 100,
 		"vitesse": 0.5,
 		"resistance": {
-			"physique": 2,
-			"magique": 2
+			"physique": 4,
+			"magique": 4
 		},
-		"valeur": 100,
+		"valeur": 500,
 		"cooldown": 720,
 		"comportement": "invocateur",
 		"maxVie": 5000,
