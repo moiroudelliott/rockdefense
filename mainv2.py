@@ -67,7 +67,7 @@ while not close:
                     start_sound.play()
                     cooldown = 20
                     etat = "game"
-                    actual_level = niveau.Niveau2()
+                    actual_level = niveau.Niveau1()
                     current_bg = actual_level.bg
 
 #### FIN ACCEUIL
@@ -82,7 +82,6 @@ while not close:
             pygame.mixer.music.set_volume(0.1)
             pygame.mixer.music.play(-1)
 
-        current_ennemies = actual_level.tri_ennemis(c.copy(actual_level.ennemies))
         
         if event.type == pygame.MOUSEBUTTONDOWN and cooldown <= 0:
             cooldown = 5
@@ -189,7 +188,6 @@ while not close:
 
 
     elif etat == "game_over":
-        actual_level.obj.display(screen, 0, mouse, font3)
         screen.blit(game_over,(0,0))
         if f_counter > 90:
             etat = "acceuil"

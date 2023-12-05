@@ -112,34 +112,14 @@ class Pierre:
         return self.prix
 
     def attack(self, ennemies_tab, timer, f):
-        '''res = None
-        if timer % self.cooldown == 0:
-            found = False
-            i = 0
-            while not found and i < len(ennemies_tab):
-                e = ennemies_tab[i]
-                pos = e.get_real_pos()
-                dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
-                dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
-
-                dist = dif_x + dif_y
-                if self.range >= dist:
-                    bullet = self.bullet[self.niveau-1](self.pos, e)
-                    res =  bullet
-                    found = True
-                i +=1'''
-        '''
         res = None
         if timer % self.cooldown == 0:
-            e = f(self.range, self.realpos)
-            if e != None:
-                bullet = self.bullet[self.niveau-1](self.pos, e)
+            enn = f(self.range, self.realpos)
+            i = 0
+            if (enn != None):
+                bullet = self.bullet[self.niveau-1](self.pos, enn)
                 res =  bullet
-        '''
-        res = None
-        if timer % self.cooldown == 0:
-            found = False
-            i = 0
+            '''
             while not found and i < len(ennemies_tab):
                 e = ennemies_tab[i]
                 pos = e.get_real_pos()
@@ -153,6 +133,7 @@ class Pierre:
                     res =  bullet
                     found = True
                 i +=1
+            '''
         return res
 
 
