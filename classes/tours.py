@@ -223,21 +223,10 @@ class obj:
     def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
-            found = False
-            i = 0
-            while not found and i < len(ennemies_tab):
-                e = ennemies_tab[i]
-                pos = e.get_real_pos()
-                ## distance
-                dif_x = (pos[0] - self.pos[0])**2
-                dif_y = (pos[1] - self.pos[1])**2
-                dist = m.sqrt(dif_x + dif_y)
-                ## § distance
-                if self.range >= dist:
-                    bullet = self.bullet[self.niveau-1](self.pos, e)
-                    res =  bullet
-                    found = True
-                i +=1
+            enn = f(self.range, self.realpos)
+            if (enn != None):
+                bullet = self.bullet[self.niveau-1](self.pos, enn)
+                res =  bullet
         return res
 
 
@@ -408,21 +397,10 @@ class Cristal:
     def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
-            found = False
-            i = 0
-            while not found and i < len(ennemies_tab):
-                e = ennemies_tab[i]
-                pos = e.get_real_pos()
-                ## distance
-                dif_x = (pos[0] - self.pos[0])**2
-                dif_y = (pos[1] - self.pos[1])**2
-                dist = m.sqrt(dif_x + dif_y)
-                ## § distance
-                if self.range >= dist:
-                    bullet = self.bullet[self.niveau-1](self.pos, e)
-                    res =  bullet
-                    found = True
-                i +=1
+            enn = f(self.range, self.realpos)
+            if (enn != None):
+                bullet = self.bullet[self.niveau-1](self.pos, enn)
+                res =  bullet
         return res
 
 
@@ -505,18 +483,9 @@ class Volcan:
     def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
-            found = False
-            i = 0
-            while not found and i < len(ennemies_tab):
-                e = ennemies_tab[i]
-                pos = e.get_real_pos()
-                dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
-                dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
-                dist = dif_x + dif_y
-                if self.range >= dist:
-                    bullet = self.bullet[self.niveau-1](self.pos, copy.copy(e.position))
-                    res =  bullet
-                    found = True
-                i +=1
+            enn = f(self.range, self.realpos)
+            if (enn != None):
+                bullet = self.bullet[self.niveau-1](self.pos, enn)
+                res =  bullet
         return res
 

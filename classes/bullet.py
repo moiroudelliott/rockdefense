@@ -531,7 +531,7 @@ class volcan1:
         self.sprite = volcan_bullet_img3
         self.taille = 128
         self.position = copy(positionDepart)
-        self.objectif = objectif
+        self.objectif = objectif.get_real_pos()
         self.type = 'physique'
         self.vitesse = 10
         self.degat = 15
@@ -626,7 +626,7 @@ class volcan2:
     def __init__(self,positionDepart, objectif):
         self.sprite = volcan_bullet_img3
         self.position = copy(positionDepart)
-        self.objectif = objectif
+        self.objectif = objectif.get_real_pos()
         self.type = 'physique'
         self.vitesse = 20
         self.degat = 25
@@ -716,7 +716,7 @@ class volcan3:
     def __init__(self,positionDepart, objectif):
         self.sprite = volcan_bullet_img3
         self.position = copy(positionDepart)
-        self.objectif = objectif
+        self.objectif = objectif.get_real_pos()
         self.type = 'physique'
         self.vitesse = 30
         self.degat = 40
