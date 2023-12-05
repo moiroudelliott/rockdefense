@@ -152,45 +152,15 @@ vague.Vague([1, 2, 3, 4, 5, ], [6, 6, 6, 6, 6,  ]),
 
         return (degats, pos, actualPt)
 
-    def tri_ennemis(self, tab):
-        res = []
-        for _ in range(len(tab)):
-            max = None
-            max_position = (-1, -1)
-            max_actualPt = -1
-            for e in tab:
-                e_pos = e.get_real_pos()
-                if e.actualPt > max_actualPt and e not in res:
-                    max = e
-                    max_position = e_pos
-                    max_actualPt = e.actualPt
-                elif e.actualPt == max_actualPt and e not in res:
-                    if e.actualPt in [1, 3, 5, 6, 7]:
-                        if e_pos[0]>max_position[0]:
-                            max = e
-                            max_position = e_pos
-                            max_actualPt = e.actualPt
-                    elif e.actualPt == 2:
-                        if e_pos[1]<max_position[1]:
-                            max = e
-                            max_positions = e_pos
-                            max_actualPt = e.actualPt
-                    elif e.actualPt == 4:
-                        if e_pos[1]>max_position[1]:
-                            max = e
-                            max_pos = e_pos
-                            max_actualPt = e.actualPt
-            res.append(min)
-        return res
 
     def plus_proche(self, range, pos):
         proche = None
         proche_dist = 10000
         for e in self.ennemies:
             e_pos = e.get_real_pos()
-            dif_x = m.sqrt((pos[0] - e_pos[0])**2)
-            dif_y = m.sqrt((pos[1] - e_pos[1])**2)
-            dist = dif_x + dif_y
+            dif_x = (pos[0] - e_pos[0])**2
+            dif_y = (pos[1] - e_pos[1])**2
+            dist = m.sqrt(dif_x + dif_y)
             if range >= dist:
                 if proche_dist > dist:
                     proche = e
@@ -209,9 +179,9 @@ vague.Vague([1, 2, 3, 4, 5, ], [6, 6, 6, 6, 6,  ]),
                 e_pt = e.actualPt
                 loins_pos = loins.get_real_pos()
                 loins_pt = loins.actualPt
-                dif_x = m.sqrt((pos[0] - e_pos[0])**2)
-                dif_y = m.sqrt((pos[1] - e_pos[1])**2)
-                dist = dif_x + dif_y
+                dif_x = (pos[0] - e_pos[0])**2
+                dif_y = (pos[1] - e_pos[1])**2
+                dist = m.sqrt(dif_x + dif_y)
                 if range >= dist:
                     if e_pt>loins_pt:
                         loins = e
@@ -228,9 +198,9 @@ vague.Vague([1, 2, 3, 4, 5, ], [6, 6, 6, 6, 6,  ]),
                             if e_pos[1]>loins_pos[1]:
                                 loins = e
 
-            dif_x = m.sqrt((pos[0] - loins.get_real_pos()[0])**2)
-            dif_y = m.sqrt((pos[1] - loins.get_real_pos()[1])**2)
-            dist = dif_x + dif_y
+            dif_x = (pos[0] - loins.get_real_pos()[0])**2
+            dif_y = (pos[1] - loins.get_real_pos()[1])**2
+            dist = m.sqrt(dif_x + dif_y)
             if dist > range:
                 loins = None
 
