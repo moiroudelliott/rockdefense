@@ -786,7 +786,7 @@ class volcan3:
             dist = dif_x + dif_y
             if self.range >= dist:
                 e.degat_inflige(self.degat, self.type)
-                e.insertNewEtat( ('vie' , 10, 30*10+29, 30*2, hex(id(self)) ) )
+                e.insertNewEtat( ('vie' , 5, 30*10+29, 30*2, hex(id(self)) ) ) # 10
 
 
 
