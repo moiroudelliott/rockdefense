@@ -83,7 +83,7 @@ vague.Vague([1, 2, 3, 4, 5, ], [6, 6, 6, 6, 6,  ]),
 
         ]
 
-        self.recompense = [100, 100, 200, 300, 400, 400, 500, 600, 500, 100, 0]
+        self.recompense = [100, 100, 200, 300, 400, 400, 400, 300, 500, 100, 0]
         # self.recompense = [150, 150, 150, 200, 300, 300, 400, 500, 500,  0]
 
         self.emplacements = [emplacement.emplacement([220, 142]), emplacement.emplacement([220, 346]), emplacement.emplacement([220, 540]), emplacement.emplacement([460, 62]), emplacement.emplacement([460, 262]), emplacement.emplacement([460, 420]), emplacement.emplacement([730, 300]), emplacement.emplacement([730, 500]), emplacement.emplacement([826, 20]), emplacement.emplacement([976, 156])]
