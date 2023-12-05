@@ -185,6 +185,7 @@ class EnnemieModel():
         self.sprite = None
         self.degat = None
         self.vitesse = None
+        self.choix = r.randint(0, 1)
         self.resistance = None
         self.etat = {
                         "vitesse": [],
@@ -216,6 +217,8 @@ class EnnemieModel():
         self.actualPt = 1 # A voir si modification
 
         self.cooldown = Data['cooldown']
+
+        self.choix = r.randint(0, 1)
 
         self.taille = Data['taille']
 
@@ -340,7 +343,8 @@ class ComportementStandart(EnnemieModel):
                                     self.position, self.degat_attaque() * self.coefficientEtat( 'degat' ),
                                      self.actualPt,
                                      self.pts,
-                                     self.cooldown) # calcul pos + degat + point d'emplacement actuel (!important)
+                                     self.cooldown,
+                                     self.choix) # calcul pos + degat + point d'emplacement actuel (!important)
 
 
         self.position = array[1]
@@ -365,7 +369,7 @@ class ComportementInvocateur(EnnemieModel):
 
         self.updateEtat()
 
-        array = self.niveau.update(timer, self.vitesse * self.coefficientEtat( 'vitesse' ), self.position, self.degat_attaque() * self.coefficientEtat( 'degat' ), self.actualPt, self.pts, self.cooldown) # calcul pos + degat + point d'emplacement actuel (!important)
+        array = self.niveau.update(timer, self.vitesse * self.coefficientEtat( 'vitesse' ), self.position, self.degat_attaque() * self.coefficientEtat( 'degat' ), self.actualPt, self.pts, self.cooldown, self.choix) # calcul pos + degat + point d'emplacement actuel (!important)
 
         self.position = array[1]
         self.actualPt = array[2]
@@ -427,7 +431,8 @@ class ComportementMagicien(EnnemieModel):
                                     self.position, self.degat_attaque() * self.coefficientEtat( 'degat' ),
                                      self.actualPt,
                                      self.pts,
-                                     self.cooldown) # calcul pos + degat + point d'emplacement actuel (!important)
+                                     self.cooldown,
+                                     self.choix) # calcul pos + degat + point d'emplacement actuel (!important)
 
 
         self.position = array[1]

@@ -3,7 +3,7 @@ pygame.mixer.set_num_channels(20)
 
 def affichageHUD (vie, money, actual_wave, screen):
     life = font.render(str(vie), True, "red")
-    screen.blit(life, (1090,660))
+    screen.blit(life, actual_level.pos_life)
 
     moneyTxT = font.render(str(money), True, "yellow")
     screen.blit(moneyTxT, (0,0))
@@ -67,7 +67,7 @@ while not close:
                     start_sound.play()
                     cooldown = 20
                     etat = "game"
-                    actual_level = niveau.Niveau1()
+                    actual_level = niveau.Niveau2()
                     current_bg = actual_level.bg
 
 #### FIN ACCEUIL
@@ -89,34 +89,6 @@ while not close:
                 actual_level.money -= e.click(actual_level.money, mouse)
             actual_level.obj.click(mouse)
             actual_level.next_button.click(mouse)
-
-
-        if actual_level.actual_wave >= len(actual_level.vagues) and actual_level.ennemies == []:
-            actual_level = None
-            f_counter = 0
-            etat = "win"
-
-        elif actual_level.actual_wave < len(actual_level.vagues):
-
-            enn = actual_level.vagues[actual_level.actual_wave].nextFrame()
-
-            if enn == -1:
-                actual_level.next_button.display(mouse, screen)
-
-                if actual_level.next_button_state:
-                    actual_level.money += actual_level.recompense[actual_level.actual_wave]
-                    actual_level.actual_wave += 1
-                    actual_level.next_button_state = False
-                    pygame.mixer.Sound.play(new_wave_sound)
-
-            elif enn > 0:
-
-                if enn > len(Liste_ennemies):
-                    enn = 1
-
-                created_ennemie = generateEnemie(Liste_ennemies[enn -1], actual_level, actual_level.start)
-
-                actual_level.ennemies.append( created_ennemie )
 
         for i in range(len(actual_level.bullets)-1, -1, -1):
             b = actual_level.bullets[i]
@@ -148,14 +120,48 @@ while not close:
                 actual_level.money += e.valeur
                 actual_level.ennemies.pop(i)
 
-
+        actual_level.f_counter += 1
 
         actual_level.obj.display(screen, actual_level.money, mouse, font3)
 
         ##[03/11] Affichage centralisé dans une fonction (voir dans une classe ?)
         affichageHUD (actual_level.vie, actual_level.money, actual_level.actual_wave, screen)
 
+        if actual_level.vie < 0:
+            etat = "game_over"
+            f_counter = 0
+            actual_level = None
 
+
+
+
+        enn = actual_level.vagues[actual_level.actual_wave].nextFrame()
+
+        if enn == -1:
+            if actual_level.actual_wave >= len(actual_level.vagues)-1 and len(actual_level.ennemies) == 0:
+                actual_level = None
+                f_counter = 0
+                etat = "win"
+            elif actual_level.actual_wave < len(actual_level.vagues)-1:
+                actual_level.next_button.display(mouse, screen)
+
+                if actual_level.next_button_state:
+                    actual_level.money += actual_level.recompense[actual_level.actual_wave]
+                    actual_level.actual_wave += 1
+                    actual_level.next_button_state = False
+                    pygame.mixer.Sound.play(new_wave_sound)
+
+        elif enn > 0:
+
+            if enn > len(Liste_ennemies):
+                enn = 1
+
+            created_ennemie = generateEnemie(Liste_ennemies[enn -1], actual_level, actual_level.start)
+
+            actual_level.ennemies.append( created_ennemie )
+
+
+        
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             if cooldown<0:
@@ -164,12 +170,7 @@ while not close:
                 hover_button_sound.play()
                 current_bg = pause_bg
 
-        actual_level.f_counter += 1
 
-        
-        if actual_level.vie < 0:
-            etat = "game_over"
-            actual_level = None
 
 
 
@@ -193,7 +194,6 @@ while not close:
             etat = "acceuil"
 
     elif etat == "win":
-        actual_level.obj.display(screen, 0, mouse, font3)
         screen.blit(win_text,(0,0))
         if f_counter > 90:
             etat = "acceuil"

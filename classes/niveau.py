@@ -1,4 +1,5 @@
 import classes.vague as vague
+import random as r
 import classes.emplacement as emplacement
 import classes.Jennemies as ennemies
 import classes.button as button
@@ -25,6 +26,8 @@ class Niveau:
         self.actual_wave = 0
         self.ennemies = []
         self.bullets = []
+
+        self.pos_life = (1090,660)
 
         self.f_counter = 0
 
@@ -186,12 +189,12 @@ vague.Vague([1, 2, 3, 4, 5, ], [6, 6, 6, 6, 6,  ]),
                     if e_pt>loins_pt:
                         loins = e
                     elif e_pt == loins_pt:
-                        if loins_pt in [1, 3, 6, 7]:
+                        if loins_pt in [1, 3, 5, 7, 8]:
                             if e_pos[0]>loins_pos[0]:
                                 loins = e
 
-                        elif loins_pos in [2, 5]:
-                            if e_pt[1]<loins_pos[1]:
+                        elif loins_pt in [2, 6]:
+                            if e_pos[1]<loins_pos[1]:
                                 loins = e
 
                         elif loins_pt == 4:
@@ -214,7 +217,8 @@ class Niveau2(Niveau):
 
         self.pts = [(605, 678), (0, 63), (291, 390), (342, 405), (30, 143), (748, 827), (34, 128), (1090, 1172), (531, 616), (703, 916)]
 
-        self.vagues = [vague.Vague([1,2, 3], [6,1,1]), vague.Vague([1,2, 3, 4, 5, 35, 36, 37, 38, 39, 40], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), vague.Vague([1,2,3, 33, 34], [1,1,1, 2, 2]), vague.Vague([1, 61, 62, 122, 123, 124], [3, 1, 1, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104], [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 33, 63, 64, 65, 155, 156, 157, 158, 159], [3, 3, 3, 4, 3, 3, 3, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 120, 121, 180, 181, 182], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 3, 3, 3]),vague.Vague([1, 2, 3, 4, 5, 6, 7, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], [3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2,2, 2]) , vague.Vague([1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 60, 70, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138], [3,3,3, 3,3,3, 3,3,3, 3,3,3, 4, 4, 4, 1, 1, 1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 5, 5, 5, 5, 4, 4, 4])]
+        self.vagues = [vague.Vague([1,2, 3], [1,1,1]), vague.Vague([1,2, 3, 4, 5, 35, 36, 37, 38, 39, 40], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), vague.Vague([1,2,3, 33, 34], [1,1,1, 2, 2]), vague.Vague([1, 61, 62, 122, 123, 124], [3, 1, 1, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104], [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 33, 63, 64, 65, 155, 156, 157, 158, 159], [3, 3, 3, 4, 3, 3, 3, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 120, 121, 180, 181, 182], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 3, 3, 3]),vague.Vague([1, 2, 3, 4, 5, 6, 7, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], [3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2,2, 2]) , vague.Vague([1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 60, 70, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138], [3,3,3, 3,3,3, 3,3,3, 3,3,3, 4, 4, 4, 1, 1, 1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 5, 5, 5, 5, 4, 4, 4])]
+        #self.vagues = [vague.Vague([1], [2])]
         self.emplacements = [emplacement.emplacement([20, 144]), emplacement.emplacement([77, 420]), emplacement.emplacement([327, 427]), emplacement.emplacement([428, 168]), emplacement.emplacement([625, 168]), emplacement.emplacement([855, 154]), emplacement.emplacement([991, 154]), emplacement.emplacement([857, 402]), emplacement.emplacement([990, 402])]
 
         self.recompense = [150, 150, 150, 200, 300, 300, 400, 500, 500,  0]
@@ -223,18 +227,21 @@ class Niveau2(Niveau):
 
         self.game_music = 'effects/tests/bg_music1.mp3'
 
-        self.obj = tours.obj([9000,480])
+        self.obj = tours.obj([520,440])
+        #self.obj = tours.obj([7888,440])
+
+        self.pos_life = (560, 655)
 
         self.bg = bg_img2
 
-        self.start = [[222, 320], [0, 0]]
+        self.start = [[205, 250], [0, 0]]
 
         def f():
             self.next_button_state = True
 
         self.next_button = button.Button((539, 10), (84, 51), button_texture, button_push_texture, f)
 
-    def update(self, timer, vitesse, position, deg, actualPt, pts, cooldown):
+    def update(self, timer, vitesse, position, deg, actualPt, pts, cooldown, choix):
         vit = vitesse
         pos = position
 
@@ -257,7 +264,9 @@ class Niveau2(Niveau):
 
         elif actualPt==4:
             pos[0] += vit
-            if pos[0] > pts[3]:
+            if pos[0] > pts[3] + 430:
+                actualPt+=1
+            if pos[0] > pts[3] and choix == 1:
                 actualPt+=1
 
         elif actualPt==5:
@@ -271,9 +280,8 @@ class Niveau2(Niveau):
                 actualPt+=1
 
         elif actualPt==7:
-            pos[1] -= vit
-            if pos[1] < pts[6]:
-                actualPt+=1
+            pos[0] += vit
+            actualPt+=1
 
         elif actualPt==8:
             pos[0] += vit
@@ -334,12 +342,12 @@ class Niveau2(Niveau):
                             if e_pos[0]>loins_pos[0]:
                                 loins = e
 
-                        elif loins_pos in [2, 8, 9]:
-                            if e_pt[0]<loins_pos[0]:
+                        elif loins_pt in [2, 8, 9]:
+                            if e_pos[0]<loins_pos[0]:
                                 loins = e
                 
-                        elif loins_pos in [3, 5]:
-                            if e_pt[1]<loins_pos[1]:
+                        elif loins_pt in [3, 5]:
+                            if e_pos[1]<loins_pos[1]:
                                 loins = e
 
                         elif loins_pt in [1, 7]:
