@@ -242,11 +242,10 @@ class Niveau2(Niveau):
 
         Niveau.__init__(self)
 
-        self.pts = [(605, 678), (0, 63), (291, 390), (342, 405), (131, 235), (748, 827), (34, 128), (1090, 1172), (531, 616), (703, 916)]
+        self.pts = [(605, 678), (0, 63), (291, 390), (342, 405), (30, 143), (748, 827), (34, 128), (1090, 1172), (531, 616), (703, 916)]
 
-        self.vagues = [vague.Vague([1,2, 3], [1,1,1]), vague.Vague([1,2, 3, 4, 5, 35, 36, 37, 38, 39, 40], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), vague.Vague([1,2,3, 33, 34], [1,1,1, 2, 2]), vague.Vague([1, 61, 62, 122, 123, 124], [3, 1, 1, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104], [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 33, 63, 64, 65, 155, 156, 157, 158, 159], [3, 3, 3, 4, 3, 3, 3, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 120, 121, 180, 181, 182], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 3, 3, 3]),vague.Vague([1, 2, 3, 4, 5, 6, 7, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], [3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2,2, 2]) , vague.Vague([1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 60, 70, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138], [3,3,3, 3,3,3, 3,3,3, 3,3,3, 4, 4, 4, 1, 1, 1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 5, 5, 5, 5, 4, 4, 4])]
-        self.vagues = [vague.Vague([1], [2])]
-        self.emplacements = [emplacement.emplacement([86, 185]), emplacement.emplacement([86, 498]), emplacement.emplacement([86, 520]), emplacement.emplacement([421, 225]), emplacement.emplacement([297, 420]), emplacement.emplacement([660, 225]), emplacement.emplacement([854, 146]), emplacement.emplacement([999, 150]), emplacement.emplacement([854, 285]), emplacement.emplacement([972, 411]), emplacement.emplacement([807, 639]), emplacement.emplacement([325, 13])]
+        self.vagues = [vague.Vague([1,2, 3], [6,1,1]), vague.Vague([1,2, 3, 4, 5, 35, 36, 37, 38, 39, 40], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]), vague.Vague([1,2,3, 33, 34], [1,1,1, 2, 2]), vague.Vague([1, 61, 62, 122, 123, 124], [3, 1, 1, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104], [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 33, 63, 64, 65, 155, 156, 157, 158, 159], [3, 3, 3, 4, 3, 3, 3, 2, 2, 2, 2, 2]), vague.Vague([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 120, 121, 180, 181, 182], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 3, 3, 3]),vague.Vague([1, 2, 3, 4, 5, 6, 7, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36], [3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2,2, 2]) , vague.Vague([1,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 60, 70, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138], [3,3,3, 3,3,3, 3,3,3, 3,3,3, 4, 4, 4, 1, 1, 1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 5, 5, 5, 5, 4, 4, 4])]
+        self.emplacements = [emplacement.emplacement([20, 144]), emplacement.emplacement([77, 420]), emplacement.emplacement([327, 427]), emplacement.emplacement([428, 168]), emplacement.emplacement([625, 168]), emplacement.emplacement([855, 154]), emplacement.emplacement([991, 154]), emplacement.emplacement([857, 402]), emplacement.emplacement([990, 402])]
 
         self.recompense = [150, 150, 150, 200, 300, 300, 400, 500, 500,  0]
 
@@ -273,66 +272,55 @@ class Niveau2(Niveau):
 
         if actualPt==1:
             pos[1] += vit
-            print(1)
             if pos[1]>pts[0]:
                 actualPt+=1
 
         elif actualPt==2:
             pos[0] -= vit
-            print(2)
             if pos[0] < pts[1]:
                 actualPt+=1
 
         elif actualPt==3:
             pos[1] -= vit
-            print(3)
             if pos[1]<pts[2]:
                 actualPt+=1
 
         elif actualPt==4:
-            print(4)
             pos[0] += vit
             if pos[0] > pts[3]:
                 actualPt+=1
 
         elif actualPt==5:
             pos[1] -= vit
-            print(5)
             if pos[1] < pts[4]:
                 actualPt+=1
 
         elif actualPt==6:
             pos[0] += vit
-            print(6)
             if pos[0] > pts[5]:
                 actualPt+=1
 
         elif actualPt==7:
-            print(7)
             pos[1] -= vit
             if pos[1] < pts[6]:
                 actualPt+=1
 
         elif actualPt==8:
-            print(8)
             pos[0] += vit
             if pos[0] > pts[7]:
                 actualPt+=1
         
         elif actualPt==9:
-            print(pos)
             pos[1] += vit
             if pos[1] > pts[8]:
                 actualPt+=1
 
         elif actualPt==10:
-            print(10)
             pos[0] -=vit
             if pos[0] < pts[9]:
                 actualPt +=1
 
         else :
-            print("fin")
             if timer % cooldown == 0:
                 degats = deg
 
