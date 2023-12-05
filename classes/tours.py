@@ -60,6 +60,7 @@ class Pierre:
 
         if hover:
             pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range, 2)
+            # pygame.draw.circle(canvas, (255, 0, 0), self.realpos, self.range, 2)
             if self.niveau < 4:
                 prix = font.render(str(self.next_up_price), True, "yellow")
                 canvas.blit(prix, (self.realpos[0], self.realpos[1]-15))
@@ -127,12 +128,31 @@ class Pierre:
                     res =  bullet
                     found = True
                 i +=1'''
+        '''
         res = None
         if timer % self.cooldown == 0:
             e = f(self.range, self.realpos)
             if e != None:
                 bullet = self.bullet[self.niveau-1](self.pos, e)
                 res =  bullet
+        '''
+        res = None
+        if timer % self.cooldown == 0:
+            found = False
+            i = 0
+            while not found and i < len(ennemies_tab):
+                e = ennemies_tab[i]
+                pos = e.get_real_pos()
+                ## distance
+                dif_x = (pos[0] - self.pos[0])**2
+                dif_y = (pos[1] - self.pos[1])**2
+                dist = m.sqrt(dif_x + dif_y)
+                ## § distance
+                if self.range >= dist:
+                    bullet = self.bullet[self.niveau-1](self.pos, e)
+                    res =  bullet
+                    found = True
+                i +=1
         return res
 
 
@@ -157,7 +177,6 @@ class obj:
     def display(self, canvas, money, mouse, font):
 
         self.hoverCheck(mouse)
-
 
         canvas.blit(self.sprite, self.realpos)
         if self.next_up_price <= money:
@@ -228,9 +247,11 @@ class obj:
             while not found and i < len(ennemies_tab):
                 e = ennemies_tab[i]
                 pos = e.get_real_pos()
-                dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
-                dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
-                dist = dif_x + dif_y
+                ## distance
+                dif_x = (pos[0] - self.pos[0])**2
+                dif_y = (pos[1] - self.pos[1])**2
+                dist = m.sqrt(dif_x + dif_y)
+                ## § distance
                 if self.range >= dist:
                     bullet = self.bullet[self.niveau-1](self.pos, e)
                     res =  bullet
@@ -411,9 +432,11 @@ class Cristal:
             while not found and i < len(ennemies_tab):
                 e = ennemies_tab[i]
                 pos = e.get_real_pos()
-                dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
-                dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
-                dist = dif_x + dif_y
+                ## distance
+                dif_x = (pos[0] - self.pos[0])**2
+                dif_y = (pos[1] - self.pos[1])**2
+                dist = m.sqrt(dif_x + dif_y)
+                ## § distance
                 if self.range >= dist:
                     bullet = self.bullet[self.niveau-1](self.pos, e)
                     res =  bullet
