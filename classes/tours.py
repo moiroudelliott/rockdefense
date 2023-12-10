@@ -60,6 +60,7 @@ class Pierre:
 
         if hover:
             pygame.draw.circle(canvas, (255, 0, 0), self.pos, self.range, 2)
+            # pygame.draw.circle(canvas, (255, 0, 0), self.realpos, self.range, 2)
             if self.niveau < 4:
                 prix = font.render(str(self.next_up_price), True, "yellow")
                 canvas.blit(prix, (self.realpos[0], self.realpos[1]-15))
@@ -110,21 +111,29 @@ class Pierre:
     def sell(self):
         return self.prix
 
-    def attack(self, ennemies_tab, timer):
+    def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
-            found = False
+            enn = f(self.range, self.realpos)
             i = 0
+            if (enn != None):
+                bullet = self.bullet[self.niveau-1](self.pos, enn)
+                res =  bullet
+            '''
             while not found and i < len(ennemies_tab):
                 e = ennemies_tab[i]
-                difx = abs(self.pos[0] - e.position[0])
-                dify = abs(self.pos[1] - e.position[1])
-                dist = difx + dify
+                pos = e.get_real_pos()
+                ## distance
+                dif_x = (pos[0] - self.pos[0])**2
+                dif_y = (pos[1] - self.pos[1])**2
+                dist = m.sqrt(dif_x + dif_y)
+                ## § distance
                 if self.range >= dist:
                     bullet = self.bullet[self.niveau-1](self.pos, e)
                     res =  bullet
                     found = True
                 i +=1
+            '''
         return res
 
 
@@ -149,7 +158,6 @@ class obj:
     def display(self, canvas, money, mouse, font):
 
         self.hoverCheck(mouse)
-
 
         canvas.blit(self.sprite, self.realpos)
         if self.next_up_price <= money:
@@ -212,21 +220,13 @@ class obj:
     def sell(self):
         return self.prix
 
-    def attack(self, ennemies_tab, timer):
+    def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
-            found = False
-            i = 0
-            while not found and i < len(ennemies_tab):
-                e = ennemies_tab[i]
-                difx = abs(self.pos[0] - e.position[0])
-                dify = abs(self.pos[1] - e.position[1])
-                dist = difx + dify
-                if self.range >= dist:
-                    bullet = self.bullet[self.niveau-1](self.pos, e)
-                    res =  bullet
-                    found = True
-                i +=1
+            enn = f(self.range, self.realpos)
+            if (enn != None):
+                bullet = self.bullet[self.niveau-1](self.pos, enn)
+                res =  bullet
         return res
 
 
@@ -305,7 +305,7 @@ class Radio:
     def sell(self):
         return self.prix
 
-    def attack(self, ennemies_tab, timer):
+    def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
             bullet = self.bullet[self.niveau-1](self.pos, self.realpos)
@@ -394,21 +394,13 @@ class Cristal:
     def sell(self):
         return self.prix
 
-    def attack(self, ennemies_tab, timer):
+    def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
-            found = False
-            i = 0
-            while not found and i < len(ennemies_tab):
-                e = ennemies_tab[i]
-                difx = abs(self.pos[0] - e.position[0])
-                dify = abs(self.pos[1] - e.position[1])
-                dist = difx + dify
-                if self.range >= dist:
-                    bullet = self.bullet[self.niveau-1](self.pos, e)
-                    res =  bullet
-                    found = True
-                i +=1
+            enn = f(self.range, self.realpos)
+            if (enn != None):
+                bullet = self.bullet[self.niveau-1](self.pos, enn)
+                res =  bullet
         return res
 
 
@@ -488,20 +480,12 @@ class Volcan:
     def sell(self):
         return self.prix
 
-    def attack(self, ennemies_tab, timer):
+    def attack(self, ennemies_tab, timer, f):
         res = None
         if timer % self.cooldown == 0:
-            found = False
-            i = 0
-            while not found and i < len(ennemies_tab):
-                e = ennemies_tab[i]
-                difx = abs(self.pos[0] - e.position[0])
-                dify = abs(self.pos[1] - e.position[1])
-                dist = difx + dify
-                if self.range >= dist:
-                    bullet = self.bullet[self.niveau-1](self.pos, copy.copy(e.position))
-                    res =  bullet
-                    found = True
-                i +=1
+            enn = f(self.range, self.realpos)
+            if (enn != None):
+                bullet = self.bullet[self.niveau-1](self.pos, enn)
+                res =  bullet
         return res
 

@@ -15,6 +15,8 @@ volcan_bullet_img3 = pygame.image.load("textures/sprites/towers/bullets/volcan_b
 
 radio_bullet_img1 = pygame.image.load("textures/sprites/towers/bullets/radio_bullet1.png")
 
+heal_bullet_img1 = pygame.image.load("textures/sprites/towers/bullets/healer_zone.png")
+
 class rock1:
     def __init__(self,positionDepart, objectif):
         self.sprite = rock_bullet_img1
@@ -77,7 +79,7 @@ class rock1:
         pos = self.position
         obj = self.objectif.position
 
-        dif_x = m.sqrt((pos[0] - obj[0])**2) #Il faut importer math as m au debut
+        dif_x = m.sqrt((pos[0] - obj[0])**2) 
         dif_y = m.sqrt((pos[1] - obj[1])**2)
 
         dist = dif_x + dif_y
@@ -255,9 +257,10 @@ class radio1:
 
         if timer % self.cooldown == 0:
             for e in ennemies_tab:
-                difx = abs(self.position[0] - e.position[0])
-                dify = abs(self.position[1] - e.position[1])
-                dist = difx + dify
+                pos = e.get_real_pos()
+                dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
+                dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
+                dist = dif_x + dif_y
                 if self.range >= dist:
                     res.append(e)
         return res
@@ -293,38 +296,17 @@ class radio2:
             CanvasParent.blit(self.sprite, (self.position[0]-self.range, self.position[1]-self.range))
         
         return res
-
-
-    # def est_toucher(self, ennemies_tab, timer):
-    #     res = []
-    # 
-    #     if timer % self.cooldown == 0:
-    #         for e in ennemies_tab:
-    #             difx = abs(self.position[0] - e.position[0])
-    #             dify = abs(self.position[1] - e.position[1])
-    #             dist = difx + dify
-    #             if self.range >= dist:
-    #                 res.append(e)
-    #     return res
-    # 
-    # def toucher(self, ennemies_proche):
-    #     
-    #     if ennemies_proche != None:
-    #         for e in ennemies_proche:
-    #             e.insertNewEtat( ('vitesse' , 0.5 ) )
-    #             e.degat_inflige(self.degat, self.type)
-                
+             
     def est_toucher(self, ennemies_tab):
         res = []
 
-        for e in ennemies_tab: # si dans cercle d'interaction
-            difx = abs(self.position[0] - e.position[0])
-            dify = abs(self.position[1] - e.position[1])
-            dist = difx + dify
+        for e in ennemies_tab:
+            pos = e.get_real_pos()
+            dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
+            dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
+            dist = dif_x + dif_y
             if self.range >= dist:
-                res.append(e) # ajout dans liste ennemi de self
-                
-        # application de debuff
+                res.append(e)
         
         for ennemie in res:
             ennemie.insertNewEtat( ('vitesse' , 0.5, 2, 2, hex(id(self)) ) )
@@ -332,10 +314,8 @@ class radio2:
         return res
 
     def toucher(self, ennemies_proche, timer):
-#         if timer % self.cooldown == 0:
         if ennemies_proche != None and timer % self.cooldown == 0:
             for e in ennemies_proche:
-                # e.insertNewEtat( ('vitesse' , 0.5 ) )
                 e.degat_inflige(self.degat, self.type)
 
 class cristal1:
@@ -551,7 +531,7 @@ class volcan1:
         self.sprite = volcan_bullet_img3
         self.taille = 128
         self.position = copy(positionDepart)
-        self.objectif = objectif
+        self.objectif = objectif.get_real_pos()
         self.type = 'physique'
         self.vitesse = 10
         self.degat = 15
@@ -614,9 +594,10 @@ class volcan1:
 
     def toucher(self, ennemies_tab):
         for e in ennemies_tab:
-            difx = abs(self.position[0] - e.position[0])
-            dify = abs(self.position[1] - e.position[1])
-            dist = difx + dify
+            pos = e.get_real_pos()
+            dif_x = m.sqrt((pos[0] - self.position[0])**2)
+            dif_y = m.sqrt((pos[1] - self.position[1])**2)
+            dist = dif_x + dif_y
             if self.range >= dist:
                 e.degat_inflige(self.degat, self.type)
                 
@@ -645,7 +626,7 @@ class volcan2:
     def __init__(self,positionDepart, objectif):
         self.sprite = volcan_bullet_img3
         self.position = copy(positionDepart)
-        self.objectif = objectif
+        self.objectif = objectif.get_real_pos()
         self.type = 'physique'
         self.vitesse = 20
         self.degat = 25
@@ -709,9 +690,10 @@ class volcan2:
 
     def toucher(self, ennemies_tab):
         for e in ennemies_tab:
-            difx = abs(self.position[0] - e.position[0])
-            dify = abs(self.position[1] - e.position[1])
-            dist = difx + dify
+            pos = e.get_real_pos()
+            dif_x = m.sqrt((pos[0] - self.position[0])**2)
+            dif_y = m.sqrt((pos[1] - self.position[1])**2)
+            dist = dif_x + dif_y
             if self.range >= dist:
                 e.degat_inflige(self.degat, self.type)
                 e.insertNewEtat( ('vie' , 10, 30*10+29, 30*2, hex(id(self)) ) )
@@ -734,7 +716,7 @@ class volcan3:
     def __init__(self,positionDepart, objectif):
         self.sprite = volcan_bullet_img3
         self.position = copy(positionDepart)
-        self.objectif = objectif
+        self.objectif = objectif.get_real_pos()
         self.type = 'physique'
         self.vitesse = 30
         self.degat = 40
@@ -798,12 +780,13 @@ class volcan3:
 
     def toucher(self, ennemies_tab):
         for e in ennemies_tab:
-            difx = abs(self.position[0] - e.position[0])
-            dify = abs(self.position[1] - e.position[1])
-            dist = difx + dify
+            pos = e.get_real_pos()
+            dif_x = m.sqrt((pos[0] - self.position[0])**2)
+            dif_y = m.sqrt((pos[1] - self.position[1])**2)
+            dist = dif_x + dif_y
             if self.range >= dist:
                 e.degat_inflige(self.degat, self.type)
-                e.insertNewEtat( ('vie' , 10, 30*10+29, 30*2, hex(id(self)) ) )
+                e.insertNewEtat( ('vie' , 5, 30*10+29, 30*2, hex(id(self)) ) ) # 10
 
 
 
@@ -821,7 +804,7 @@ class volcan3:
     
 class heal:
     def __init__(self,pos, realpos):
-        self.sprite = radio_bullet_img1
+        self.sprite = heal_bullet_img1
         self.position = copy(pos)
         self.realpos = copy(realpos)
         self.type = 'magique'
@@ -858,9 +841,10 @@ class heal:
         res = []
 
         for e in ennemies_tab: # si dans cercle d'interaction
-            difx = abs(self.position[0] - e.position[0])
-            dify = abs(self.position[1] - e.position[1])
-            dist = difx + dify
+            pos = e.get_real_pos()
+            dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
+            dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
+            dist = dif_x + dif_y
             if self.range >= dist:
                 res.append(e) # ajout dans liste ennemi de self
                 

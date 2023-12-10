@@ -1,0 +1,30 @@
+liste des sons dont nous avons besoin
+
+Musique menu
+Musique en jeu
+Musique nouvelle vague
+tir pour chaques tours
+coup reçu pierre 
+coup reçu pierre resistance
+coup reçu magique 
+coup reçu magique resistance
+explosion magique
+explosion volcan
+grosse explosion volcan
+brulure
+degat reçu radioactif
+apparition cercle radioactif
+disparition cercle radioactif
+invocation ennemis
+heal ennemis
+mort classique
+mort tank
+mort rapide
+mort invocateur
+mort healer
+défaite
+victoire
+degats objectif
+amélioration
+vente
+achat
