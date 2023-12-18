@@ -67,7 +67,7 @@ while not close:
                     start_sound.play()
                     cooldown = 20
                     etat = "game"
-                    actual_level = niveau.Niveau2()
+                    actual_level = niveau.Niveau1()
                     current_bg = actual_level.bg
 
 #### FIN ACCEUIL
@@ -81,6 +81,14 @@ while not close:
             pygame.mixer.music.load(actual_level.game_music)
             pygame.mixer.music.set_volume(0.1)
             pygame.mixer.music.play(-1)
+
+        for e in actual_level.emplacements:
+            e.display(screen, mouse, actual_level.money, font2)
+
+            bull = e.event(actual_level.f_counter, actual_level.ennemies, actual_level)
+
+            if bull != None:
+                actual_level.bullets.append(bull)
 
         
         if event.type == pygame.MOUSEBUTTONDOWN and cooldown <= 0:
@@ -97,13 +105,7 @@ while not close:
             if ret:
                 actual_level.bullets.pop(i)
 
-        for e in actual_level.emplacements:
-            e.display(screen, mouse, actual_level.money, font2)
-
-            bull = e.event(actual_level.f_counter, actual_level.ennemies, actual_level)
-
-            if bull != None:
-                actual_level.bullets.append(bull)
+    
 
         bull = actual_level.obj.attack(actual_level.ennemies, actual_level.f_counter, actual_level.plus_loins)
         if bull != None:
@@ -134,41 +136,41 @@ while not close:
 
 
 
+        if actual_level!= None:
+            enn = actual_level.vagues[actual_level.actual_wave].nextFrame()
 
-        enn = actual_level.vagues[actual_level.actual_wave].nextFrame()
+            if enn == -1:
+                if actual_level.actual_wave >= len(actual_level.vagues)-1 and len(actual_level.ennemies) == 0:
+                    actual_level = None
+                    f_counter = 0
+                    etat = "win"
+                elif actual_level.actual_wave < len(actual_level.vagues)-1:
+                    actual_level.next_button.display(mouse, screen)
 
-        if enn == -1:
-            if actual_level.actual_wave >= len(actual_level.vagues)-1 and len(actual_level.ennemies) == 0:
-                actual_level = None
-                f_counter = 0
-                etat = "win"
-            elif actual_level.actual_wave < len(actual_level.vagues)-1:
-                actual_level.next_button.display(mouse, screen)
+                    if actual_level.next_button_state:
+                        actual_level.money += actual_level.recompense[actual_level.actual_wave]
+                        actual_level.actual_wave += 1
+                        actual_level.next_button_state = False
+                        pygame.mixer.Sound.play(new_wave_sound)
 
-                if actual_level.next_button_state:
-                    actual_level.money += actual_level.recompense[actual_level.actual_wave]
-                    actual_level.actual_wave += 1
-                    actual_level.next_button_state = False
-                    pygame.mixer.Sound.play(new_wave_sound)
+            elif enn > 0:
 
-        elif enn > 0:
+                if enn > len(Liste_ennemies):
+                    enn = 1
 
-            if enn > len(Liste_ennemies):
-                enn = 1
+                created_ennemie = generateEnemie(Liste_ennemies[enn -1], actual_level, actual_level.start)
 
-            created_ennemie = generateEnemie(Liste_ennemies[enn -1], actual_level, actual_level.start)
-
-            actual_level.ennemies.append( created_ennemie )
+                actual_level.ennemies.append( created_ennemie )
 
 
-        
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_ESCAPE]:
-            if cooldown<0:
-                cooldown = 5
-                etat = "pause"
-                hover_button_sound.play()
-                current_bg = pause_bg
+            
+            keys = pygame.key.get_pressed()
+            if keys[pygame.K_ESCAPE]:
+                if cooldown<0:
+                    cooldown = 5
+                    etat = "pause"
+                    hover_button_sound.play()
+                    current_bg = pause_bg
 
 
 
@@ -199,8 +201,6 @@ while not close:
             etat = "acceuil"
 
     elif etat == "map":
-        pass
-    elif etat == "arbre":
         pass
     elif etat == "livre":
         pass

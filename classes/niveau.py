@@ -80,11 +80,14 @@ vague.Vague([2, 3, 7, 9, 30, 45, 120, 125, 130, 360, 361, 365, 370, 372, 375, 37
 
 vague.Vague([2, 3, 7, 9, 30, 45, 120, 125, 130, 360, 361, 365, 370, 372, 375, 379, 600, 601, 612, 615, 620, ], [2, 2, 2, 2, 1, 3, 5, 3, 1, 4, 4, 2, 1, 1, 3, 3, 1, 5, 4, 3, 3, ]),
 
-vague.Vague([2, 3, 7, 9, 30, 45, 120, 125, 130, 360, 361, 365, 370, 372, 375, 379, 600, 601, 612, 615, 620, 900, ], [3, 3, 2, 1, 1, 3, 5, 3, 1, 2, 2, 2, 1, 1, 1, 1, 1, 5, 1, 3, 3, 6, ]),
+vague.Vague([2, 3, 7, 9, 30, 45, 120, 125, 130, 360, 361, 365, 370, 372, 375, 379, 600, 601, 612, 615, 620, 900, ], [3, 3, 2, 1, 1, 3, 5, 3, 1, 2, 2, 2, 1, 1, 1, 1, 1, 5, 1, 3, 3, 6, ])
 
-vague.Vague([1, 2, 3, 4, 5, ], [6, 6, 6, 6, 6,  ]),
+#,vague.Vague([1, 2, 3, 4, 5, ], [6, 6, 6, 6, 6,  ])
 
         ]
+
+        #self.vagues=[vague.Vague([1], [1])]
+
 
         self.recompense = [100, 100, 200, 300, 400, 400, 400, 300, 500, 100, 0]
         # self.recompense = [150, 150, 150, 200, 300, 300, 400, 500, 500,  0]
@@ -108,7 +111,7 @@ vague.Vague([1, 2, 3, 4, 5, ], [6, 6, 6, 6, 6,  ]),
 
         self.next_button = button.Button((10, 450), (84, 51), button_texture, button_push_texture, f)
 
-    def update(self, timer, vitesse, position, deg, actualPt, pts, cooldown):
+    def update(self, timer, vitesse, position, deg, actualPt, pts, cooldown, choix):
         vit = vitesse
         pos = position
 
