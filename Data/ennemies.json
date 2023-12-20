@@ -83,7 +83,7 @@
 	{
 		"nom": "boss1",
 		"vie": 10000,
-		"cheminSprite": "./textures/sprites/ennemies/ennemy_boss1.png",
+		"cheminSprite": "./textures/sprites/ennemies/ennemy_boss1b.png",
 		"degat": 100,
 		"vitesse": 0.5,
 		"resistance": {
@@ -93,7 +93,23 @@
 		"valeur": 500,
 		"cooldown": 720,
 		"comportement": "invocateur",
-		"maxVie": 5000,
+		"maxVie": 10000,
+		"taille": [128, 128]
+	},
+	{
+		"nom": "boss2",
+		"vie": 15000,
+		"cheminSprite": "./textures/sprites/ennemies/ennemy_boss2.png",
+		"degat": 200,
+		"vitesse": 0.5,
+		"resistance": {
+			"physique": 6,
+			"magique": 6
+		},
+		"valeur": 100,
+		"cooldown": 720,
+		"comportement": "bossNeige",
+		"maxVie": 15000,
 		"taille": [128, 128]
 	}
 ]
