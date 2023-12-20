@@ -208,11 +208,13 @@ while not close:
         screen.blit(game_over,(0,0))
         if f_counter > 90:
             etat = "map"
+            current_bg = map
 
     elif etat == "win":
         screen.blit(win_text,(0,0))
         if f_counter > 90:
             etat = "map"
+            current_bg = map
 
     elif etat == "map":
         if event.type == pygame.MOUSEBUTTONDOWN:
