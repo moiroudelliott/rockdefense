@@ -67,7 +67,7 @@ while not close:
                     start_sound.play()
                     cooldown = 20
                     etat = "game"
-                    actual_level = niveau.Niveau1()
+                    actual_level = niveau.Niveau2()
                     current_bg = actual_level.bg
 
 #### FIN ACCEUIL
