@@ -232,7 +232,7 @@ class EnnemieModel():
 
     def copy(self):
         return self
-    
+
     def get_real_pos(self):
         return [self.position[0] + int(self.taille[0]/2), self.position[1] + int(self.taille[1]/2)]
 
@@ -453,10 +453,66 @@ class ComportementMagicien(EnnemieModel):
 
         return array[0] # renvoie les degats
 
+class ComportementBossNeige(EnnemieModel):
+    def __init__(self):
+        EnnemieModel.__init__(self)
+
+    def display(self, CanvasParent, font, timer, *args):
+
+        if(self.MaxVie < self.vie):
+            self.vie = self.MaxVie
+
+        self.updateEtat()
+
+        array = self.niveau.update(timer, self.vitesse * self.coefficientEtat( 'vitesse' ), self.position, self.degat_attaque() * self.coefficientEtat( 'degat' ), self.actualPt, self.pts, self.cooldown, self.choix) # calcul pos + degat + point d'emplacement actuel (!important)
+
+        self.position = array[1]
+        self.actualPt = array[2]
+
+        nombreSbire = 8 # définie le nombre de sbire à invoquer
+
+
+
+        if timer % self.cooldown == 0:
+            # print(args[1])
+            data = args[0][ r.randint(0,4) ] # pour des 1-3
+            actual_level = args[1]
+            liste_enn = args[2]
+
+            rayonPixel = 75
+
+            angle = [i*(2*m.pi)/nombreSbire for i in range(nombreSbire)]
+
+            for elt in angle:
+                data = args[0][ r.randint(0,len(args[0])-1 -2) ]
+
+                classe = ComportementStandart() # ! si ComportementInvocateur
+                classe.importationJSON( data )
+
+                x = self.position[0] + rayonPixel * m.cos( elt ) + r.randint(-10,10)
+                y = self.position[1] + rayonPixel * m.sin( elt ) + r.randint(-10,10)
+
+                listeCoordonneAleatoire = [x,y]
+
+                classe.create( listeCoordonneAleatoire , actual_level )
+
+                classe.actualPt = self.actualPt
+
+                liste_enn.append(classe)
+
+        CanvasParent.blit(self.sprite, self.position)
+        vie = font.render(str(int(self.vie)), True, "red")
+        CanvasParent.blit(vie, (self.position[0],self.position[1]-10))
+
+
+
+        return array[0] # renvoie les degats
+
 Dict_Comportement = {
     "standart" : ComportementStandart,
     "invocateur" : ComportementInvocateur,
     "magicien" : ComportementMagicien,
+    "bossNeige" : ComportementBossNeige,
 }
 
 ## Workspace
