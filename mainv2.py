@@ -1,6 +1,10 @@
 from imports import *
 pygame.mixer.set_num_channels(20)
 
+## Stats
+statistique = stats.statistique()
+statistique.importToJson()
+
 def affichageHUD (vie, money, actual_wave, screen):
     life = font.render(str(vie), True, "red")
     screen.blit(life, actual_level.pos_life)
@@ -102,7 +106,12 @@ while not close:
         if event.type == pygame.MOUSEBUTTONDOWN and cooldown <= 0:
             cooldown = 5
             for e in actual_level.emplacements:
-                actual_level.money -= e.click(actual_level.money, mouse)
+                event_e = e.click(actual_level.money, mouse)
+                actual_level.money -= event_e
+
+                ## Stats
+                statistique.set_nombreTourConstruite( statistique.get_nombreTourConstruite() +1 )
+
             actual_level.obj.click(mouse)
             actual_level.next_button.click(mouse)
 
@@ -126,8 +135,16 @@ while not close:
                 deg = e.display(screen, font2 , actual_level.f_counter, Liste_ennemies, actual_level, actual_level.ennemies, actual_level.bullets)
                 actual_level.vie -= deg
 
+                ## Stats
+                statistique.set_viePerdu( statistique.get_viePerdu() + deg )
+
             else:
                 actual_level.money += e.valeur
+
+                ## Stats
+                statistique.set_argentTotale( statistique.get_argentTotale() +e.valeur )
+                statistique.set_nombreTotalEnnemieTuer( statistique.get_nombreTotalEnnemieTuer() +1 )
+
                 actual_level.ennemies.pop(i)
 
         actual_level.f_counter += 1
@@ -142,6 +159,9 @@ while not close:
             f_counter = 0
             actual_level = None
 
+            ## Stats
+            statistique.set_nombreDefaite( statistique.get_nombreDefaite() +1 )
+
 
 
         if actual_level!= None:
@@ -152,6 +172,10 @@ while not close:
                     actual_level = None
                     f_counter = 0
                     etat = "win"
+
+                    ## Stats
+                    statistique.set_nombreVictoire( statistique.get_nombreVictoire() +1 )
+
                 elif actual_level.actual_wave < len(actual_level.vagues)-1:
                     actual_level.next_button.display(mouse, screen)
 
@@ -180,7 +204,7 @@ while not close:
                     hover_button_sound.play()
                     current_bg = pause_bg
 
-            
+
 
 
 
@@ -216,6 +240,9 @@ while not close:
         if f_counter > 90:
             etat = "map"
             current_bg = map
+
+        ## Stats
+        statistique.exportToJSON()
 
     elif etat == "win":
         screen.blit(win_text,(0,0))
@@ -257,5 +284,8 @@ while not close:
 
     pygame.display.flip()
     dt = clock.tick(30) / 1000
+
+## Stats
+statistique.exportToJSON()
 
 pygame.quit()

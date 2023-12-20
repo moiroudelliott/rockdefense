@@ -1,6 +1,7 @@
 import classes.bullet as bullet
 import classes.button as button
 import classes.emplacement as emplacement
+import classes.statTD as stats
 # import classes.ennemies as ennemies
 import classes.tours as tours
 import classes.niveau as niveau
