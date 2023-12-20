@@ -98,7 +98,7 @@ while not close:
             if bull != None:
                 actual_level.bullets.append(bull)
 
-        
+
         if event.type == pygame.MOUSEBUTTONDOWN and cooldown <= 0:
             cooldown = 5
             for e in actual_level.emplacements:
@@ -113,7 +113,7 @@ while not close:
             if ret:
                 actual_level.bullets.pop(i)
 
-    
+
 
         bull = actual_level.obj.attack(actual_level.ennemies, actual_level.f_counter, actual_level.plus_loins)
         if bull != None:
@@ -171,7 +171,7 @@ while not close:
                 actual_level.ennemies.append( created_ennemie )
 
 
-            
+
             keys = pygame.key.get_pressed()
             if keys[pygame.K_ESCAPE]:
                 if cooldown<0:
@@ -201,7 +201,7 @@ while not close:
                 etat = "game"
                 current_bg = bg_img
                 hover_button_sound.play()
-        
+
 
 
     elif etat == "game_over":
