@@ -242,7 +242,7 @@ class Niveau2(Niveau):
         def f():
             self.next_button_state = True
 
-        self.next_button = button.Button((539, 10), (84, 51), button_texture, button_push_texture, f)
+        self.next_button = button.Button((291, 5), (84, 51), button_texture, button_push_texture, f)
 
     def update(self, timer, vitesse, position, deg, actualPt, pts, cooldown, choix):
         vit = vitesse

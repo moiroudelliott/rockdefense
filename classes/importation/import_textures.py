@@ -7,6 +7,11 @@ pause_bg = pygame.image.load("textures/bg/pause.png")
 game_over = pygame.image.load("textures/bg/game_over.png")
 win_text = pygame.image.load("textures/bg/win.png")
 
+map = pygame.image.load("textures/bg/map.png")
+label1 = pygame.image.load("textures/bg/label_lvl1.png")
+label2 = pygame.image.load("textures/bg/label_lvl2.png")
+quit = pygame.image.load("textures/bg/quit.png")
+
 
 menu_img = pygame.image.load("textures/bg/menu_1.png")
 menu_img_clicked = pygame.image.load("textures/bg/menu_1_clicked.png")

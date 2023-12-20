@@ -11,6 +11,7 @@ def affichageHUD (vie, money, actual_wave, screen):
     vagueTxT = font.render(str(actual_wave+1), True, "purple")
     screen.blit(vagueTxT, (0,60))
 
+
 pygame.init()
 width = 1280
 height = 720
@@ -35,6 +36,14 @@ f_counter = 0
 cooldown = 0
 
 current_bg = menu_img
+
+def quit_fct():
+    global etat
+    global actual_level
+    global current_bg
+    etat = "map"
+    actual_level = None
+    current_bg = map
 
 
 while not close:
@@ -66,9 +75,8 @@ while not close:
                     hover_button_sound.play()
                     start_sound.play()
                     cooldown = 20
-                    etat = "game"
-                    actual_level = niveau.Niveau2()
-                    current_bg = actual_level.bg
+                    etat = "map"
+                    current_bg = map
 
 #### FIN ACCEUIL
 
@@ -182,26 +190,54 @@ while not close:
 
     elif etat == "pause":
         keys = pygame.key.get_pressed()
+        bt = button.Button((20, 600), (200, 100), quit, quit, quit_fct)
+        bt.display(mouse, screen)
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            bt.click(mouse)
+            cooldown = 20
         if keys[pygame.K_ESCAPE]:
             if cooldown<0:
                 cooldown = 5
                 etat = "game"
                 current_bg = bg_img
                 hover_button_sound.play()
+        
 
 
     elif etat == "game_over":
         screen.blit(game_over,(0,0))
         if f_counter > 90:
-            etat = "acceuil"
+            etat = "map"
 
     elif etat == "win":
         screen.blit(win_text,(0,0))
         if f_counter > 90:
-            etat = "acceuil"
+            etat = "map"
 
     elif etat == "map":
-        pass
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if cooldown < 0:
+                if 91 < mouse[0] <= 188 and 294 < mouse[1] <= 393:
+                    hover_button_sound.play()
+                    start_sound.play()
+                    cooldown = 20
+                    actual_level=niveau.Niveau1()
+                    etat = "game"
+                    current_bg = actual_level.bg
+
+                if 563 < mouse[0] <= 672 and 501 < mouse[1] <= 614:
+                    hover_button_sound.play()
+                    start_sound.play()
+                    cooldown = 20
+                    actual_level=niveau.Niveau2()
+                    etat = "game"
+                    current_bg = actual_level.bg
+        if 91 < mouse[0] <= 188 and 294 < mouse[1] <= 393:
+            screen.blit(label1, (84, 143))
+
+        if 563 < mouse[0] <= 672 and 501 < mouse[1] <= 614:
+            screen.blit(label2, (567, 357))
+
     elif etat == "livre":
         pass
     elif etat =="credits":
