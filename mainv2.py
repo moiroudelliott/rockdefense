@@ -180,6 +180,8 @@ while not close:
                     hover_button_sound.play()
                     current_bg = pause_bg
 
+            
+
 
 
 
@@ -199,8 +201,13 @@ while not close:
             if cooldown<0:
                 cooldown = 5
                 etat = "game"
-                current_bg = bg_img
+                current_bg = actual_level.bg
                 hover_button_sound.play()
+
+        if keys[pygame.K_UP]:
+            if cooldown<0:
+                actual_level.money += 500
+                cooldown += 5
 
 
 
