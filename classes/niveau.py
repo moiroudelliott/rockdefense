@@ -60,7 +60,13 @@ class Niveau1(Niveau):
 
 vague.Vague([1, 15, 30, ], [1, 1, 1, ]),
 
-vague.Vague([1, 5, 30, 45, 90, 91, 92, ], [1, 1, 1, 1, 1, 1, 1, ]),
+vague.Vague([1, 5, 30, 45, 90, 91, 92, ], [1, 1, 1, 1, 2, 2, 2, ]),
+
+vague.Vague([1, 5, 9], [3, 3, 3]),
+
+vague.Vague([1, 5, 9], [1, 5, 1]),
+
+vague.Vague([1], [4]),
 
 #vague.Vague([10, 15, 30, 35, ], [1, 2, 1, 2, ]),
 
@@ -90,7 +96,7 @@ vague.Vague([2, 3, 7, 9, 30, 45, 120, 125, 130, 360, 361, 365, 370, 372, 375, 37
 
 
         ## self.recompense = [100, 100, 200, 300, 400, 400, 400, 300, 500, 100, 0]
-        self.recompense = [500, 1000, 2000, 5000, 500, 0]
+        self.recompense = [500, 500, 500, 500, 500, 500, 500]
         # self.recompense = [150, 150, 150, 200, 300, 300, 400, 500, 500,  0]
 
         self.emplacements = [emplacement.emplacement([220, 142]), emplacement.emplacement([220, 346]), emplacement.emplacement([220, 540]), emplacement.emplacement([460, 62]), emplacement.emplacement([460, 262]), emplacement.emplacement([460, 420]), emplacement.emplacement([730, 300]), emplacement.emplacement([730, 500]), emplacement.emplacement([826, 20]), emplacement.emplacement([976, 156])]
