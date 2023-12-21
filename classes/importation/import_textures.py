@@ -16,6 +16,9 @@ quit = pygame.image.load("textures/bg/quit.png")
 menu_img = pygame.image.load("textures/bg/menu_1.png")
 menu_img_clicked = pygame.image.load("textures/bg/menu_1_clicked.png")
 
+boss1 = pygame.image.load("textures/sprites/ennemies/ennemy_boss1b.png")
+boss2 = pygame.image.load("textures/sprites/ennemies/ennemy_boss2.png")
+
 obj_img = pygame.image.load("textures/sprites/towers/cristal.png")
 obj_img = pygame.transform.scale(obj_img,(200, 210))
 

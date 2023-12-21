@@ -273,6 +273,9 @@ while not close:
 
         if 563 < mouse[0] <= 672 and 501 < mouse[1] <= 614:
             screen.blit(label2, (567, 357))
+        
+        screen.blit(boss1, (74, 293))
+        screen.blit(boss2, (567, 507))
 
     elif etat == "livre":
         pass
