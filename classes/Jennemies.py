@@ -180,6 +180,7 @@ class EnnemieModel():
             rien
         """
 
+        self.nom = None
         self.position = None
         self.vie = None
         self.sprite = None
@@ -207,6 +208,7 @@ class EnnemieModel():
 
     def importationJSON(self, Data):
 
+        self.nom = Data['nom']
         self.vie = Data['vie']
         self.sprite = pygame.image.load(Data['cheminSprite'])
         self.degat = Data['degat']

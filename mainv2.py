@@ -121,7 +121,8 @@ while not close:
                 actual_level.money -= event_e
 
                 ## Stats (!!! ici ça fonctionne pas il faut le faire que quand le clic nous à couter de l'argent event_e > 0)
-                statistique.set_nombreTourConstruite( statistique.get_nombreTourConstruite() +1 )
+                if ( event_e > 0 ):
+                    statistique.set_nombreTourConstruite( statistique.get_nombreTourConstruite() +1 )
 
             # On fait pareil pour l'bjectif
             actual_level.obj.click(mouse)
@@ -163,6 +164,11 @@ while not close:
                 ## Stats
                 statistique.set_argentTotale( statistique.get_argentTotale() +e.valeur )
                 statistique.set_nombreTotalEnnemieTuer( statistique.get_nombreTotalEnnemieTuer() +1 )
+
+                # print(actual_level.ennemies[i].nom)
+
+                ennemieInStat = statistique.get_detailNombreTotalEnnemieTuer().get(actual_level.ennemies[i].nom, 0)
+                statistique.detailNombreTotalEnnemieTuer[actual_level.ennemies[i].nom] = ennemieInStat +1
 
                 # On supprime l'ennemis de notre liste
                 actual_level.ennemies.pop(i)
@@ -246,6 +252,9 @@ while not close:
 
 
     elif etat == "pause":
+        ## Stats
+        statistique.exportToJSON()
+
         keys = pygame.key.get_pressed()
         bt = button.Button((20, 600), (200, 100), quit, quit, quit_fct)
         bt.display(mouse, screen)
@@ -304,7 +313,7 @@ while not close:
 
         if 563 < mouse[0] <= 672 and 501 < mouse[1] <= 614:
             screen.blit(label2, (567, 357))
-        
+
         screen.blit(boss1, (74, 293))
         screen.blit(boss2, (567, 507))
 

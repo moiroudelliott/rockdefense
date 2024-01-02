@@ -26,7 +26,6 @@ class statistique():
         self.nombreDefaite = 0
 
         self.nombreTourConstruite = 0
-        self.nombreEnnemieTuerParBullet = {}
 
     def exportToJSON( self ):
 
@@ -38,7 +37,6 @@ class statistique():
             'nombreVictoire': self.nombreVictoire,
             'nombreDefaite': self.nombreDefaite,
             'nombreTourConstruite': self.nombreTourConstruite,
-            'nombreEnnemieTuerParBullet': self.nombreEnnemieTuerParBullet,
 
         }
 
@@ -64,7 +62,6 @@ class statistique():
             self.nombreDefaite = data['nombreDefaite']
 
             self.nombreTourConstruite = data['nombreTourConstruite']
-            self.nombreEnnemieTuerParBullet = data['nombreEnnemieTuerParBullet']
 
         except( FileNotFoundError ):
             pass
@@ -91,9 +88,6 @@ class statistique():
     def get_nombreTourConstruite(self):
         return self.nombreTourConstruite
 
-    def get_nombreEnnemieTuerParBullet(self):
-        return self.nombreEnnemieTuerParBullet
-
     # Setters
     def set_argentTotale(self, argent):
         self.argentTotale = argent
@@ -115,8 +109,5 @@ class statistique():
 
     def set_nombreTourConstruite(self, tour):
         self.nombreTourConstruite = tour
-
-    def set_nombreEnnemieTuerParBullet(self, ennemie):
-        self.nombreEnnemieTuerParBullet = ennemie
 
 # t = statistique()
