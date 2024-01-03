@@ -128,21 +128,20 @@ while not close:
             actual_level.obj.click(mouse)
             actual_level.next_button.click(mouse)
 
-        # On tourne à l'enver dans les bulllets
-        for i in range(len(actual_level.bullets)-1, -1, -1):
-            #On les affiches et on les updates
-            b = actual_level.bullets[i]
-            ret = b.update(screen, actual_level.ennemies, actual_level.f_counter)
 
-            # On les supprime de la liste des bullets si elles ont atenit leurs objectif
-            if ret:
-                actual_level.bullets.pop(i)
+            if actual_level.rock_fall_default_pos[0] < mouse[0] < actual_level.rock_fall_default_pos[0] + 48 and actual_level.rock_fall_default_pos[1] < mouse[1] < actual_level.rock_fall_default_pos[1] + 48:
+                if actual_level.rock_clicked:
+                    actual_level.rock_clicked = False
+                elif actual_level.rock_cooldown ==0: 
+                    actual_level.rock_clicked = True  
+            else:
+                if actual_level.rock_clicked:
+                    actual_level.rock_cooldown =actual_level.rock_cooldown_default
+                    actual_level.rock_clicked = False 
+                    actual_level.bullets.append(bullet.rock_fall((mouse[0]+48, mouse[1]+48), mouse))        
 
 
-        # On effectue l'action d'attaque de l'bjectif
-        bull = actual_level.obj.attack(actual_level.ennemies, actual_level.f_counter, actual_level.plus_loins)
-        if bull != None:
-                actual_level.bullets.append(bull)
+
 
         # On boucle sur tous les ennemis
         for i in range(len(actual_level.ennemies)-1, -1, -1):
@@ -173,11 +172,36 @@ while not close:
                 # On supprime l'ennemis de notre liste
                 actual_level.ennemies.pop(i)
 
+        # On tourne à l'enver dans les bulllets
+        for i in range(len(actual_level.bullets)-1, -1, -1):
+            #On les affiches et on les updates
+            b = actual_level.bullets[i]
+            ret = b.update(screen, actual_level.ennemies, actual_level.f_counter)
+
+            # On les supprime de la liste des bullets si elles ont atenit leurs objectif
+            if ret:
+                actual_level.bullets.pop(i)
+
+
+        # On effectue l'action d'attaque de l'bjectif
+        bull = actual_level.obj.attack(actual_level.ennemies, actual_level.f_counter, actual_level.plus_loins)
+        if bull != None:
+                actual_level.bullets.append(bull)
+
         # On augmente le comptage de frame
         actual_level.f_counter += 1
 
         # On affiche l'bjectif
         actual_level.obj.display(screen, actual_level.money, mouse, font3)
+
+        if not actual_level.rock_clicked:
+            if actual_level.rock_cooldown == 0:
+                screen.blit(actual_level.rock_fall_small_img, actual_level.rock_fall_default_pos)
+            else:
+                screen.blit(actual_level.rock_fall_small_img_op, actual_level.rock_fall_default_pos)
+                actual_level.rock_cooldown -= 1
+        else:
+            screen.blit(actual_level.rock_fall_img, (mouse[0]-48, mouse[1]-48))
 
         ##[03/11] Affichage centralisé dans une fonction (voir dans une classe ?)
         affichageHUD (actual_level.vie, actual_level.money, actual_level.actual_wave, screen)

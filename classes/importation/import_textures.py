@@ -12,6 +12,10 @@ label1 = pygame.image.load("textures/bg/label_lvl1.png")
 label2 = pygame.image.load("textures/bg/label_lvl2.png")
 quit = pygame.image.load("textures/bg/quit.png")
 
+rock_fall_img_small =  pygame.image.load("textures/sprites/towers/bullets/rock_fall_small.png")
+rock_fall_img_small_op =  pygame.image.load("textures/sprites/towers/bullets/rock_fall_small_op.png")
+
+rock_fall_img =  pygame.image.load("textures/sprites/towers/bullets/rock_fall_op.png")
 
 menu_img = pygame.image.load("textures/bg/menu_1.png")
 menu_img_clicked = pygame.image.load("textures/bg/menu_1_clicked.png")
@@ -23,7 +27,7 @@ obj_img = pygame.image.load("textures/sprites/towers/cristal.png")
 obj_img = pygame.transform.scale(obj_img,(200, 210))
 
 new_wave_sound = pygame.mixer.Sound("effects/game/new_wave.mp3")
-new_wave_sound.set_volume(0.3)
+new_wave_sound.set_volume(0.2)
 explosion1_sound = pygame.mixer.Sound("effects/tests/explosion.wav")
 explosion1_sound.set_volume(0.3)
 hover_button_sound = pygame.mixer.Sound("effects/tests/hover_boutton.wav")

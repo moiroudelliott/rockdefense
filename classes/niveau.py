@@ -36,6 +36,15 @@ class Niveau:
 
         self.next_button = button.Button((10, 450), (84, 51), button_texture, button_push_texture, f)
 
+        self.rock_clicked = False
+        self.rock_cooldown_default = 300
+        self.rock_cooldown = 0
+        self.rock_fall_default_pos = (10, 668)
+        self.rock_fall_small_img = rock_fall_img_small
+        self.rock_fall_small_img_op = rock_fall_img_small_op
+        self.rock_fall_img = rock_fall_img
+        
+
 class Niveau1(Niveau):
 
     def __init__(self):

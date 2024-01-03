@@ -17,6 +17,8 @@ radio_bullet_img1 = pygame.image.load("textures/sprites/towers/bullets/radio_bul
 
 heal_bullet_img1 = pygame.image.load("textures/sprites/towers/bullets/healer_zone.png")
 
+rock_fall_bullet_img = pygame.image.load("textures/sprites/towers/bullets/rock_fall.png")
+
 class rock1:
     def __init__(self,positionDepart, objectif):
         self.sprite = rock_bullet_img1
@@ -855,4 +857,96 @@ class heal:
         if ennemies_proche != None and timer % self.cooldown == 0:
             for e in ennemies_proche:
                 # e.insertNewEtat( ('vitesse' , 0.5 ) )
+                e.degat_inflige(self.degat, self.type)
+
+class rock_fall:
+    def __init__(self,pos, realpos):
+        self.sprite = rock_fall_bullet_img
+        self.position = copy(pos)
+        self.realpos = copy(realpos)
+        self.type = 'physique'
+        self.timer = 50
+        self.degat = 250
+        self.range = 50
+
+    def update(self, CanvasParent, ennemis, timer):
+        res = False
+
+        if self.timer == 1:
+            res = True
+        else:
+        
+            self.timer -= 1
+            ennemis_proche = self.est_toucher(ennemis, timer)
+            self.toucher(ennemis_proche)
+
+            CanvasParent.blit(self.sprite, (self.position[0]-100, self.position[1]-100))
+        
+        return res
+
+
+    def est_toucher(self, ennemies_tab, timer):
+        res = []
+
+        if self.timer == 49:
+            for e in ennemies_tab:
+                pos = e.get_real_pos()
+                dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
+                dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
+                dist = dif_x + dif_y
+                if self.range >= dist:
+                    res.append(e)
+        return res
+
+    def toucher(self, ennemies_proche):
+        if ennemies_proche != None:
+            for e in ennemies_proche:
+                e.degat_inflige(self.degat, self.type)
+
+class radio2:
+    def __init__(self,pos, realpos):
+        self.sprite = radio_bullet_img1
+        self.position = copy(pos)
+        self.realpos = copy(realpos)
+        self.type = 'magique'
+        self.timer = 100
+        self.cooldown = 20
+        self.degat = 20
+        self.range = 200
+
+    def update(self, CanvasParent, ennemis, timer):
+        res = False
+
+        if self.timer == 0:
+            res = True
+        
+        self.timer -= 1
+
+        ennemis_proche = self.est_toucher(ennemis)
+        self.toucher(ennemis_proche, timer)
+
+        if not res:
+            CanvasParent.blit(self.sprite, (self.position[0]-self.range, self.position[1]-self.range))
+        
+        return res
+             
+    def est_toucher(self, ennemies_tab):
+        res = []
+
+        for e in ennemies_tab:
+            pos = e.get_real_pos()
+            dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
+            dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
+            dist = dif_x + dif_y
+            if self.range >= dist:
+                res.append(e)
+        
+        for ennemie in res:
+            ennemie.insertNewEtat( ('vitesse' , 0.5, 2, 2, hex(id(self)) ) )
+        
+        return res
+
+    def toucher(self, ennemies_proche, timer):
+        if ennemies_proche != None and timer % self.cooldown == 0:
+            for e in ennemies_proche:
                 e.degat_inflige(self.degat, self.type)
