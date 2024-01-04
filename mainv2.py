@@ -45,6 +45,8 @@ cooldown = 0
 
 current_bg = menu_img
 
+statistique_state = 0
+
 def quit_fct():
     global etat
     global actual_level
@@ -54,7 +56,7 @@ def quit_fct():
     current_bg = map
 
 ## §§§
-etat = "statistique"
+# etat = "statistique"
 
 while not close:
     screen.blit(current_bg,(0,0))
@@ -333,6 +335,11 @@ while not close:
 
     elif etat == "map":
         statistique.importToJson()
+
+        # Création des bouttons
+        TextExitToStat = font3.render('Voir les statistiques', True, (255,0,0) )
+        screen.blit(TextExitToStat, ( (width - TextExitToStat.get_size()[0])//2, (height - TextExitToStat.get_size()[1]) ))
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             if cooldown < 0:
                 if 91 < mouse[0] <= 188 and 294 < mouse[1] <= 393:
@@ -350,6 +357,14 @@ while not close:
                     actual_level=niveau.Niveau2()
                     etat = "game"
                     current_bg = actual_level.bg
+
+                # par rapport au blit de TextExitToStat
+                if (width - TextExitToStat.get_size()[0])//2 < mouse[0] <= TextExitToStat.get_size()[0]+ (width - TextExitToStat.get_size()[0])//2 and (height - TextExitToStat.get_size()[1]) < mouse[1] <= TextExitToStat.get_size()[1]+ (height - TextExitToStat.get_size()[1]):
+                    hover_button_sound.play()
+                    start_sound.play()
+                    cooldown = 10
+                    etat = "statistique"
+
         if 91 < mouse[0] <= 188 and 294 < mouse[1] <= 393:
             screen.blit(label1, (84, 143))
             if statistique.tempslvl1 != -1:
@@ -393,21 +408,62 @@ while not close:
 
     ## Ecran stats
     elif etat == "statistique":
+
+        colorStat = (255,0,0)
+
+        # si pas d'ennemie tuer
+        if( len(statistique.get_detailNombreTotalEnnemieTuer()) == 0):
+            dictState = {0:STATS_SCREEN_1}
+        else:
+            dictState = {0:STATS_SCREEN_1,1:STATS_SCREEN_2}
+
         # background à changer ?
         current_bg = bg_stats
 
-        TextExitToMap = font3.render('Aller à la carte', True, (255,0,0) )
-        screen.blit(TextExitToMap, (20, 20))
+        # Création des bouttons
+        TextExitToMap = font3.render('Aller à la carte', True, colorStat )
+        screen.blit(TextExitToMap, ( (width - TextExitToMap.get_size()[0])//2, (height - TextExitToMap.get_size()[1]) ))
+
+        decalageButtonSwitch = 20
+
+        TextSubStatMenu = font3.render('<', True, colorStat )
+        screen.blit(TextSubStatMenu, ( ((width - TextExitToMap.get_size()[0])//2 - TextSubStatMenu.get_size()[0] - decalageButtonSwitch), (height - TextExitToMap.get_size()[1]) ))
+
+        TextAddStatMenu = font3.render('>', True, colorStat )
+        screen.blit(TextAddStatMenu, ( ((width - TextExitToMap.get_size()[0])//2 + TextExitToMap.get_size()[0] + decalageButtonSwitch), (height - TextExitToMap.get_size()[1]) ))
 
         # click retour map
         if event.type == pygame.MOUSEBUTTONDOWN:
             if cooldown < 0:
-                # +20 par rapport au blit de TextExitToMap
-                if 20 < mouse[0] <= TextExitToMap.get_size()[0]+20 and 20 < mouse[1] <= TextExitToMap.get_size()[1]+20:
+                # par rapport au blit de TextExitToMap
+                if (width - TextExitToMap.get_size()[0])//2 < mouse[0] <= TextExitToMap.get_size()[0]+ (width - TextExitToMap.get_size()[0])//2 and (height - TextExitToMap.get_size()[1]) < mouse[1] <= TextExitToMap.get_size()[1]+ (height - TextExitToMap.get_size()[1]):
                     hover_button_sound.play()
                     start_sound.play()
-                    cooldown = 20
+                    cooldown = 10
                     etat = "map"
+                    current_bg = map
+
+                # par rapport au blit de TextSubStatMenu
+                elif ((width - TextExitToMap.get_size()[0])//2 - TextSubStatMenu.get_size()[0] - decalageButtonSwitch) < mouse[0] <= TextSubStatMenu.get_size()[0]+ ((width - TextExitToMap.get_size()[0])//2 - TextSubStatMenu.get_size()[0] - decalageButtonSwitch) and (height - TextExitToMap.get_size()[1]) < mouse[1] <= TextSubStatMenu.get_size()[1]+ (height - TextExitToMap.get_size()[1]):
+                    hover_button_sound.play()
+                    start_sound.play()
+                    cooldown = 10
+
+                    # print('-1')
+                    statistique_state -=1
+
+                # par rapport au blit de TextAddStatMenu
+                elif ((width - TextExitToMap.get_size()[0])//2 + TextExitToMap.get_size()[0] + decalageButtonSwitch) < mouse[0] <= TextAddStatMenu.get_size()[0]+ ((width - TextExitToMap.get_size()[0])//2 + TextExitToMap.get_size()[0] + decalageButtonSwitch) and (height - TextExitToMap.get_size()[1]) < mouse[1] <= TextAddStatMenu.get_size()[1]+ (height - TextExitToMap.get_size()[1]):
+                    hover_button_sound.play()
+                    start_sound.play()
+                    cooldown = 10
+
+                    # print('+1')
+                    statistique_state +=1
+
+        # modulo
+        statistique_state = statistique_state%len(dictState)
+        dictState.get(statistique_state, 0)(screen,width,height, statistique, font3, Liste_ennemies, colorStat)
 
     elif etat == "livre":
         pass

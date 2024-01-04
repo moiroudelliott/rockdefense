@@ -64,6 +64,80 @@ for data in parsed_json:
     # enn.importationJSON( data )
     Liste_ennemies.append( data )
 
+## Fonction pour écran statistique
+def STATS_SCREEN_1(SCREEN,WIDTH,HEIGHT, STAT, FONT,LIST_ENN ,COLOR):
+    decalageWidth = 40
+    decalageHeight = 75
+
+    Text = FONT.render("Argent Totale: " + str(STAT.get_argentTotale()), True, COLOR )
+    SCREEN.blit(Text, (decalageWidth,decalageHeight))
+
+    Text = FONT.render("Nombre totale d'ennemis éliminés: " + str(STAT.get_nombreTotalEnnemieTuer()), True, COLOR )
+    SCREEN.blit(Text, (decalageWidth,decalageHeight*3))
+
+    Text = FONT.render("Nombre de victoire: " + str(STAT.get_nombreVictoire()), True, COLOR )
+    SCREEN.blit(Text, (decalageWidth,decalageHeight*5))
+
+    Text = FONT.render("Nombre de défaite: " + str(STAT.get_nombreDefaite()), True, COLOR )
+    SCREEN.blit(Text, (decalageWidth,decalageHeight*7))
+
+    # deuxieme colonne
+
+    Text = FONT.render("Vie perdu totale: " + str(STAT.get_viePerdu()), True, COLOR )
+    SCREEN.blit(Text, (decalageWidth + WIDTH//2,decalageHeight*1))
+
+    Text = FONT.render("Nombre de tour construite/améliorée: " + str(STAT.get_nombreTourConstruite()), True, COLOR )
+    SCREEN.blit(Text, (decalageWidth + WIDTH//2,decalageHeight*3))
+
+    Text = FONT.render("Temps level 1: " + str(STAT.get_tempslvl1()), True, COLOR )
+    SCREEN.blit(Text, (decalageWidth + WIDTH//2,decalageHeight*5))
+
+    Text = FONT.render("Temps level 2: " + str(STAT.get_tempslvl2()), True, COLOR )
+    SCREEN.blit(Text, (decalageWidth + WIDTH//2,decalageHeight*7))
+
+def STATS_SCREEN_2(SCREEN,WIDTH,HEIGHT, STAT, FONT,LIST_ENN , COLOR):
+
+    decalageWidth = 40
+    decalageHeight = 75
+
+    dict_ennemie = STAT.get_detailNombreTotalEnnemieTuer()
+    liste_ennemie = list(dict_ennemie.items())
+
+    dictEnn = {item['nom']: item for item in LIST_ENN}
+
+    longueur = len(liste_ennemie)
+    moitie = m.ceil(longueur / 2)
+
+    suite = 1
+
+    # première moitié
+    for i in range(moitie):
+        Text = FONT.render(liste_ennemie[i][0]+ ': ' + str(liste_ennemie[i][1]), True, COLOR )
+        SCREEN.blit(Text, (decalageWidth   ,decalageHeight*suite))
+
+        PATH_IMG = dictEnn[liste_ennemie[i][0]]['cheminSprite']
+        IMG = pygame.image.load(PATH_IMG)
+        IMG_CENTER = (IMG.get_size()[0]//2,IMG.get_size()[1]//2)
+
+        SCREEN.blit(IMG, (decalageWidth +Text.get_size()[0] +decalageWidth   ,decalageHeight*suite +Text.get_size()[1]//2 -IMG_CENTER[1] ) )
+
+        suite +=2
+
+    suite = 1
+
+    # deuxième moitié
+    for i in range(moitie, longueur):
+        Text = FONT.render(liste_ennemie[i][0]+ ': ' + str(liste_ennemie[i][1]), True, COLOR )
+        SCREEN.blit(Text, (decalageWidth  + WIDTH//2 ,decalageHeight*suite))
+
+        PATH_IMG = dictEnn[liste_ennemie[i][0]]['cheminSprite']
+        IMG = pygame.image.load(PATH_IMG)
+        IMG_CENTER = (IMG.get_size()[0]//2,IMG.get_size()[1]//2)
+
+        SCREEN.blit(IMG, (decalageWidth +Text.get_size()[0] +decalageWidth   + WIDTH//2 ,decalageHeight*suite +Text.get_size()[1]//2 -IMG_CENTER[1] ) )
+
+        suite +=2
+
 ## Rammasse miette
 miette = True
 

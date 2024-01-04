@@ -2,7 +2,7 @@ def reset(money, money_max, ennemies, bullets, vagues, emplacements, vie, vie_ma
     money = money_max
     ennemies = []
     bullets = []
-    
+
     for e in emplacements:
         e.reset()
 
@@ -13,3 +13,6 @@ def reset(money, money_max, ennemies, bullets, vagues, emplacements, vie, vie_ma
     vie = vie_max
     print(vie)
     vague = 0
+
+def function_test():
+    pass

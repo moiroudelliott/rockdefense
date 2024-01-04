@@ -82,6 +82,12 @@ class statistique():
             pass
 
     # Getters
+    def get_tempslvl2(self):
+        return self.tempslvl2
+
+    def get_tempslvl1(self):
+        return self.tempslvl1
+
     def get_argentTotale(self):
         return self.argentTotale
 
