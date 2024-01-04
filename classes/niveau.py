@@ -7,6 +7,7 @@ import classes.tours as tours
 import pygame
 from classes.importation.import_textures import *
 import math as m
+import time as t
 
 button_texture = pygame.image.load("textures/sprites/button/next.png")
 button_push_texture = pygame.image.load("textures/sprites/button/next_push.png")
@@ -43,6 +44,7 @@ class Niveau:
         self.rock_fall_small_img = rock_fall_img_small
         self.rock_fall_small_img_op = rock_fall_img_small_op
         self.rock_fall_img = rock_fall_img
+        self.start_time = int(t.time())
         
 
 class Niveau1(Niveau):

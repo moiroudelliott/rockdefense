@@ -5,7 +5,7 @@ pygame.mixer.set_num_channels(20)
 statistique = stats.statistique()
 statistique.importToJson()
 
-def affichageHUD (vie, money, actual_wave, screen):
+def affichageHUD (vie, money, actual_wave, screen, actual_level):
     life = font.render(str(vie), True, "red")
     screen.blit(life, actual_level.pos_life)
 
@@ -14,6 +14,10 @@ def affichageHUD (vie, money, actual_wave, screen):
 
     vagueTxT = font.render(str(actual_wave+1), True, "purple")
     screen.blit(vagueTxT, (0,60))
+
+    timeTxT = str(int(t.time())-actual_level.start_time)
+    timeSurface = font.render(timeTxT, True, "blue")
+    screen.blit(timeSurface, (1280-len(timeTxT)*40,0))
 
 
 pygame.init()
@@ -89,6 +93,7 @@ while not close:
 
 #### ETAT == GAME
     elif etat == "game":
+        statistique.importToJson()
 
 
         if actual_level.f_counter == 0:
@@ -204,7 +209,7 @@ while not close:
             screen.blit(actual_level.rock_fall_img, (mouse[0]-48, mouse[1]-48))
 
         ##[03/11] Affichage centralisé dans une fonction (voir dans une classe ?)
-        affichageHUD (actual_level.vie, actual_level.money, actual_level.actual_wave, screen)
+        affichageHUD (actual_level.vie, actual_level.money, actual_level.actual_wave, screen, actual_level)
 
         # On vérifie si on a perdu
         if actual_level.vie < 0:
@@ -227,6 +232,15 @@ while not close:
             if enn == -1:
                 #Si le niveau est finis
                 if actual_level.actual_wave >= len(actual_level.vagues)-1 and len(actual_level.ennemies) == 0:
+                    temps = int(t.time())-actual_level.start_time
+                    if type(actual_level)==niveau.Niveau1:
+                        statistique.victoirelvl1 = True
+                        if (temps < statistique.tempslvl1 or statistique.tempslvl1 == -1 ):
+                            statistique.tempslvl1 = temps
+                    if type(actual_level)==niveau.Niveau2:
+                        statistique.victoirelvl2 = True
+                        if (temps < statistique.tempslvl2 or statistique.tempslvl2 == -1 ):
+                            statistique.tempslvl2 = temps
                     #On passe à l'état de victoire
                     actual_level = None
                     f_counter = 0
@@ -313,8 +327,10 @@ while not close:
         if f_counter > 90:
             etat = "map"
             current_bg = map
+        statistique.exportToJSON()
 
     elif etat == "map":
+        statistique.importToJson()
         if event.type == pygame.MOUSEBUTTONDOWN:
             if cooldown < 0:
                 if 91 < mouse[0] <= 188 and 294 < mouse[1] <= 393:
@@ -334,12 +350,44 @@ while not close:
                     current_bg = actual_level.bg
         if 91 < mouse[0] <= 188 and 294 < mouse[1] <= 393:
             screen.blit(label1, (84, 143))
+            if statistique.tempslvl1 != -1:
+                timeTxT = "Temps :"
+                timeTxT2 = str(statistique.tempslvl1) + " s"
+                timeSurface = font2.render(timeTxT, True, "red")
+                timeSurface2 = font2.render(timeTxT2, True, "red")
+                screen.blit(timeSurface, (107, 220))
+                screen.blit(timeSurface2, (124-2*len(timeTxT2), 235))
+            else:
+                timeTxT = "Pas encore"
+                timeTxT2 = "de temps"
+                timeSurface = font2.render(timeTxT, True, "red")
+                timeSurface2 = font2.render(timeTxT2, True, "red")
+                screen.blit(timeSurface, (97, 220))
+                screen.blit(timeSurface2, (105, 235))
 
         if 563 < mouse[0] <= 672 and 501 < mouse[1] <= 614:
             screen.blit(label2, (567, 357))
+            if statistique.tempslvl2 != -1:
+                timeTxT = "Temps :"
+                timeTxT2 = str(statistique.tempslvl2) + " s"
+                timeSurface = font2.render(timeTxT, True, "red")
+                timeSurface2 = font2.render(timeTxT2, True, "red")
+                screen.blit(timeSurface, (590, 434))
+                screen.blit(timeSurface2, (607-2*len(timeTxT2), 449))
+            else:
+                timeTxT = "Pas encore"
+                timeTxT2 = "de temps"
+                timeSurface = font2.render(timeTxT, True, "red")
+                timeSurface2 = font2.render(timeTxT2, True, "red")
+                screen.blit(timeSurface, (580, 434))
+                screen.blit(timeSurface2, (587, 449))
 
-        screen.blit(boss1, (74, 293))
-        screen.blit(boss2, (567, 507))
+
+        if not statistique.victoirelvl1:
+            screen.blit(boss1, (74, 293))
+        
+        if not statistique.victoirelvl2:
+            screen.blit(boss2, (567, 507))
 
     elif etat == "livre":
         pass

@@ -16,6 +16,7 @@ import random as r
 import classes.Jennemies as ennemies
 import json
 import copy as c
+import time as t
 
 # actual_level = niveau.Niveau1() # A enlever
 

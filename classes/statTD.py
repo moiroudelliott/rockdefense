@@ -27,6 +27,11 @@ class statistique():
 
         self.nombreTourConstruite = 0
 
+        self.victoirelvl1 = False
+        self.tempslvl1 = -1
+        self.victoirelvl2 = False
+        self.tempslvl2 = -1
+
     def exportToJSON( self ):
 
         data = {
@@ -37,6 +42,10 @@ class statistique():
             'nombreVictoire': self.nombreVictoire,
             'nombreDefaite': self.nombreDefaite,
             'nombreTourConstruite': self.nombreTourConstruite,
+            'victoirelvl1': self.victoirelvl1,
+            'timelvl1': self.tempslvl1,
+            'victoirelvl2': self.victoirelvl2,
+            'timelvl2': self.tempslvl2,
 
         }
 
@@ -62,6 +71,12 @@ class statistique():
             self.nombreDefaite = data['nombreDefaite']
 
             self.nombreTourConstruite = data['nombreTourConstruite']
+
+            self.victoirelvl1 = data['victoirelvl1']
+            self.tempslvl1 = data['timelvl1']
+            self.victoirelvl2 = data['victoirelvl2']
+            self.tempslvl2 = data['timelvl2']
+
 
         except( FileNotFoundError ):
             pass
