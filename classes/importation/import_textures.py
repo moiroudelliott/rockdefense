@@ -12,6 +12,8 @@ label1 = pygame.image.load("textures/bg/label_lvl1.png")
 label2 = pygame.image.load("textures/bg/label_lvl2.png")
 quit = pygame.image.load("textures/bg/quit.png")
 
+bg_stats = pygame.image.load("textures/bg/bg_stats.png")
+
 rock_fall_img_small =  pygame.image.load("textures/sprites/towers/bullets/rock_fall_small.png")
 rock_fall_img_small_op =  pygame.image.load("textures/sprites/towers/bullets/rock_fall_small_op.png")
 

@@ -53,6 +53,8 @@ def quit_fct():
     actual_level = None
     current_bg = map
 
+## §§§
+etat = "statistique"
 
 while not close:
     screen.blit(current_bg,(0,0))
@@ -137,13 +139,13 @@ while not close:
             if actual_level.rock_fall_default_pos[0] < mouse[0] < actual_level.rock_fall_default_pos[0] + 48 and actual_level.rock_fall_default_pos[1] < mouse[1] < actual_level.rock_fall_default_pos[1] + 48:
                 if actual_level.rock_clicked:
                     actual_level.rock_clicked = False
-                elif actual_level.rock_cooldown ==0: 
-                    actual_level.rock_clicked = True  
+                elif actual_level.rock_cooldown ==0:
+                    actual_level.rock_clicked = True
             else:
                 if actual_level.rock_clicked:
                     actual_level.rock_cooldown =actual_level.rock_cooldown_default
-                    actual_level.rock_clicked = False 
-                    actual_level.bullets.append(bullet.rock_fall((mouse[0]+48, mouse[1]+48), mouse))        
+                    actual_level.rock_clicked = False
+                    actual_level.bullets.append(bullet.rock_fall((mouse[0]+48, mouse[1]+48), mouse))
 
 
 
@@ -385,9 +387,27 @@ while not close:
 
         if not statistique.victoirelvl1:
             screen.blit(boss1, (74, 293))
-        
+
         if not statistique.victoirelvl2:
             screen.blit(boss2, (567, 507))
+
+    ## Ecran stats
+    elif etat == "statistique":
+        # background à changer ?
+        current_bg = bg_stats
+
+        TextExitToMap = font3.render('Aller à la carte', True, (255,0,0) )
+        screen.blit(TextExitToMap, (20, 20))
+
+        # click retour map
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if cooldown < 0:
+                # +20 par rapport au blit de TextExitToMap
+                if 20 < mouse[0] <= TextExitToMap.get_size()[0]+20 and 20 < mouse[1] <= TextExitToMap.get_size()[1]+20:
+                    hover_button_sound.play()
+                    start_sound.play()
+                    cooldown = 20
+                    etat = "map"
 
     elif etat == "livre":
         pass
