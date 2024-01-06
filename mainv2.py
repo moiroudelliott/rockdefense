@@ -443,6 +443,8 @@ while not close:
                     etat = "map"
                     current_bg = map
 
+                    statistique_state = 0
+
                 # par rapport au blit de TextSubStatMenu
                 elif ((width - TextExitToMap.get_size()[0])//2 - TextSubStatMenu.get_size()[0] - decalageButtonSwitch) < mouse[0] <= TextSubStatMenu.get_size()[0]+ ((width - TextExitToMap.get_size()[0])//2 - TextSubStatMenu.get_size()[0] - decalageButtonSwitch) and (height - TextExitToMap.get_size()[1]) < mouse[1] <= TextSubStatMenu.get_size()[1]+ (height - TextExitToMap.get_size()[1]):
                     hover_button_sound.play()

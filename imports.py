@@ -89,10 +89,16 @@ def STATS_SCREEN_1(SCREEN,WIDTH,HEIGHT, STAT, FONT,LIST_ENN ,COLOR):
     Text = FONT.render("Nombre de tour construite/améliorée: " + str(STAT.get_nombreTourConstruite()), True, COLOR )
     SCREEN.blit(Text, (decalageWidth + WIDTH//2,decalageHeight*3))
 
-    Text = FONT.render("Temps level 1: " + str(STAT.get_tempslvl1()), True, COLOR )
+    if (STAT.get_tempslvl1() != -1):
+        Text = FONT.render("Temps level 1: " + str(STAT.get_tempslvl1()), True, COLOR )
+    else:
+        Text = FONT.render("Temps level 1: " + "Pas de temps renseigné", True, COLOR )
     SCREEN.blit(Text, (decalageWidth + WIDTH//2,decalageHeight*5))
 
-    Text = FONT.render("Temps level 2: " + str(STAT.get_tempslvl2()), True, COLOR )
+    if (STAT.get_tempslvl2() != -1):
+        Text = FONT.render("Temps level 2: " + str(STAT.get_tempslvl2()), True, COLOR )
+    else:
+        Text = FONT.render("Temps level 2: " + "Pas de temps renseigné", True, COLOR )
     SCREEN.blit(Text, (decalageWidth + WIDTH//2,decalageHeight*7))
 
 def STATS_SCREEN_2(SCREEN,WIDTH,HEIGHT, STAT, FONT,LIST_ENN , COLOR):
