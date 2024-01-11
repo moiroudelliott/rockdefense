@@ -35,8 +35,38 @@ Seul le clic suffit. Que se soit l'achat d'une tour, sa vente, son amélioration
 ## Ennemis
 
 - Le chat classique
+
 ![Image Chat Classique](/textures/sprites/ennemies/ennemy_classic.png "Chat Classique")
-Description
+
+Ce n'est qu'un chat classique, il veut juste votre défaite.
+
+- Le Tank
+
+![Image Chat Tank](/textures/sprites/ennemies/ennemy_tank.png "Chat Tank")
+
+Un chat autrefois errant qui s’est endurci contre les défis qui s’offrait à lui. Sa résistance est renommée dans tout le pays des chats.
+
+- Le Ninja
+
+![Image Chat Ninja](/textures/sprites/ennemies/ennemy_fast.png "Chat Ninja")
+
+Rapide et discret, peu sont ceux qui peuvent rattraper un chat ninja dans sa course. Sa fragilité est sa seule faiblesse.
+
+- Le Soigneur
+
+![Image Chat Soigneur](/textures/sprites/ennemies/enneny_magicien.png "Chat Soigneur")
+
+Peut-être pas le chat ayant les griffes les plus acérées, mais ces pouvoirs pour soutenir ces comparses font de lui une menace de premier plan.
+
+- L'Invocateur
+
+![Image Chat Invocateur](/textures/sprites/ennemies/ennemy_summon.png "Chat Invocateur")
+
+Ne croyez pas que l’invocateur est un chat solitaire, ces sous-fifres peuvent être appelés à n’importe quel moment.
+
+- Les boss
+
+Nous n’avons pas encore d’informations sur ces chats mais leurs simples présences ont déjà fait basculer de nombreux cours de batailles en leurs faveurs.
 
 ## Crédit
 
@@ -47,3 +77,4 @@ Ceron F-M
 
 - Ajout de nouveaux niveaux
 - Ajout de Boss
+- Ajout de nouvelles compétences
