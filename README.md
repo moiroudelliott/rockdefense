@@ -34,7 +34,7 @@ Seul le clic suffit. Que se soit l'achat d'une tour, sa vente, son amélioration
 
 ## Ennemis
 
--Le chat classique
+- Le chat classique
 ![Image Chat Classique](/textures/sprites/ennemies/ennemy_classic.png "Chat Classique")
 Description
 
