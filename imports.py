@@ -10,15 +10,11 @@ from classes.importation.import_textures import *
 import pygame
 import math as m
 
-## Ajout ( Déplacmeent dans fonctions ? )
-
 import random as r
 import classes.Jennemies as ennemies
 import json
 import copy as c
 import time as t
-
-# actual_level = niveau.Niveau1() # A enlever
 
 ## Importation des données ennemies
 PATH_DATA_ENNEMIES = "./Data/ennemies.json"
@@ -29,9 +25,6 @@ with open( PATH_DATA_ENNEMIES ) as data_file:
 parsed_json = json.loads(file_contents)
 
 def generateEnemie (data, actual_level, cos, dictComportement = ennemies.Dict_Comportement): #actual_level -> Niveau
-
-    # listeCoordonneAleatoire = [0, r.randint(500, 670)]
-    # res = classe(listeCoordonneAleatoire, actual_level)
 
     # print(data)
     comportement = data['comportement']
@@ -50,18 +43,10 @@ def generateEnemie (data, actual_level, cos, dictComportement = ennemies.Dict_Co
 
     return classe
 
-# Liste_ennemies = [ennemies.classique, ennemies.tank, ennemies.rapide]
-#
-# Liste_ennemies[0] = ennemies.EnnemieModel().importationJSON(parsed_json[0])
-
 Liste_ennemies = []
 
+## Mise dans la liste des ennemis dans le JSON
 for data in parsed_json:
-
-    # comportement = data['comportement']
-
-    # enn = ennemies.EnnemieModel()
-    # enn.importationJSON( data )
     Liste_ennemies.append( data )
 
 ## Fonction pour écran statistique

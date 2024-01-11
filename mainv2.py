@@ -55,9 +55,6 @@ def quit_fct():
     actual_level = None
     current_bg = map
 
-## §§§
-# etat = "statistique"
-
 while not close:
     screen.blit(current_bg,(0,0))
     mouse = pygame.mouse.get_pos()
@@ -129,7 +126,7 @@ while not close:
                 event_e = e.click(actual_level.money, mouse)
                 actual_level.money -= event_e
 
-                ## Stats (!!! ici ça fonctionne pas il faut le faire que quand le clic nous à couter de l'argent event_e > 0)
+                ## Stats
                 if ( event_e > 0 ):
                     statistique.set_nombreTourConstruite( statistique.get_nombreTourConstruite() +1 )
 
@@ -212,7 +209,7 @@ while not close:
         else:
             screen.blit(actual_level.rock_fall_img, (mouse[0]-48, mouse[1]-48))
 
-        ##[03/11] Affichage centralisé dans une fonction (voir dans une classe ?)
+        ## Affichage centralisé
         affichageHUD (actual_level.vie, actual_level.money, actual_level.actual_wave, screen, actual_level)
 
         # On vérifie si on a perdu
@@ -417,7 +414,7 @@ while not close:
         else:
             dictState = {0:STATS_SCREEN_1,1:STATS_SCREEN_2}
 
-        # background à changer ?
+        # background
         current_bg = bg_stats
 
         # Création des bouttons

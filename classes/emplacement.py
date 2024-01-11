@@ -12,7 +12,7 @@ button_clicked_pushed_img4 = pygame.image.load("textures/sprites/emp/button_clic
 
 class emplacement:
 
-    def __init__(self, position): #Le contient en parametre ne sers à rien
+    def __init__(self, position):
         self.contient = None #Doit être toujours initialiser à None, un nouvel emplacement ne contiens jamais rien
         self.pos = position
         self.sprite = button_img
@@ -40,11 +40,11 @@ class emplacement:
                     canvas.blit(self.spriteClickedHover3, self.pos)
                 elif self.pushed_hover == 4:
                     canvas.blit(self.spriteClickedHover4, self.pos)
-                else: 
+                else:
                     canvas.blit(self.spriteClicked, self.pos)
             elif self.hover:
                 canvas.blit(self.spriteHover, self.pos)
-           
+
             else:
                 canvas.blit(self.sprite, self.pos)
         else:
@@ -68,10 +68,10 @@ class emplacement:
                 self.pushed_hover = 3
         elif x <= mouse[0] <= x+128 and y+97 <= mouse[1] <= y+128 and money >= 200:
                 self.pushed_hover = 4
-        else: 
+        else:
             self.pushed_hover = 0
 
-            
+
 
     def click(self, money, mouse):
 
@@ -88,7 +88,7 @@ class emplacement:
                 self.clicked = False
                 self.contient = t.Pierre(self.pos)
                 m = 100
-            
+
             elif self.pushed_hover == 2:
                 self.clicked = False
                 self.contient = t.Radio(self.pos)
@@ -109,7 +109,7 @@ class emplacement:
             if m <0:
                 self.contient = None
         return m
-    
+
     def reset(self):
         self.contient = None
         self.hover = False

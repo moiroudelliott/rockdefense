@@ -1,3 +1,4 @@
+# Fonction de reset de niveau
 def reset(money, money_max, ennemies, bullets, vagues, emplacements, vie, vie_max, vague):
     money = money_max
     ennemies = []
@@ -14,5 +15,6 @@ def reset(money, money_max, ennemies, bullets, vagues, emplacements, vie, vie_ma
     print(vie)
     vague = 0
 
+# Encore une fonction de teste
 def function_test():
     pass
