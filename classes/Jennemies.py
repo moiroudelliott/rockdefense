@@ -301,19 +301,22 @@ class ComportementBossNeige(EnnemieModel):
 
         if timer % self.cooldown == 0:
             # print(args[1])
-            data = args[0][ r.randint(0,4) ] # pour des 1-3
+            # data = args[0][ r.randint(0,6) ] # pour des 1-5
             actual_level = args[1]
             liste_enn = args[2]
+            generateEnemie = args[4]
 
-            rayonPixel = 75
+            rayonPixel = 50
 
             angle = [i*(2*m.pi)/nombreSbire for i in range(nombreSbire)]
 
             for elt in angle:
-                data = args[0][ r.randint(0,len(args[0])-1 -2) ]
+                data = args[0][ r.randint(0,4) ]
 
-                classe = ComportementStandart() # ! si ComportementInvocateur
-                classe.importationJSON( data )
+                # classe = ComportementStandart() # ! si ComportementInvocateur
+                # classe.importationJSON( data )
+
+                classe = generateEnemie(data,actual_level, [(0,0),(1,1)])
 
                 x = self.position[0] + rayonPixel * m.cos( elt ) + r.randint(-10,10)
                 y = self.position[1] + rayonPixel * m.sin( elt ) + r.randint(-10,10)

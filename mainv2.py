@@ -155,7 +155,7 @@ while not close:
 
             # S'il à encore de la vie on l'affiche
             if e.vie > 0:
-                deg = e.display(screen, font2 , actual_level.f_counter, Liste_ennemies, actual_level, actual_level.ennemies, actual_level.bullets)
+                deg = e.display(screen, font2 , actual_level.f_counter, Liste_ennemies, actual_level, actual_level.ennemies, actual_level.bullets, generateEnemie)
                 # On enlève des dégats à notre objectif
                 actual_level.vie -= deg
 
