@@ -32,7 +32,7 @@ class rock1:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -101,7 +101,7 @@ class rock2:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -170,7 +170,7 @@ class rock3:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -333,7 +333,7 @@ class cristal1:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -402,7 +402,7 @@ class cristal2:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -471,7 +471,7 @@ class cristal3:
 
     def update(self, CanvasParent, ennemis, timer):
         pos = self.position
-        obj = self.objectif.position
+        obj = self.objectif.get_real_pos()
 
         dif_x = m.sqrt((pos[0] - obj[0])**2)
         dif_y = m.sqrt((pos[1] - obj[1])**2)
@@ -903,50 +903,3 @@ class rock_fall:
             for e in ennemies_proche:
                 e.degat_inflige(self.degat, self.type)
 
-class radio2:
-    def __init__(self,pos, realpos):
-        self.sprite = radio_bullet_img1
-        self.position = copy(pos)
-        self.realpos = copy(realpos)
-        self.type = 'magique'
-        self.timer = 100
-        self.cooldown = 20
-        self.degat = 20
-        self.range = 200
-
-    def update(self, CanvasParent, ennemis, timer):
-        res = False
-
-        if self.timer == 0:
-            res = True
-        
-        self.timer -= 1
-
-        ennemis_proche = self.est_toucher(ennemis)
-        self.toucher(ennemis_proche, timer)
-
-        if not res:
-            CanvasParent.blit(self.sprite, (self.position[0]-self.range, self.position[1]-self.range))
-        
-        return res
-             
-    def est_toucher(self, ennemies_tab):
-        res = []
-
-        for e in ennemies_tab:
-            pos = e.get_real_pos()
-            dif_x = m.sqrt((pos[0] - self.realpos[0])**2)
-            dif_y = m.sqrt((pos[1] - self.realpos[1])**2)
-            dist = dif_x + dif_y
-            if self.range >= dist:
-                res.append(e)
-        
-        for ennemie in res:
-            ennemie.insertNewEtat( ('vitesse' , 0.5, 2, 2, hex(id(self)) ) )
-        
-        return res
-
-    def toucher(self, ennemies_proche, timer):
-        if ennemies_proche != None and timer % self.cooldown == 0:
-            for e in ennemies_proche:
-                e.degat_inflige(self.degat, self.type)
