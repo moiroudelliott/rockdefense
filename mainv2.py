@@ -337,6 +337,10 @@ while not close:
         TextExitToStat = font3.render('Voir les statistiques', True, (255,0,0) )
         screen.blit(TextExitToStat, ( (width - TextExitToStat.get_size()[0])//2, (height - TextExitToStat.get_size()[1]) ))
 
+        if (width - TextExitToStat.get_size()[0])//2 < pygame.mouse.get_pos()[0] <= TextExitToStat.get_size()[0]+ (width - TextExitToStat.get_size()[0])//2 and (height - TextExitToStat.get_size()[1]) < pygame.mouse.get_pos()[1] <= TextExitToStat.get_size()[1]+ (height - TextExitToStat.get_size()[1]):
+            TextExitToStat = font3.render('Voir les statistiques', True, (255,255,0) )
+            screen.blit(TextExitToStat, ( (width - TextExitToStat.get_size()[0])//2, (height - TextExitToStat.get_size()[1]) ))
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             if cooldown < 0:
                 if 91 < mouse[0] <= 188 and 294 < mouse[1] <= 393:
@@ -407,6 +411,7 @@ while not close:
     elif etat == "statistique":
 
         colorStat = (255,0,0)
+        colorStatBis = (255,255,0)
 
         # si pas d'ennemie tuer
         if( len(statistique.get_detailNombreTotalEnnemieTuer()) == 0):
@@ -428,6 +433,21 @@ while not close:
 
         TextAddStatMenu = font3.render('>', True, colorStat )
         screen.blit(TextAddStatMenu, ( ((width - TextExitToMap.get_size()[0])//2 + TextExitToMap.get_size()[0] + decalageButtonSwitch), (height - TextExitToMap.get_size()[1]) ))
+
+        if (width - TextExitToMap.get_size()[0])//2 < pygame.mouse.get_pos()[0] <= TextExitToMap.get_size()[0]+ (width - TextExitToMap.get_size()[0])//2 and (height - TextExitToMap.get_size()[1]) < pygame.mouse.get_pos()[1] <= TextExitToMap.get_size()[1]+ (height - TextExitToMap.get_size()[1]):
+
+            TextExitToMap = font3.render('Aller à la carte', True, colorStatBis )
+            screen.blit(TextExitToMap, ( (width - TextExitToMap.get_size()[0])//2, (height - TextExitToMap.get_size()[1]) ))
+
+        elif ((width - TextExitToMap.get_size()[0])//2 - TextSubStatMenu.get_size()[0] - decalageButtonSwitch) < pygame.mouse.get_pos()[0] <= TextSubStatMenu.get_size()[0]+ ((width - TextExitToMap.get_size()[0])//2 - TextSubStatMenu.get_size()[0] - decalageButtonSwitch) and (height - TextExitToMap.get_size()[1]) < pygame.mouse.get_pos()[1] <= TextSubStatMenu.get_size()[1]+ (height - TextExitToMap.get_size()[1]):
+
+            TextSubStatMenu = font3.render('<', True, colorStatBis )
+            screen.blit(TextSubStatMenu, ( ((width - TextExitToMap.get_size()[0])//2 - TextSubStatMenu.get_size()[0] - decalageButtonSwitch), (height - TextExitToMap.get_size()[1]) ))
+
+        elif ((width - TextExitToMap.get_size()[0])//2 + TextExitToMap.get_size()[0] + decalageButtonSwitch) < pygame.mouse.get_pos()[0] <= TextAddStatMenu.get_size()[0]+ ((width - TextExitToMap.get_size()[0])//2 + TextExitToMap.get_size()[0] + decalageButtonSwitch) and (height - TextExitToMap.get_size()[1]) < pygame.mouse.get_pos()[1] <= TextAddStatMenu.get_size()[1]+ (height - TextExitToMap.get_size()[1]):
+
+            TextAddStatMenu = font3.render('>', True, colorStatBis )
+            screen.blit(TextAddStatMenu, ( ((width - TextExitToMap.get_size()[0])//2 + TextExitToMap.get_size()[0] + decalageButtonSwitch), (height - TextExitToMap.get_size()[1]) ))
 
         # click retour map
         if event.type == pygame.MOUSEBUTTONDOWN:
